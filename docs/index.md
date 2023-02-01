@@ -22,6 +22,8 @@ Planejador de trajetórias para voos em baixa altitude
 - [Visão Geral do Projeto](#visão-geral-do-projeto)
   - [Empresa](#empresa)
   - [O Problema](#o-problema)
+  - [Solução](#solução)
+    - [Como a solução deverá ser utilizada](#como-a-solução-deverá-ser-utilizada)
   - [Objetivos](#objetivos)
     - [Objetivos gerais](#objetivos-gerais)
     - [Objetivos específicos](#objetivos-específicos)
@@ -77,6 +79,11 @@ Planejador de trajetórias para voos em baixa altitude
 ## O Problema
 
 *Descrição_do_problema*
+
+## Solução
+
+### Como a solução deverá ser utilizada
+O software desenvolvido será usado para gerar uma trajetória de voo ótima a partir de um ponto de partida e um ponto de destino, levando em consideração as restrições especificadas. A solução deverá utilizada como um auxílio para os pilotos realizarem voos em baixa altitude, além de servir como base para futuros projetos da empresa, especialmente o sistema de Terrain Following da AEL.
 
 ## Objetivos
 
