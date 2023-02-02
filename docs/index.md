@@ -102,6 +102,8 @@ Planejador de trajetórias para voos em baixa altitude
 
 ## Análise do cenário: Matriz SWOT
 
+![SWOT](docs\img\SWOT.png)
+
 *Matriz_SWOT*
 
 
