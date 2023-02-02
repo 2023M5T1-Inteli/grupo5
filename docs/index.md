@@ -22,6 +22,10 @@ Planejador de trajetórias para voos em baixa altitude
 - [Visão Geral do Projeto](#visão-geral-do-projeto)
   - [Empresa](#empresa)
   - [O Problema](#o-problema)
+    - [Contexto do problema](#contexto-do-problema)
+    - [Quais os dados disponíveis](#quais-os-dados-disponíveis)
+    - [Qual o objetivo do problema](#qual-o-objetivo-do-problema)
+    - [Qual a tomada de decisão do problema proposto](#qual-a-tomada-de-decisão-do-problema-proposto)
   - [Solução](#solução)
     - [Como a solução deverá ser utilizada](#como-a-solução-deverá-ser-utilizada)
   - [Objetivos](#objetivos)
@@ -78,7 +82,15 @@ Planejador de trajetórias para voos em baixa altitude
 
 ## O Problema
 
-*Descrição_do_problema*
+### Contexto do problema 
+Diversas operações militares destinadas principalmente à defesa e segurança pública requerem voos de baixa altitude por questões de logística e detecção de aeronaves. Atualmente, a AEL Sistemas S.A. atende clientes que necessitam de sistemas capazes de traçar trajetórias desses tipos de voos, que apresentam altos riscos ligados às suas operações. O termo CFIT, do inglês Controlled Flight Into Terrain, refere-se à acidentes de colisão com solo em voos controlados, uma das principais causas de acidentes aéreos envolvendo mortes, segundo a Boeing. Em decorrência da proximidade com o solo, o risco de CFIT aumenta consideravelmente. 
+
+### Quais os dados disponíveis
+
+### Qual o objetivo do problema
+A resolução do problema busca trazer um planejador de trajetórias para voos de baixa altitude utilizando grafos, a partir do mapeamento do terreno com base nos dados de relevo disponibilizados.
+
+### Qual a tomada de decisão do problema proposto
 
 ## Solução
 
