@@ -109,7 +109,7 @@ O software desenvolvido será usado para gerar uma trajetória de voo ótima a p
 
 ## Análise do cenário: Matriz SWOT
 
-![SWOT](docs\img\SWOT.png)
+![SWOT](img/SWOT.png)
 
 *Matriz_SWOT*
 
