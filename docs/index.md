@@ -64,14 +64,13 @@ Planejador de trajetórias para voos em baixa altitude
 
 # Autores
 
-* Aluno 1
-* Aluno 2
-* Aluno 3
-* Aluno 4
-* Aluno 5
-* Aluno 6
-* Aluno 7
-* Aluno 8
+* André Luís Lessa Junior
+* Arthur Alberto Cardoso Reis
+* Cristiane Andrade Coutinho
+* Giovana Lisbôa Thomé
+* João Pedro Sartori Garcia de Alcaraz
+* Luiz Francisco Granville Gonçalves
+* Stefano Tosi Butori
 
 
 # Visão Geral do Projeto
@@ -82,8 +81,8 @@ Planejador de trajetórias para voos em baixa altitude
 
 ## O Problema
 
-### Contexto do problema 
-Diversas operações militares destinadas principalmente à defesa e segurança pública requerem voos de baixa altitude por questões de logística e detecção de aeronaves. Atualmente, a AEL Sistemas S.A. atende clientes que necessitam de sistemas capazes de traçar trajetórias desses tipos de voos, que apresentam altos riscos ligados às suas operações. O termo CFIT, do inglês Controlled Flight Into Terrain, refere-se à acidentes de colisão com solo em voos controlados, uma das principais causas de acidentes aéreos envolvendo mortes, segundo a Boeing. Em decorrência da proximidade com o solo, o risco de CFIT aumenta consideravelmente. 
+### Contexto do problema
+Diversas operações militares destinadas principalmente à defesa e segurança pública requerem voos de baixa altitude por questões de logística e detecção de aeronaves. Atualmente, a AEL Sistemas S.A. atende clientes com potencial de uso de sistemas capazes de traçar trajetórias desses tipos de voos, que apresentam altos riscos ligados às suas operações. O termo CFIT, do inglês Controlled Flight Into Terrain, refere-se à acidentes de colisão com solo em voos controlados, uma das principais causas de acidentes aéreos envolvendo mortes, segundo a Boeing. Em decorrência da proximidade com o solo, o risco de CFIT aumenta consideravelmente.  
 
 ### Quais os dados disponíveis
 
