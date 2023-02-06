@@ -26,6 +26,7 @@ Planejador de trajetórias para voos em baixa altitude
     - [Quais os dados disponíveis](#quais-os-dados-disponíveis)
     - [Qual o objetivo do problema](#qual-o-objetivo-do-problema)
     - [Qual a tomada de decisão do problema proposto](#qual-a-tomada-de-decisão-do-problema-proposto)
+    - [Pelo menos 1 limitação existente no problema](#pelo-menos-1-limitação-existente-no-problema)
   - [Solução](#solução)
     - [Como a solução deverá ser utilizada](#como-a-solução-deverá-ser-utilizada)
   - [Objetivos](#objetivos)
@@ -94,6 +95,12 @@ Diversas operações militares destinadas principalmente à defesa e segurança 
 A resolução do problema busca trazer um planejador de trajetórias para voos de baixa altitude utilizando grafos, a partir do mapeamento do terreno com base nos dados de relevo disponibilizados.
 
 ### Qual a tomada de decisão do problema proposto
+
+### Pelo menos 1 limitação existente no problema
+A complexidade de desenvolver a solução para este problema é alta, para o desenvolvimento dos algoritmos é necessário o alto uso de memória, sendo que o uso da memória irá aumentar de acordo com a escala dos grafos fazendo com que haja demora na execução do algoritmo e não seja um produto altamente escalável.
+Outro fator importante é a experiência dos desenvolvedores para a criação da solução, devido a complexidade do problema, a acurácia do algoritmo pode ser um obstáculo considerando sua eficiência e implementação, sendo necessário pensar na estruturação dos dados e sua compatibilidade.
+Por fim, há fatores externos que são limitações para este problema, como a complexidade dos terrenos e a detecção de obstáculos para que não haja nenhuma colisão, também as condições climáticas podem atrapalhar o percurso criado pelos grafos.
+
 
 ## Solução
 
