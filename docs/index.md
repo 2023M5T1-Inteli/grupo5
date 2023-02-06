@@ -37,6 +37,7 @@ Planejador de trajetórias para voos em baixa altitude
     - [Principais competidores](#principais-competidores)
     - [Modelos de negócio](#modelos-de-negócio)
     - [Tendências de mercado](#tendências-de-mercado)
+  - [Análise estratégica: 5 forças de Porter](#análise-estratégica-5-forças-de-porter)
   - [Análise do cenário: Matriz SWOT](#análise-do-cenário-matriz-swot)
   - [Proposta de Valor: Value Proposition Canvas](#proposta-de-valor-value-proposition-canvas)
   - [Matriz de Risco](#matriz-de-risco)
@@ -85,8 +86,8 @@ Planejador de trajetórias para voos em baixa altitude
 
 ## O Problema
 
-### Contexto do problema 
-Diversas operações militares destinadas principalmente à defesa e segurança pública requerem voos de baixa altitude por questões de logística e detecção de aeronaves. Atualmente, a AEL Sistemas S.A. atende clientes que necessitam de sistemas capazes de traçar trajetórias desses tipos de voos, que apresentam altos riscos ligados às suas operações. O termo CFIT, do inglês Controlled Flight Into Terrain, refere-se à acidentes de colisão com solo em voos controlados, uma das principais causas de acidentes aéreos envolvendo mortes, segundo a Boeing. Em decorrência da proximidade com o solo, o risco de CFIT aumenta consideravelmente. 
+### Contexto do problema
+Diversas operações militares destinadas principalmente à defesa e segurança pública requerem voos de baixa altitude por questões de logística e detecção de aeronaves. Atualmente, a AEL Sistemas S.A. atende clientes que necessitam de sistemas capazes de traçar trajetórias desses tipos de voos, que apresentam altos riscos ligados às suas operações. O termo CFIT, do inglês Controlled Flight Into Terrain, refere-se à acidentes de colisão com solo em voos controlados, uma das principais causas de acidentes aéreos envolvendo mortes, segundo a Boeing. Em decorrência da proximidade com o solo, o risco de CFIT aumenta consideravelmente.
 
 ### Quais os dados disponíveis
 
@@ -120,7 +121,7 @@ O software desenvolvido será usado para gerar uma trajetória de voo ótima a p
 
 ## Análise da área de atuação: Contexto da indústria
 
-A AEL Sistemas está inserida nas indústrias aeroespacial, de defesa e de segurança pública, sendo sua atuação focada no território brasileiro. A empresa tem como produto principal a produção de sistemas eletrônicos militares para aplicações em plataformas aéreas, mas também atua em outras áreas, como na produção de sistemas eletro-ópticos e espaciais.
+A AEL Sistemas está inserida nas indústrias aeroespacial, de defesa e de segurança pública, sendo sua atuação focada no território brasileiro. A empresa tem como produto principal a produção de sistemas eletrônicos militares para aplicações em plataformas aéreas, mas também atua em outras áreas, como na produção de simuladores de voo e sistemas eletro-ópticos, espaciais e para veículos blindados.
 
 ### Principais competidores
 
@@ -147,9 +148,24 @@ Existe um grande foco na área de defesa em contratos governamentais, pois os cl
 As tendências do mercado de aviação militar no Brasil incluem:
 
 - a modernização de alguns aviões da frota da Força Aérea Brasileira (FAB), como os “aviões-radares” E-99;
-- a aquisição de novos aviões militares para melhorar a capacidade de defesa aérea e de operações aéreas, como o caça sueco F-39 Gripen E/F;
+- a aquisição de novos aviões militares para melhorar a capacidade de defesa aérea e de operações aéreas, como o caça sueco F-39 Gripen E/F, com a adoção de tecnologias e aviônicos como o Wide Area Display (WAD) desenvolvido pela AEL Sistemas;
 - a expansão da cooperação internacional e a parceria com empresas estrangeiras, como no caso da Embraer e da BAE Systems PLC (uma empresa britânica), que firmaram dois memorandos de entendimento ("MoU"s) para possibilitar a venda de aeronaves militares produzidas pela Embraer como o C-390 Millennium, um avião militar de transporte de cargas, em mercados onde a BAE Systems possui maior presença (especialmente no Oriente Médio).
 
+## Análise estratégica: 5 forças de Porter
+
+Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aeroespacial, foi utilizada a ferramenta de análise estratégica das 5 forças de Porter, que permite identificar os principais fatores que influenciam a estratégia competitiva de uma empresa.
+
+![5_forças_de_Porter](img/porter.png)
+
+1. Concorrência entre os participantes existentes: a indústria aeroespacial militar brasileira é um mercado relativamente concentradao. Existem alguns players dominantes, especialmente a Embraer S.A., que possuem uma grande participação no mercado.
+
+2. Poder de barganha dos fornecedores: a cadeia de suprimentos da indústria é complexa, incluindo materiais especializados e tecnologia avançada. Isso pode dar aos fornecedores um poder de barganha elevado, pois não existem tantos players capacitados para fornecer os insumos necessários.
+
+3. Poder de barganha dos compradores: os compradores são principalmente governos e agências militares, que têm um poder de barganha considerável devido ao seu grande porte e capacidade elevada de investimento.
+
+4. Ameaça de novos entrantes: a barreira de entrada na indústria aeroespacial é altamente elevada devido aos custos significativos de desenvolvimento e produção. Além disso, se trata de uma indústria muito regulamentada, o que pode limitar a entrada de novos players.
+
+5. Ameaça de produtos substitutos: não existem alternativas viáveis para os sistemas militares avançados desenvolvidos pelas empresas do setor, o que limita a ameaça de produtos substitutos.
 
 ## Análise do cenário: Matriz SWOT
 
