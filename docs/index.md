@@ -98,7 +98,7 @@ A resolução do problema busca trazer um planejador de trajetórias para voos d
 ## Solução
 
 ### Como a solução deverá ser utilizada
-O software desenvolvido será usado para gerar uma trajetória de voo ótima a partir de um ponto de partida e um ponto de destino, levando em consideração as restrições especificadas. A solução deverá utilizada como um auxílio para os pilotos realizarem voos em baixa altitude, além de servir como base para futuros projetos da empresa, especialmente o sistema de Terrain Following da AEL.
+O software desenvolvido será usado para gerar uma trajetória de voo ótima a partir de um ponto de partida e um ponto de destino, levando em consideração as restrições especificadas. A solução deverá utilizada como um auxílio para os pilotos realizarem voos em baixa altitude. Idealmente, a rota gerada será analisada e estudada pelo piloto e sua equipe durante o planejamento do voo, para garantir confiabilidade da rota. A solução, também, poderá servir como base para futuros projetos da empresa, especialmente o sistema de Terrain Following da AEL.
 
 ## Objetivos
 
