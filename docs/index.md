@@ -27,7 +27,8 @@ Planejador de trajetórias para voos em baixa altitude
     - [Qual o objetivo do problema](#qual-o-objetivo-do-problema)
     - [Qual a tomada de decisão do problema proposto](#qual-a-tomada-de-decisão-do-problema-proposto)
     - [Pelo menos 1 limitação existente no problema](#pelo-menos-1-limitação-existente-no-problema)
-  - [Solução](#solução)
+  - [ Descrição da solução](#descrição-da-solução)
+  -[Problema](#problema)
     - [Como a solução deverá ser utilizada](#como-a-solução-deverá-ser-utilizada)
   - [Objetivos](#objetivos)
     - [Objetivos gerais](#objetivos-gerais)
@@ -103,7 +104,9 @@ Outro fator importante é a experiência dos desenvolvedores para a criação da
 Por fim, há fatores externos que são limitações para este problema, como a complexidade dos terrenos e a detecção de obstáculos para que não haja nenhuma colisão, também as condições climáticas podem atrapalhar o percurso criado pelos grafos.
 
 
-## Solução
+## Descrição da solução
+### Problema
+Voos de baixa altitude consiste em voar com uma proa constante, em uma altitude constante, um pouco acima da maior elevação do terrenono trecho da rota. Aeronaves que realizam esse tipo de navegação, contemplam tanto incursões em territórios contestado quanto missões de busca e salvamento. Esse tipo de operação dificilmente é realizada por pilotos inesperientes, tendo em vista que por causa da proximidade com o solo, a missão pode representar um risco iminente de colisão. Tendo em vista o problema da baixa altitude representar um grande risco a aeronave e tripulantes, a empresa AEL juntamente com o Inteli propoem que seja implementado um Planejador de trajetórias para voos em baixa altitude.
 
 ### Como a solução deverá ser utilizada
 O software desenvolvido será usado para gerar uma trajetória de voo ótima a partir de um ponto de partida e um ponto de destino, levando em consideração as restrições especificadas. A solução deverá utilizada como um auxílio para os pilotos realizarem voos em baixa altitude. Idealmente, a rota gerada será analisada e estudada pelo piloto e sua equipe durante o planejamento do voo, para garantir confiabilidade da rota. A solução, também, poderá servir como base para futuros projetos da empresa, especialmente o sistema de Terrain Following da AEL.
