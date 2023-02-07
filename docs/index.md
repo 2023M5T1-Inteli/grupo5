@@ -29,6 +29,7 @@ Planejador de trajetórias para voos em baixa altitude
     - [Pelo menos 1 limitação existente no problema](#pelo-menos-1-limitação-existente-no-problema)
   - [Solução](#solução)
     - [Como a solução deverá ser utilizada](#como-a-solução-deverá-ser-utilizada)
+    - [Qual será o critério de sucesso e qual medida será utilizada para o avaliar](#qual-será-o-critério-de-sucesso-e-qual-medida-será-utilizada-para-o-avaliar)
   - [Objetivos](#objetivos)
     - [Objetivos gerais](#objetivos-gerais)
     - [Objetivos específicos](#objetivos-específicos)
@@ -107,6 +108,10 @@ Por fim, há fatores externos que são limitações para este problema, como a c
 
 ### Como a solução deverá ser utilizada
 O software desenvolvido será usado para gerar uma trajetória de voo ótima a partir de um ponto de partida e um ponto de destino, levando em consideração as restrições especificadas. A solução deverá utilizada como um auxílio para os pilotos realizarem voos em baixa altitude. Idealmente, a rota gerada será analisada e estudada pelo piloto e sua equipe durante o planejamento do voo, para garantir confiabilidade da rota. A solução, também, poderá servir como base para futuros projetos da empresa, especialmente o sistema de Terrain Following da AEL.
+
+### Qual será o critério de sucesso e qual medida será utilizada para o avaliar
+Ao gerar uma trajetória dentro da área, foram definidos alguns critérios para avalia-la. É necessário que a trajetória ligue o ponto de partida ao ponto de chegada sem sair de dentro da área especificada e evitando as áreas restritas, alem de que deve ser viável para o modelo do avião especificado, ou seja, o percurso não pode conter curvas que não sejam possíveis de realizar com esse tipo de veículo. Como a solução tem como foco específico voos de baixa altitude, é muito importante que não haja uma elevação significante durante todo o trajeto, logo o avião irá contornar as zonas de alta altitude.
+Um caminho que cumpra todos esses aspectos, de forma otimizada, pode ser considerado como sucesso. Mas, para validar este critério será necessário que o trajeto seja analisado pela AEL, para que possa ser classificado, de fato, como um caminho viável e otimizado.
 
 ## Objetivos
 
