@@ -210,6 +210,11 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 
 
 ## Histórias dos usuários (user stories)
+### Jornadas de usuário
+![jornada_de_usuario_comandante](img/board-comandante.jpg)
+![jornada_de_usuario_piloto](img/board-piloto.jpg)
+###User Stories
+![user-stories](img/user-stories.png)
 
 *Descrição_das_histórias_dos_usuários*
 
