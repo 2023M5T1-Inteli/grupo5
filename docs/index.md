@@ -199,8 +199,6 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 
 ![Matriz_de_risco](img/risk-matrix.png)
 
-*Matriz_de_risco*
-
 
 # Requisitos do Sistema
 
