@@ -29,6 +29,8 @@ Planejador de trajetórias para voos em baixa altitude
     - [Pelo menos 1 limitação existente no problema](#pelo-menos-1-limitação-existente-no-problema)
   - [Solução](#solução)
     - [Como a solução deverá ser utilizada](#como-a-solução-deverá-ser-utilizada)
+    - [Benefícios trazidos pela solução](#benefícios-trazidos-pela-solução)
+    - [Qual será o critério de sucesso e qual medida será utilizada para o avaliar](#qual-será-o-critério-de-sucesso-e-qual-medida-será-utilizada-para-o-avaliar)
   - [Objetivos](#objetivos)
     - [Objetivos gerais](#objetivos-gerais)
     - [Objetivos específicos](#objetivos-específicos)
@@ -106,6 +108,14 @@ Por fim, há fatores externos que são limitações para este problema, como a c
 
 ### Como a solução deverá ser utilizada
 O software desenvolvido será usado para gerar uma trajetória de voo ótima a partir de um ponto de partida e um ponto de destino, levando em consideração as restrições especificadas. A solução deverá utilizada como um auxílio para os pilotos realizarem voos em baixa altitude. Idealmente, a rota gerada será analisada e estudada pelo piloto e sua equipe durante o planejamento do voo, para garantir confiabilidade da rota. A solução, também, poderá servir como base para futuros projetos da empresa, especialmente o sistema de Terrain Following da AEL.
+
+### Benefícios trazidos pela solução
+A solução traz benefícios primordiais para o usuário do software. Podemos citar, principalmente,pontos positivos econômicos da tecnologia, visto que o avião pode percorrer sempre rotas que são mais curtas e que chegam com eficiência ao destino final, economizando principalmente o combustível durante as viagens. Outro ponto econômico importante que vale ressaltar é o tempo. Visto que melhores rotas são geralmente mais curtas e consequentemente gastam um tempo menor. Esse aspecto é muito importante quando se trata de operações militares. Quanto mais se tem economia de tempo, maior a probabiliade de salvar vítimas em lugares de difícil acesso e portanto muito complexo de algum tipo de socorro chegar à tempo. Outra a situação que a economia de tempo em operações militares pode ser muito efetiva é em ataques à inimigos. Quanto maior for a economia de tempo no deslocamento dos aviões, maior a chance de interceptá-los durante a missão.
+Outro benefício que podemos citar, nesse caso, envolve as características físicas do piloto. Assim sendo, podemos abordar a redução do cansaço desse piloto durante as viagens, visto que as melhores rotas também são caminhos menos complexos e que exigem menos da atenção da pessoa comparado aos outros tipos de rotas, além de contribuir com a produtividade e a disposição do mesmo. Os caminhos de difíceis acesso podem reduzir riscos de acidentes e mortes dos piloto prezando pela sua integridade física
+
+### Qual será o critério de sucesso e qual medida será utilizada para o avaliar
+
+
 
 ## Objetivos
 
