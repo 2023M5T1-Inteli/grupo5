@@ -94,7 +94,7 @@ Inicialmente, a empresa passou dados geográficos de duas regiões para testagem
 Esses dados, juntamente a outros, serão inputados pelo usuário no momento de utilização do sistema. Os seguintes inputs são planejados no escopo do projeto:
 
 - Região de voo - como já mencionado, o sistema será alimentado com dados geográficos indicando a região que o voo acontecerá, incluindo latitude, longitude e altitude;
-- Zona de exclusão - caracterizadas por localizações dentro da região de voo em que a aeronave não poderá passar, ou seja, será uma zona excluída pelo sistema ao planejar a rota de voo. Pode ser representada por polígonos fechados, raio a partir de um ponto/coordenada no mapa, etc;
+- Zona de exclusão - caracterizadas por localizações dentro da região de voo em que a aeronave não poderá passar, ou seja, será uma zona excluída pelo sistema ao planejar a rota de voo. Pode ser representada por polígonos fechados, raio a partir de um ponto/coordenada no mapa, etc e tanto vértices quanto arestas não poderão passar pelas zonas de exlcusão;
 - Vértices de rota obrigatórias - se é de desejo do(s) usuário(s), existirá a opção de seleção de vértices no mapa (nós do grafo) que serão obrigatórias no planejamento de rota de voo;
 
 ### Qual o objetivo do problema
