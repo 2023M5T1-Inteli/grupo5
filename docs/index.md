@@ -26,8 +26,9 @@ Planejador de trajetórias para voos em baixa altitude
     - [Quais os dados disponíveis](#quais-os-dados-disponíveis)
     - [Qual o objetivo do problema](#qual-o-objetivo-do-problema)
     - [Qual a tomada de decisão do problema proposto](#qual-a-tomada-de-decisão-do-problema-proposto)
-    - [Pelo menos 1 limitação existente no problema](#pelo-menos-1-limitação-existente-no-problema)
-  - [Solução](#solução)
+    - [Limitações existentes no problema](#limitações-existentes-no-problema)
+  - [Descrição da solução](#descrição-da-solução)
+    - [Problema](#problema)
     - [Qual a solução proposta](#qual-a-solução-proposta)
     - [Como a solução deverá ser utilizada](#como-a-solução-deverá-ser-utilizada)
     - [Benefícios trazidos pela solução](#benefícios-trazidos-pela-solução)
@@ -106,30 +107,35 @@ A resolução do problema busca trazer um planejador de trajetórias para voos d
 
 ### Qual a tomada de decisão do problema proposto
 
-### Pelo menos 1 limitação existente no problema
+### Limitações existentes no problema
+
 A complexidade de desenvolver a solução para este problema é alta, para o desenvolvimento dos algoritmos é necessário o alto uso de memória, sendo que o uso da memória irá aumentar de acordo com a escala dos grafos fazendo com que haja demora na execução do algoritmo e não seja um produto altamente escalável.
 Outro fator importante é a experiência dos desenvolvedores para a criação da solução, devido a complexidade do problema, a acurácia do algoritmo pode ser um obstáculo considerando sua eficiência e implementação, sendo necessário pensar na estruturação dos dados e sua compatibilidade.
 Por fim, há fatores externos que são limitações para este problema, como a complexidade dos terrenos e a detecção de obstáculos para que não haja nenhuma colisão, também as condições climáticas podem atrapalhar o percurso criado pelos grafos.
 
 
-## Solução
+## Descrição da solução
+
+### Problema
+Voos de baixa altitude consiste em voar com uma proa constante, em uma altitude constante, um pouco acima da maior elevação do terreno trecho da rota. Aeronaves que realizam esse tipo de navegação, contemplam tanto incursões em territórios contestado quanto missões de busca e salvamento. Esse tipo de operação dificilmente é realizada por pilotos inexperientes, que por causa da proximidade com o solo, a missão pode representar um risco iminente de colisão. Tendo em vista o problema da baixa altitude representar um grande risco a aeronave e tripulantes, a empresa AEL juntamente com o Inteli propoem que seja implementado um Planejador de trajetórias para voos em baixa altitude.
 
 ### Qual a solução proposta
 
 A solução proposta é um software que permite computar uma rota otimizada para um vôo em baixa altitude de uma aeronave, com base em parâmetros predefinidos. O software recebe como entrada um arquivo `.dt2` contendo informações geográficas de uma região, e retorna uma rota ótima para um vôo entre dois pontos, tendo em mente as restrições especificadas pelo usuário. A solução é baseada em grafos, e utiliza algoritmos eficientes para encontrar a rota ótima.
 
 ### Como a solução deverá ser utilizada
+
 O software desenvolvido será usado para gerar uma trajetória de voo ótima a partir de um ponto de partida e um ponto de destino, levando em consideração as restrições especificadas. A solução deverá utilizada como um auxílio para os pilotos realizarem voos em baixa altitude. Idealmente, a rota gerada será analisada e estudada pelo piloto e sua equipe durante o planejamento do voo, para garantir confiabilidade da rota. A solução, também, poderá servir como base para futuros projetos da empresa, especialmente o sistema de Terrain Following da AEL.
 
 ### Benefícios trazidos pela solução
+
 A solução traz benefícios primordiais para o usuário do software. Podemos citar, principalmente,pontos positivos econômicos da tecnologia, visto que o avião pode percorrer sempre rotas que são mais curtas e que chegam com eficiência ao destino final, economizando principalmente o combustível durante as viagens. Outro ponto econômico importante que vale ressaltar é o tempo. Visto que melhores rotas são geralmente mais curtas e consequentemente gastam um tempo menor. Esse aspecto é muito importante quando se trata de operações militares. Quanto mais se tem economia de tempo, maior a probabiliade de salvar vítimas em lugares de difícil acesso e portanto muito complexo de algum tipo de socorro chegar à tempo. Outra a situação que a economia de tempo em operações militares pode ser muito efetiva é em ataques à inimigos. Quanto maior for a economia de tempo no deslocamento dos aviões, maior a chance de interceptá-los durante a missão.
 Outro benefício que podemos citar, nesse caso, envolve as características físicas do piloto. Assim sendo, podemos abordar a redução do cansaço desse piloto durante as viagens, visto que as melhores rotas também são caminhos menos complexos e que exigem menos da atenção da pessoa comparado aos outros tipos de ro mdtas, além de contribuir com a produtividade e a disposição do mesmo. Os caminhos de difíceis acesso podem reduzir riscos de acidentes e mortes dos piloto prezando pela sua integridade física
 
 ### Qual será o critério de sucesso e qual medida será utilizada para o avaliar
+
 Ao gerar uma trajetória dentro da área, foram definidos alguns critérios para avalia-la. É necessário que a trajetória ligue o ponto de partida ao ponto de chegada sem sair de dentro da área especificada e evitando as áreas restritas, alem de que deve ser viável para o modelo do avião especificado, ou seja, o percurso não pode conter curvas que não sejam possíveis de realizar com esse tipo de veículo. Como a solução tem como foco específico voos de baixa altitude, é muito importante que não haja uma elevação significante durante todo o trajeto, logo o avião irá contornar as zonas de alta altitude.
 Um caminho que cumpra todos esses aspectos, de forma otimizada, pode ser considerado como sucesso. Mas, para validar este critério será necessário que o trajeto seja analisado pela AEL, para que possa ser classificado, de fato, como um caminho viável e otimizado.
-
-
 
 ## Objetivos
 
@@ -203,11 +209,9 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 
 *Matriz_SWOT*
 
-
 ## Proposta de Valor: Value Proposition Canvas
 
 *Value_Proposition_Canvas*
-
 
 ## Matriz de Risco
 
@@ -221,7 +225,6 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 ## Personas
 
 *Descrição_das_personas*
-
 
 ## Histórias dos usuários (user stories)
 
