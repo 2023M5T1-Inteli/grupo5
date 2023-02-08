@@ -26,6 +26,9 @@ Planejador de trajetórias para voos em baixa altitude
     - [Quais os dados disponíveis](#quais-os-dados-disponíveis)
     - [Qual o objetivo do problema](#qual-o-objetivo-do-problema)
     - [Qual a tomada de decisão do problema proposto](#qual-a-tomada-de-decisão-do-problema-proposto)
+      -[Região de voo](#região-de-voo)
+      -[Pontos de chegada e partida](#pontos-de-chegada-e-partida)
+      -[Zonas de exclusão](#zonas-de-exclusão)
     - [Pelo menos 1 limitação existente no problema](#pelo-menos-1-limitação-existente-no-problema)
   - [Solução](#solução)
     - [Como a solução deverá ser utilizada](#como-a-solução-deverá-ser-utilizada)
@@ -97,6 +100,15 @@ Diversas operações militares destinadas principalmente à defesa e segurança 
 A resolução do problema busca trazer um planejador de trajetórias para voos de baixa altitude utilizando grafos, a partir do mapeamento do terreno com base nos dados de relevo disponibilizados.
 
 ### Qual a tomada de decisão do problema proposto
+Para desenvolvimento do projeto, é fundamental que todas as varáveis relacionadas ao problema, estejam tangiveis à solução. Por isso, o grupo considera algumas varáveis para o desenvolvimento da solução que devem ser levado em consideração:  Região de voo, Pontos de chegada e partida, Zonas de exclusão.
+#### Região de voo
+Região que o voo será operado, incluindo variáveis de latitude, longitude e altitude da região.
+#### Pontos de chegada e partida
+As vértices no grafo são representadas por coordenadas geográficas, onde a notação *x, y, z*
+ correspondem à latitude, longitude e altitude dentro da região de voo. Dessa forma é considarado que para saber quais pontos (vertices ou nós) a rota obrigatoriamente derá passar, é preciso que a rota percorra determinadas arestas (percurso do nó) .
+#### Zonas de exclusão
+Caracteriza localizações dentro da região de voo em que a aeronave não poderá operar, por exemplo terrenos que existam impedimentos maior que a autitude que o voo estará operando. Sua área pode ser representada por polígonos fechados, área de uma circunferência dado um raio *r*
+ a partir de uma coordenada no mapa, etc;
 
 ### Pelo menos 1 limitação existente no problema
 A complexidade de desenvolver a solução para este problema é alta, para o desenvolvimento dos algoritmos é necessário o alto uso de memória, sendo que o uso da memória irá aumentar de acordo com a escala dos grafos fazendo com que haja demora na execução do algoritmo e não seja um produto altamente escalável.
