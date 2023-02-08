@@ -223,7 +223,13 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 
 ## Personas
 
-*Descrição_das_personas*
+Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que serão os alvos para o desenvolvimento da solução representando tanto o piloto quanto a equipe que opera o sistema juntamente com o piloto, sendo eles: Fabiano Gousmann - Comandante dos oficiais de infantaria da Força Aérea Brasileira e Rodrigo Mendes - piloto da Força Aérea Brasileira.
+
+*Persona 1*
+![Persona-1-Fabiano](img/Fabiano-persona.png)
+
+*Persona 2*
+![Persona-2-Rodfrigo](img/Rodrigo-persona.png)
 
 ## Histórias dos usuários (user stories)
 ### Jornadas de usuário
