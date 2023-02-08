@@ -214,7 +214,11 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 
 ## Matriz de Risco
 
-*Matriz_de_risco*
+A matriz de risco foi elaborada considerando fatores categorizados em externos, internos e software. A categoria externa engloba condições climáticas e oportunidades de mercados, além de dependência para o desenvolvimento da solução como a quantidade de dados. Já a categoria interna contém problemas e oportunidades como problemas nos processos de criação que envolvem o nível de experiência da equipe. Por último a categoria de software, na qual inclui complexidade do algoritmo e outros fatores.
+
+*Matriz de Risco*
+
+![Matriz_de_risco](img/risk-matrix.png)
 
 
 # Requisitos do Sistema
