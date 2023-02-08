@@ -113,7 +113,6 @@ A complexidade de desenvolver a solução para este problema é alta, para o des
 Outro fator importante é a experiência dos desenvolvedores para a criação da solução, devido a complexidade do problema, a acurácia do algoritmo pode ser um obstáculo considerando sua eficiência e implementação, sendo necessário pensar na estruturação dos dados e sua compatibilidade.
 Por fim, há fatores externos que são limitações para este problema, como a complexidade dos terrenos e a detecção de obstáculos para que não haja nenhuma colisão, também as condições climáticas podem atrapalhar o percurso criado pelos grafos.
 
-
 ## Descrição da solução
 
 ### Problema
@@ -238,7 +237,6 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 ## Descrição dos Subsistemas
 
 ### Requisitos de software
-
 
 ## Tecnologias Utilizadas
 
