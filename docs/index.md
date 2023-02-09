@@ -49,6 +49,7 @@ Planejador de trajetórias para voos em baixa altitude
 - [Requisitos do Sistema](#requisitos-do-sistema)
   - [Personas](#personas)
   - [Histórias dos usuários (user stories)](#histórias-dos-usuários-user-stories)
+    - [Jornadas de usuário](#jornadas-de-usuário)
 - [Arquitetura do Sistema](#arquitetura-do-sistema)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
@@ -124,7 +125,7 @@ A solução proposta é um software que permite computar uma rota otimizada para
 
 ### Como a solução deverá ser utilizada
 
-O software desenvolvido será usado para gerar uma trajetória de voo ótima a partir de um ponto de partida e um ponto de destino, levando em consideração as restrições especificadas. A solução deverá utilizada como um auxílio para os pilotos realizarem voos em baixa altitude. Idealmente, a rota gerada será analisada e estudada pelo piloto e sua equipe durante o planejamento do voo, para garantir confiabilidade da rota. A solução, também, poderá servir como base para futuros projetos da empresa, especialmente o sistema de Terrain Following da AEL.
+O software desenvolvido será usado para gerar uma trajetória de voo ótima a partir de um ponto de partida e um ponto de destino, levando em consideração as restrições especificadas. A solução deverá ser utilizada como um auxílio para os pilotos realizarem voos em baixa altitude. Idealmente, a rota gerada será analisada e estudada pelo piloto e sua equipe durante o planejamento do voo, para garantir confiabilidade da rota. A solução, também, poderá servir como base para futuros projetos da empresa, especialmente o sistema de Terrain Following da AEL.
 
 ### Benefícios trazidos pela solução
 
