@@ -113,9 +113,9 @@ Para desenvolvimento do projeto, é fundamental que todas as varáveis relaciona
 Região que o voo será operado, incluindo variáveis de latitude, longitude e altitude da região.
 #### Pontos de chegada e partida
 As vértices no grafo são representadas por coordenadas geográficas, onde a notação *x, y, z*
- correspondem à latitude, longitude e altitude dentro da região de voo. Dessa forma é considarado que para saber quais pontos (vertices ou nós) a rota obrigatoriamente derá passar, é preciso que a rota percorra determinadas arestas (percurso do nó) .
+ correspondem à latitude, longitude e altitude dentro da região de voo. Dessa forma, é considerado que para saber quais pontos (vertices ou nós) a rota obrigatoriamente derá passar, é preciso que a rota percorra determinadas arestas (percurso do nó) .
 #### Zonas de exclusão
-Caracteriza localizações dentro da região de voo em que a aeronave não poderá operar, por exemplo terrenos que existam impedimentos maior que a autitude que o voo estará operando. Sua área pode ser representada por polígonos fechados, área de uma circunferência dado um raio *r*
+Caracteriza localizações dentro da região de voo em que a aeronave não poderá operar, por exemplo terrenos que existam impedimentos maior que a altitude que o voo estará operando. Sua área pode ser representada por polígonos fechados, área de uma circunferência dado um raio *r*.
  a partir de uma coordenada no mapa, etc;
 
 ### Limitações existentes no problema
