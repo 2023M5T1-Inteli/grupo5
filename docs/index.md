@@ -26,6 +26,7 @@ Planejador de trajetórias para voos em baixa altitude
     - [Quais os dados disponíveis](#quais-os-dados-disponíveis)
     - [Qual o objetivo do problema](#qual-o-objetivo-do-problema)
     - [Qual a tomada de decisão do problema proposto](#qual-a-tomada-de-decisão-do-problema-proposto)
+
     - [Limitações existentes no problema](#limitações-existentes-no-problema)
   - [Descrição da solução](#descrição-da-solução)
     - [Problema](#problema)
@@ -107,6 +108,15 @@ Esses dados, juntamente a outros, serão inputados pelo usuário no momento de u
 A resolução do problema busca trazer um planejador de trajetórias para voos de baixa altitude utilizando grafos, a partir do mapeamento do terreno com base nos dados de relevo disponibilizados.
 
 ### Qual a tomada de decisão do problema proposto
+Para desenvolvimento do projeto, é fundamental que todas as varáveis relacionadas ao problema, estejam tangiveis à solução. Por isso, o grupo considera algumas varáveis para o desenvolvimento da solução que devem ser levado em consideração:  Região de voo, Pontos de chegada e partida, Zonas de exclusão.
+#### Região de voo
+Região que o voo será operado, incluindo variáveis de latitude, longitude e altitude da região.
+#### Pontos de chegada e partida
+As vértices no grafo são representadas por coordenadas geográficas, onde a notação *x, y, z*
+ correspondem à latitude, longitude e altitude dentro da região de voo. Dessa forma, é considerado que para saber quais pontos (vertices ou nós) a rota obrigatoriamente derá passar, é preciso que a rota percorra determinadas arestas (percurso do nó) .
+#### Zonas de exclusão
+Caracteriza localizações dentro da região de voo em que a aeronave não poderá operar, por exemplo terrenos que existam impedimentos maior que a altitude que o voo estará operando. Sua área pode ser representada por polígonos fechados, área de uma circunferência dado um raio *r*.
+ a partir de uma coordenada no mapa, etc;
 
 ### Limitações existentes no problema
 
