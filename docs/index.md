@@ -24,6 +24,7 @@ Planejador de trajetórias para voos em baixa altitude
       - [Pontos de chegada e partida](#pontos-de-chegada-e-partida)
       - [Zonas de exclusão](#zonas-de-exclusão)
     - [Limitações existentes no problema](#limitações-existentes-no-problema)
+  - [Representação do Problema em um Grafo usando Neo4j](#representação-do-problema-em-um-grafo-usando-neo4j)
   - [Descrição da solução](#descrição-da-solução)
     - [Problema](#problema)
     - [Qual a solução proposta](#qual-a-solução-proposta)
@@ -45,7 +46,6 @@ Planejador de trajetórias para voos em baixa altitude
   - [Matriz de Risco](#matriz-de-risco)
 - [Requisitos do Sistema](#requisitos-do-sistema)
   - [Personas](#personas)
-    - [Jornadas de usuário](#jornadas-de-usuário)
   - [Histórias dos usuários ("User Stories")](#histórias-dos-usuários-user-stories)
 - [Arquitetura do Sistema](#arquitetura-do-sistema)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
@@ -132,6 +132,20 @@ A complexidade de desenvolver a solução para este problema é alta, para o des
 Outro fator importante é a experiência dos desenvolvedores para a criação da solução, devido a complexidade do problema, a acurácia do algoritmo pode ser um obstáculo considerando sua eficiência e implementação, sendo necessário pensar na estruturação dos dados e sua compatibilidade.
 
 Por fim, há fatores externos que são limitações para este problema, como a complexidade dos terrenos e a detecção de obstáculos para que não haja nenhuma colisão, também as condições climáticas podem atrapalhar o percurso criado pelos grafos.
+
+## Representação do Problema em um Grafo usando Neo4j
+
+Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A representação do problema em um grafo pode ser realizada usando o banco de dados neo4j, com um código a título de exemplo abaixo:
+
+```cypher
+Create(v0:Caraguatatuba{nome:"Caraguatatuba",coord:"22°54'.62''S 45°24'32.26''O ",elev_m:2}) Create(v1:Region1{nome:"Regiao1",coord:"23°36'27.96''S 45°23'30.90''O",elev_m:17})Create(v2:Region2{nome:"Regiao2",coord:"23°37'.34.30''S 45°22'56.23''O",elev_m:3})Create(v3:Region3{nome:"Regiao3",coord:"23°35.26.82''S 45°22' 58.97''O",elev_m:150})Create(v4:Region4{nome:"Regiao 4",coord:"23°34'56.72''S 45°21'53.91''O",elev_m:80})Create(v5:Regiao5{nome:"Regiao5",coord:"23°36'31.10''S 45°22'29.60''O",elev_m:11})Create(v6:Region6{nome:"Regiao6",coord:"23°36'31.10''S 45°21'35.96''O",elev_m:11})Create(v7:Region7{nome:"Regiao7",coord:"23°35'45.52''S 45°20'34.25''O",elev_m:7})Create(v8:Region8{nome:"Regiao8",coord:"23°31'19.12''S 45°21'22.89''O",elev_m:116})Create(v9:Region9{nome:"Regiao9",coord:"23°34'51.37''S 45°22'29.60''O",elev_m:5})Create(v10:Region10{nome:"Regiao10",coord:"23°34'06.74''S 45°20'16.31''O",elev_m:60})Create(v11:Region11{nome:"Regiao11",coord:"23°34'34.34''S 45°19'00.34''O",elev_m:8})Create(v12:Region12{nome:"Regiao12",coord:"23°33'50.54''S 45°19'11.68''O",elev_m:130}    )Create(v13:Region13{nome:"Regiao13",coord:"23°34'23.24''S 45°17'21.07''O",elev_m:9})Create(v14:Region14{nome:"Regiao 14",coord:"23°34'49.20''S 45°19'56.28''O",elev_m:8})Create(v15:Regiao15{nome:"Regiao15",coord:"23°34'12.47''S 45°17'21.10''O",elev_m:10})Create(v16:Arrival_Place{nome:"Tabatinga",coord:"23°34'33.96''S 45°16'30.92''O",elev_m:7})Create(v0)-[r1:var_15]->(v1)Create(v0)-[r2:var_1]->(v2)Create(v1)-[r3:var_6]->(v5)Create(v2)-[r4:var_8]->(v5)Create(v5)-[r5:var_0]->(v6)Create(v6)-[r6:var_4]->(v7)Create(v7)-[r7:var_2]->(v9)Create(v7)-[r8:var_1]->(v14)Create(v9)-[r9:var_3]->(v11)Create(v14)-[r10:var_0]->(v11)Create(v11)-[r11:var_1]->(v16)Create(v11)-[r12:var_2]->(v13)Create(v11)-[r13:var_2]->(v15) Create(v13)-[r14:var_2]->(v16 )Create(v15)-[r15:var_3]->(v16) Return v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16
+```
+
+O código acima irá gerar um grafo, que pode ser representado visualmente da seguinte forma:
+
+![Grafo](img/graph.png)
+
+Nesse caso, o ponto de partida seria Caraguatatuba e o de destino Tabatinga. Existem rotas impossíveis, que não tem arestas, como entre a Região 5 e Região 8. Também há rotas possíveis, porém não otimizadas, como entre a região 7 e região 9. A solução proposta utiliza um algoritmo que encontra a rota mais eficiente entre o ponto de destino e origem, que passa pelas regiões 2, 5, 6, 7, 14 e 11.
 
 ## Descrição da solução
 
@@ -230,7 +244,7 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 
 ## Proposta de Valor: Value Proposition Canvas
 
-*Value_Proposition_Canvas*
+![VPC](img/VPC.png)
 
 ## Matriz de Risco
 
@@ -242,19 +256,16 @@ A matriz de risco foi elaborada considerando fatores categorizados em externos, 
 
 ## Personas
 
-Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que serão os alvos para o desenvolvimento da solução representando tanto o piloto quanto a equipe que opera o sistema juntamente com o piloto, sendo eles: Fabiano Gousmann - Comandante dos oficiais de infantaria da Força Aérea Brasileira e Rodrigo Mendes - piloto da Força Aérea Brasileira.
+Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que serão os alvos para o desenvolvimento da solução representando tanto o piloto quanto a equipe que opera o sistema juntamente com o piloto, sendo eles: Fabiano Gousmann - Especialista em Informações Aeronáuticas responsável pelo planejamento da vôos militares da Força Aérea Brasileira ("FAB") e Rodrigo Mendes - piloto da FAB.
 
 *Persona 1*
+
 ![Persona-1-Fabiano](img/Fabiano-persona.png)
+![jornada_de_usuario_comandante](img/board-comandante.png)
 
 *Persona 2*
 ![Persona-2-Rodfrigo](img/Rodrigo-persona.png)
-
-### Jornadas de usuário
-
-![jornada_de_usuario_comandante](img/board-comandante.jpg)
-
-![jornada_de_usuario_piloto](img/board-piloto.jpg)
+![jornada_de_usuario_piloto](img/board-piloto.png)
 
 ## Histórias dos usuários ("User Stories")
 
