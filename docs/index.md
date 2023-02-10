@@ -203,7 +203,7 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 
 ![5_forças_de_Porter](img/porter.png)
 
-1. Rivalidade entre os concorrentes existentes: a indústria aeroespacial militar brasileira é um mercado relativamente concentradao. Existem alguns players dominantes, especialmente a Embraer S.A., que possuem uma grande participação no mercado.
+1. Rivalidade entre os concorrentes existentes: a indústria aeroespacial militar brasileira é um mercado relativamente concentrado. Existem alguns players dominantes, especialmente a Embraer S.A., que possuem uma grande participação no mercado.
 
 2. Poder de barganha dos fornecedores: a cadeia de suprimentos da indústria é complexa, incluindo materiais especializados e tecnologia avançada. Isso pode dar aos fornecedores um poder de barganha elevado, pois não existem tantos players capacitados para fornecer os insumos necessários.
 
