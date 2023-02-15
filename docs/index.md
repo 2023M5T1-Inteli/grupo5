@@ -138,7 +138,39 @@ Por fim, há fatores externos que são limitações para este problema, como a c
 Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A representação do problema em um grafo pode ser realizada usando o banco de dados neo4j, com um código a título de exemplo abaixo:
 
 ```cypher
-Create(v0:Caraguatatuba{nome:"Caraguatatuba",coord:"22°54'.62''S 45°24'32.26''O ",elev_m:2}) Create(v1:Region1{nome:"Regiao1",coord:"23°36'27.96''S 45°23'30.90''O",elev_m:17})Create(v2:Region2{nome:"Regiao2",coord:"23°37'.34.30''S 45°22'56.23''O",elev_m:3})Create(v3:Region3{nome:"Regiao3",coord:"23°35.26.82''S 45°22' 58.97''O",elev_m:150})Create(v4:Region4{nome:"Regiao 4",coord:"23°34'56.72''S 45°21'53.91''O",elev_m:80})Create(v5:Regiao5{nome:"Regiao5",coord:"23°36'31.10''S 45°22'29.60''O",elev_m:11})Create(v6:Region6{nome:"Regiao6",coord:"23°36'31.10''S 45°21'35.96''O",elev_m:11})Create(v7:Region7{nome:"Regiao7",coord:"23°35'45.52''S 45°20'34.25''O",elev_m:7})Create(v8:Region8{nome:"Regiao8",coord:"23°31'19.12''S 45°21'22.89''O",elev_m:116})Create(v9:Region9{nome:"Regiao9",coord:"23°34'51.37''S 45°22'29.60''O",elev_m:5})Create(v10:Region10{nome:"Regiao10",coord:"23°34'06.74''S 45°20'16.31''O",elev_m:60})Create(v11:Region11{nome:"Regiao11",coord:"23°34'34.34''S 45°19'00.34''O",elev_m:8})Create(v12:Region12{nome:"Regiao12",coord:"23°33'50.54''S 45°19'11.68''O",elev_m:130}    )Create(v13:Region13{nome:"Regiao13",coord:"23°34'23.24''S 45°17'21.07''O",elev_m:9})Create(v14:Region14{nome:"Regiao 14",coord:"23°34'49.20''S 45°19'56.28''O",elev_m:8})Create(v15:Regiao15{nome:"Regiao15",coord:"23°34'12.47''S 45°17'21.10''O",elev_m:10})Create(v16:Arrival_Place{nome:"Tabatinga",coord:"23°34'33.96''S 45°16'30.92''O",elev_m:7})Create(v0)-[r1:var_15]->(v1)Create(v0)-[r2:var_1]->(v2)Create(v1)-[r3:var_6]->(v5)Create(v2)-[r4:var_8]->(v5)Create(v5)-[r5:var_0]->(v6)Create(v6)-[r6:var_4]->(v7)Create(v7)-[r7:var_2]->(v9)Create(v7)-[r8:var_1]->(v14)Create(v9)-[r9:var_3]->(v11)Create(v14)-[r10:var_0]->(v11)Create(v11)-[r11:var_1]->(v16)Create(v11)-[r12:var_2]->(v13)Create(v11)-[r13:var_2]->(v15) Create(v13)-[r14:var_2]->(v16 )Create(v15)-[r15:var_3]->(v16) Return v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16
+Create(v0:Caraguatatuba{nome:"Caraguatatuba",coord:"22°54'.62''S 45°24'32.26''O ",elev_m:2}) 
+Create(v1:Region1{nome:"Regiao1",coord:"23°36'27.96''S 45°23'30.90''O",elev_m:17})
+Create(v2:Region2{nome:"Regiao2",coord:"23°37'.34.30''S 45°22'56.23''O",elev_m:3})
+Create(v3:Region3{nome:"Regiao3",coord:"23°35.26.82''S 45°22' 58.97''O",elev_m:150})
+Create(v4:Region4{nome:"Regiao 4",coord:"23°34'56.72''S 45°21'53.91''O",elev_m:80})
+Create(v5:Regiao5{nome:"Regiao5",coord:"23°36'31.10''S 45°22'29.60''O",elev_m:11})
+Create(v6:Region6{nome:"Regiao6",coord:"23°36'31.10''S 45°21'35.96''O",elev_m:11})
+Create(v7:Region7{nome:"Regiao7",coord:"23°35'45.52''S 45°20'34.25''O",elev_m:7})
+Create(v8:Region8{nome:"Regiao8",coord:"23°31'19.12''S 45°21'22.89''O",elev_m:116})
+Create(v9:Region9{nome:"Regiao9",coord:"23°34'51.37''S 45°22'29.60''O",elev_m:5})
+Create(v10:Region10{nome:"Regiao10",coord:"23°34'06.74''S 45°20'16.31''O",elev_m:60})
+Create(v11:Region11{nome:"Regiao11",coord:"23°34'34.34''S 45°19'00.34''O",elev_m:8})
+Create(v12:Region12{nome:"Regiao12",coord:"23°33'50.54''S 45°19'11.68''O",elev_m:130}    )
+Create(v13:Region13{nome:"Regiao13",coord:"23°34'23.24''S 45°17'21.07''O",elev_m:9})
+Create(v14:Region14{nome:"Regiao 14",coord:"23°34'49.20''S 45°19'56.28''O",elev_m:8})
+Create(v15:Regiao15{nome:"Regiao15",coord:"23°34'12.47''S 45°17'21.10''O",elev_m:10})
+Create(v16:Arrival_Place{nome:"Tabatinga",coord:"23°34'33.96''S 45°16'30.92''O",elev_m:7})
+Create(v0)-[r1:var_15]->(v1)
+Create(v0)-[r2:var_1]->(v2)
+Create(v1)-[r3:var_6]->(v5)
+Create(v2)-[r4:var_8]->(v5)
+Create(v5)-[r5:var_0]->(v6)
+Create(v6)-[r6:var_4]->(v7)
+Create(v7)-[r7:var_2]->(v9)
+Create(v7)-[r8:var_1]->(v14)
+Create(v9)-[r9:var_3]->(v11)
+Create(v14)-[r10:var_0]->(v11)
+Create(v11)-[r11:var_1]->(v16)
+Create(v11)-[r12:var_2]->(v13)
+Create(v11)-[r13:var_2]->(v15) 
+Create(v13)-[r14:var_2]->(v16)
+Create(v15)-[r15:var_3]->(v16) 
+Return v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16
 ```
 
 O código acima irá gerar um grafo, que pode ser representado visualmente da seguinte forma:
