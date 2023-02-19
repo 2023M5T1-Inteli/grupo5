@@ -1,14 +1,11 @@
-package br.edu.inteli.cc.m5.maverick;
+package br.edu.inteli.cc.m5.maverick.models;
 
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 
@@ -26,7 +23,7 @@ public class Person {
     public Person(String name) {
         this.name = name;
     }
-    
+
     @Relationship(type = "TEAMMATE", direction = Relationship.Direction.OUTGOING)
     public Set<Person> teammates;
 
