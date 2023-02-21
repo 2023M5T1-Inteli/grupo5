@@ -1,19 +1,29 @@
 package br.edu.inteli.cc.m5.maverick.models;
 
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
+
+import java.util.Set;
+
 
 @Node
 public class FlightPathNode {
-    @Id @GeneratedValue private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private Double latitude;
     private Double longitude;
     private Double elevation;
 
-    // Getters and setters
+    @Relationship(type = "PATH", direction = Relationship.Direction.OUTGOING)
+    public Set<FlightPathNode> goesTo;
 
+    @Relationship(type = "PATH", direction = Relationship.Direction.INCOMING)
+    public Set<FlightPathNode> goesInto;
+
+    // Getters and setters
     public Long getId() {
         return id;
     }

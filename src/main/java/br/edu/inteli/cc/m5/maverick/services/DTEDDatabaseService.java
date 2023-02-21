@@ -1,8 +1,14 @@
 package br.edu.inteli.cc.m5.maverick.services;
 
+import br.edu.inteli.cc.m5.maverick.models.FlightPathNode;
+import br.edu.inteli.cc.m5.maverick.repositories.FlightPathNodeRepository;
+import org.gdal.gdal.Dataset;
+import org.gdal.gdal.gdal;
+import org.gdal.gdalconst.gdalconst;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -12,17 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import br.edu.inteli.cc.m5.maverick.repositories.FlightPathNodeRepository;
-import org.gdal.gdal.gdal;
-import org.gdal.gdal.Dataset;
-import org.gdal.gdalconst.gdalconst;
-
-import br.edu.inteli.cc.m5.maverick.models.FlightPathNode;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
 
 /**
  * Implementa operações básicas de acesso a dados geográficos armazenados em arquivos
@@ -65,14 +60,11 @@ public class DTEDDatabaseService {
         }
     }
 
-    public Optional<Integer> QueryLonLatElevation(Double queryLon, Double queryLat)
-    {
+    public Optional<Integer> QueryLonLatElevation(Double queryLon, Double queryLat) {
         Optional<Integer> ret = null;
 
-        for (Dataset d : m_DatabaseDtedDatasets)
-        {
-            if(isCoordinateInsideDataset(d, queryLon, queryLat))
-            {
+        for (Dataset d : m_DatabaseDtedDatasets) {
+            if (isCoordinateInsideDataset(d, queryLon, queryLat)) {
                 ret = Optional.of(queryDataset(d, queryLon, queryLat));
                 break;
             }
@@ -80,15 +72,13 @@ public class DTEDDatabaseService {
         return ret;
     }
 
-    private static Optional<String> getExtensionByStringHandling(String filename)
-    {
+    private static Optional<String> getExtensionByStringHandling(String filename) {
         return Optional.ofNullable(filename)
                 .filter(f -> f.contains("."))
                 .map(f -> f.substring(filename.lastIndexOf(".") + 1));
     }
 
-    private static boolean isCoordinateInsideDataset(Dataset d, Double lon, Double lat)
-    {
+    private static boolean isCoordinateInsideDataset(Dataset d, Double lon, Double lat) {
         boolean retCode = false;
 
         int xsize = d.getRasterXSize();
@@ -97,10 +87,10 @@ public class DTEDDatabaseService {
         double[] geoTransform = d.GetGeoTransform();
 
         double minLon = geoTransform[0];
-        double maxLon = minLon  + (xsize-1)*geoTransform[1];
+        double maxLon = minLon + (xsize - 1) * geoTransform[1];
 
         double maxLat = geoTransform[3];
-        double minLat = maxLat + (ysize-1)*geoTransform[5];
+        double minLat = maxLat + (ysize - 1) * geoTransform[5];
 
         retCode = (maxLat > lat) && (minLat < lat) &&
                 (maxLon > lon) && (minLon < lon);
@@ -108,28 +98,27 @@ public class DTEDDatabaseService {
         return retCode;
     }
 
-    private static int queryDataset(Dataset d, Double lon, Double lat)
-    {
+    private static int queryDataset(Dataset d, Double lon, Double lat) {
         int xsize = d.getRasterXSize();
         int ysize = d.getRasterYSize();
 
         double[] geoTransform = d.GetGeoTransform();
 
         double minLon = geoTransform[0];
-        double maxLon = minLon  + (xsize-1)*geoTransform[1];
+        double maxLon = minLon + (xsize - 1) * geoTransform[1];
 
         double maxLat = geoTransform[3];
-        double minLat = maxLat + (ysize-1)*geoTransform[5];
+        double minLat = maxLat + (ysize - 1) * geoTransform[5];
 
-        Double queryOffsetXDouble = ((lon - minLon))*(xsize-1);
-        Double queryOffsetYDouble = ((maxLat - lat))*(ysize-1);
+        Double queryOffsetXDouble = ((lon - minLon)) * (xsize - 1);
+        Double queryOffsetYDouble = ((maxLat - lat)) * (ysize - 1);
 
         int queryOffsetX = queryOffsetXDouble.intValue();
         int queryOffsetY = queryOffsetYDouble.intValue();
 
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 );
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4);
         byteBuffer.order(ByteOrder.nativeOrder());
-        d.GetRasterBand(1).ReadRaster_Direct(queryOffsetX, queryOffsetY, 1, 1,1,1, gdalconst.GDT_Int32, byteBuffer );
+        d.GetRasterBand(1).ReadRaster_Direct(queryOffsetX, queryOffsetY, 1, 1, 1, 1, gdalconst.GDT_Int32, byteBuffer);
         int queryResult = byteBuffer.getInt(0);
 
         return queryResult;
@@ -140,14 +129,14 @@ public class DTEDDatabaseService {
 
         try {
             Dataset d = gdal.Open(path);
-            if(d != null) {
+            if (d != null) {
                 int xsize = d.getRasterXSize();
                 int ysize = d.getRasterYSize();
 
                 double[] geoTransform = d.GetGeoTransform();
 
-                for(int i = 0; i < xsize; i++) {
-                    for(int j = 0; j < ysize; j++) {
+                for (int i = 0; i < xsize; i++) {
+                    for (int j = 0; j < ysize; j++) {
                         double lon = geoTransform[0] + i * geoTransform[1];
                         double lat = geoTransform[3] + j * geoTransform[5];
                         int elevation = QueryLonLatElevation(lon, lat).get();
@@ -161,7 +150,7 @@ public class DTEDDatabaseService {
                     }
                 }
             }
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
@@ -172,14 +161,15 @@ public class DTEDDatabaseService {
     public void readPointsFromDataset() {
         for (Dataset d : m_DatabaseDtedDatasets) {
             int xsize = d.getRasterXSize();
-            System.out.println("xsize: " + xsize);
             int ysize = d.getRasterYSize();
-            System.out.println("ysize: " + ysize);
 
             double[] geoTransform = d.GetGeoTransform();
 
-            for(int i = 0; i < xsize; i++) {
-                for(int j = 0; j < ysize; j++) {
+            int xstep = 500;
+            int ystep = 500;
+
+            for (int i = 0; i < xsize; i += ystep) {
+                for (int j = 0; j < ysize; j += xstep) {
                     double lon = geoTransform[0] + i * geoTransform[1];
                     double lat = geoTransform[3] + j * geoTransform[5];
                     Optional<Integer> elevationQuery = QueryLonLatElevation(lon, lat);
@@ -196,7 +186,5 @@ public class DTEDDatabaseService {
                 }
             }
         }
-
-//        return nodes;
     }
 }
