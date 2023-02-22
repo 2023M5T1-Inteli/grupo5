@@ -60,6 +60,10 @@ Planejador de trajetórias para voos em baixa altitude
   - [Modelo Lógico](#modelo-lógico)
 - [Teste de Software](#teste-de-software)
   - [Testes Unitários](#testes-unitários)
+    - [Teste 1:](#teste-1)
+    - [Teste 2:](#teste-2)
+    - [Teste 3:](#teste-3)
+    - [Teste 4:](#teste-4)
   - [Teste de Usabilidade](#teste-de-usabilidade)
 - [Análise de Dados](#análise-de-dados)
 - [Manuais](#manuais)
@@ -341,6 +345,131 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 # Teste de Software
 
 ## Testes Unitários
+
+Para a realização do teste unitário, foi utilizado o aplicativo Insomnia, na qual ao ativar o servidor possibilita o usuário de fazer requisições na aplicação, sendo elas POST (inserir dados na aplicação), GET (retornar os dados da aplicação), PUTCH (atualizar os dados da aplicação) e DELETE (deletar os dados na aplicação).
+No desenvolvimento da aplicação foi utilizado o Springboot (framework para criação do servidor em java) com a arquitetura MVC (model, view e controller), no qual os controladores são responsáveis por fazer as manipulações dos dados através das requisições, e o Docker para virtualizar os sistemas, sendo executado em um container 2 imagens: Neo4j e SpringBoot.
+
+
+### Teste 1: 
+
+
+Requisição POST - Através do Insominia inserir a rota para a enviar um requisição de criação de dados.
+
+![Requisição no aplicativo insomnia para o método POST](img/requisicao-post.png)
+
+
+**Resultado esperado:** 
+
+Espera-se que ao enviar a requisição os dados sejam carregados no Neo4j.
+
+
+**Resultado obtido:**
+
+Os dados dos arquivos dt2 foram enviados para o Neo4j.
+
+![Resultado da requisição POST](img/requisicao-post-resultado.png)
+
+
+### Teste 2: 
+
+Requisição GET - Obter todos os dados que foram inseridos na base de dados através do método POST.
+
+![Requisição no aplicativo insomnia para o método GET](img/requisicao-get.png)
+
+
+**Resultado esperado:** 
+
+Espera-se que todos os dados que foram importados sejam enviados através da requisição sejam visualizados através de um JSON.
+
+
+**Resultado obtido:**
+
+Foram recebidos 256 dados, ou seja, todos os dados que foram enviados para a aplicação através do método POST foram recebidos. Segue abaixo um exemplo de um JSON:
+
+<code>
+  [{
+		"id": 0,
+		"latitude": -21.99986111111111,
+		"longitude": -43.00013888888889,
+		"elevation": null,
+		"goesTo": [],
+		"goesInto": []
+	}]
+</code>  
+
+
+### Teste 3: 
+
+Requisição PUTCH - Atualizar dados especificados no caminho da URI, ou seja, para atualizar os dados deve-se inserir no final do caminho o ID do nó que será atualizado.
+
+A requisição deve ter a especificação do ID no final da URI, e definir o JSON que será enviado para a mudança:  
+
+<code>
+  [{
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "elevation": 42
+  }]
+</code>  
+
+![Requisição no aplicativo insomnia para o método PUTCH](img/requisicao-putch.png)
+
+
+**Resultado esperado:** 
+
+Espera-se que ao selecionar o ID, os dados sejam atualizados conforme a requisição feita pelo usuário.
+
+
+**Resultado obtido:**
+
+Os dados foram atualizado conforme o id requisitado.
+
+Antes da requisição:  
+
+<code>
+  [{
+	  "id": 0,
+	  "latitude": -21.99986111111111,
+	  "longitude": -43.00013888888889,
+	  "elevation": null,
+	  "goesTo": [],
+	  "goesInto": []
+  }]
+</code>  
+
+Depois da requisição:  
+
+<code>
+  [{
+    "id": 0,
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "elevation": 42.0,
+    "goesTo": [],
+    "goesInto": []
+  }]
+</code>  
+
+
+### Teste 4: 
+
+Requisição DELETE - Deletar dados especificados no caminho da URI, ou seja, para deletar os dados deve-se inserir no final do caminho o ID do nó que será deletado.
+
+A requisição realizada para esse teste foi especificando o ID 0.
+
+![Requisição no aplicativo insomnia para o método DELETE](img/requisicao-delete.png)
+
+
+**Resultado esperado:** 
+
+Espera-se que ao enviar a requisição o dado requisitado seja deletado.
+
+
+**Resultado obtido:**
+
+O dado específicado foi deletado.
+
+![Resultado da requisição DELETE](img/requisicao-post-resultado.png)
 
 ## Teste de Usabilidade
 

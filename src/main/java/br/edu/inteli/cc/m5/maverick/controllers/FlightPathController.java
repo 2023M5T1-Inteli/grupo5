@@ -4,13 +4,14 @@ import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
 import br.edu.inteli.cc.m5.maverick.models.FlightPathNode;
 import br.edu.inteli.cc.m5.maverick.repositories.FlightPathNodeRepository;
 import br.edu.inteli.cc.m5.maverick.services.DTEDDatabaseService;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+
+
 @RequestMapping(value = "/flight-path", produces = "application/json")
 public class FlightPathController {
 
@@ -66,5 +67,10 @@ public class FlightPathController {
 
         flightPathNodeRepository.delete(node);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/api")
+    public String apiWelcome() {
+        return "Welcome to AEL flight path management";
     }
 }
