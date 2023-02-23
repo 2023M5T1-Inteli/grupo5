@@ -158,6 +158,7 @@ public class DTEDDatabaseService {
     }
 
 
+    // Create nodes from points in DTED file and save in db repository
     public void readPointsFromDataset() {
         for (Dataset d : m_DatabaseDtedDatasets) {
             int xsize = d.getRasterXSize();
