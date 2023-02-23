@@ -14,33 +14,38 @@ import java.util.List;
 @RequestMapping(value = "/flight-path", produces = "application/json")
 public class FlightPathController {
 
+    // Database services
     private final DTEDDatabaseService dtedDatabaseService;
+
+    // Database repository
     private final FlightPathNodeRepository flightPathNodeRepository;
 
-
+    // Controller constructor
     public FlightPathController(DTEDDatabaseService dtedDatabaseService, FlightPathNodeRepository flightPathNodeRepository) throws Exception {
         this.dtedDatabaseService = dtedDatabaseService;
         this.flightPathNodeRepository = flightPathNodeRepository;
     }
 
-    // Create
+    // Create - create all nodes in database from DTED file simplification
     @PostMapping("/nodes")
     public void populateNodes() {
         dtedDatabaseService.readPointsFromDataset();
     }
 
-    // Read
+    // Read - return all nodes from database
     @GetMapping("/nodes")
     public ResponseEntity<List<FlightPathNode>> getNodes() {
         List<FlightPathNode> nodes = flightPathNodeRepository.findAll();
         return ResponseEntity.ok(nodes);
     }
 
-    // Update
+    // Update - update properties from specified node
     @PatchMapping("/nodes/{id}")
     public ResponseEntity<FlightPathNode> updateNode(@PathVariable Long id, @RequestBody FlightPathNode updatedNode) {
         FlightPathNode node = flightPathNodeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
+
+        // if updated node property is not null, replace node property
 
         if (updatedNode.getLatitude() != null) {
             node.setLatitude(updatedNode.getLatitude());
@@ -58,7 +63,7 @@ public class FlightPathController {
         return ResponseEntity.ok(savedNode);
     }
 
-    // Delete
+    // Delete - remove specified node
     @DeleteMapping("/nodes/{id}")
     public ResponseEntity<?> deleteNode(@PathVariable Long id) {
         FlightPathNode node = flightPathNodeRepository.findById(id)

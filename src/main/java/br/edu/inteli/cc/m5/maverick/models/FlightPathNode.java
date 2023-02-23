@@ -7,19 +7,27 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.Set;
 
-
+// Node representation
 @Node
 public class FlightPathNode {
+    // Node properties
+
+    // Auto generated id
     @Id
     @GeneratedValue
     private Long id;
+
+    // Manually set properties
     private Double latitude;
     private Double longitude;
     private Double elevation;
 
+
+    // Relationship a --> b
     @Relationship(type = "PATH", direction = Relationship.Direction.OUTGOING)
     public Set<FlightPathNode> goesTo;
 
+    // Relationship a <-- b
     @Relationship(type = "PATH", direction = Relationship.Direction.INCOMING)
     public Set<FlightPathNode> goesInto;
 
