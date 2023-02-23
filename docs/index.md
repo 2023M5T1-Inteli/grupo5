@@ -346,7 +346,7 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 
 ## Testes Unitários
 
-Para a realização do teste unitário, foi utilizado o aplicativo Insomnia, na qual ao ativar o servidor possibilita o usuário de fazer requisições na aplicação, sendo elas POST (inserir dados na aplicação), GET (retornar os dados da aplicação), PUTCH (atualizar os dados da aplicação) e DELETE (deletar os dados na aplicação).
+Para a realização do teste unitário, foi utilizado o aplicativo Insomnia, na qual ao ativar o servidor possibilita o usuário de fazer requisições na aplicação, sendo elas POST (inserir dados na aplicação), GET (retornar os dados da aplicação), PATCH (atualizar os dados da aplicação) e DELETE (deletar os dados na aplicação).
 No desenvolvimento da aplicação foi utilizado o Springboot (framework para criação do servidor em java) com a arquitetura MVC (model, view e controller), no qual os controladores são responsáveis por fazer as manipulações dos dados através das requisições, e o Docker para virtualizar os sistemas, sendo executado em um container 2 imagens: Neo4j e SpringBoot.
 
 
@@ -400,7 +400,7 @@ Foram recebidos 256 dados, ou seja, todos os dados que foram enviados para a apl
 
 ### Teste 3: 
 
-Requisição PUTCH - Atualizar dados especificados no caminho da URI, ou seja, para atualizar os dados deve-se inserir no final do caminho o ID do nó que será atualizado.
+Requisição PATCH - Atualizar dados especificados no caminho da URI, ou seja, para atualizar os dados deve-se inserir no final do caminho o ID do nó que será atualizado.
 
 A requisição deve ter a especificação do ID no final da URI, e definir o JSON que será enviado para a mudança:  
 
