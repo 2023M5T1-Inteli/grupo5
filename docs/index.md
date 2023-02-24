@@ -19,10 +19,8 @@ Planejador de trajetórias para voos em baixa altitude
     - [Contexto do problema](#contexto-do-problema)
     - [Quais os dados disponíveis](#quais-os-dados-disponíveis)
     - [Qual o objetivo do problema](#qual-o-objetivo-do-problema)
+      - [Função objetivo](#função-objetivo)
     - [Qual a tomada de decisão do problema proposto](#qual-a-tomada-de-decisão-do-problema-proposto)
-      - [Região de voo](#região-de-voo)
-      - [Pontos de chegada e partida](#pontos-de-chegada-e-partida)
-      - [Zonas de exclusão](#zonas-de-exclusão)
     - [Limitações existentes no problema](#limitações-existentes-no-problema)
   - [Representação do Problema em um Grafo usando Neo4j](#representação-do-problema-em-um-grafo-usando-neo4j)
   - [Descrição da solução](#descrição-da-solução)
@@ -105,79 +103,104 @@ Esses dados, juntamente a outros, serão inputados pelo usuário no momento de u
 
 ### Qual o objetivo do problema
 
-A resolução do problema consiste em trazer um planejador de trajetórias para voos de baixa altitude utilizando grafos, a partir do mapeamento do terreno com base nos dados de relevo disponibilizados.
+Partida - Share -> A
+Destino - Inteli -> B
+
+#### Função objetivo
+
+Min = 0,7XaR3 + 0,5aR1 + 0,6R1R3 + 0,5R1R2 + 0,4R2R3 + 0,8R2R4 + 0,65R3R4 +
+0,5R4R5 + 0,5R4R13 + 0,8R4R12 +0,5R5R4 + 0,5R13R4 + 0,8R12R4 + 0,55R5R6 + 1,2R6R7+ 0,9R6R11 + 0,8R6R12 + 0,6R6R13 + 0,7R7R8 + 1R7R11 + 0,5R7R10 + 1R7R9 + 1R7b + 0,85R8b + 0,1bR9 + 0,6R9R10 + 0,4R10R11 + 0,5R11R12 + 0,8R12R13 + 0,8R12R4
 
 ### Qual a tomada de decisão do problema proposto
 
-Para desenvolvimento do projeto, é fundamental que todas as variáveis relacionadas ao problema, estejam tangiveis à solução. Por isso, o grupo considera algumas variáveis para o desenvolvimento da solução que devem ser levado em consideração:  Região de voo, Pontos de chegada e partida, Zonas de exclusão.
-
-#### Região de voo
-
-Região que o voo será operado, incluindo variáveis de latitude, longitude e altitude da região.
-
-#### Pontos de chegada e partida
-
-As vértices no grafo são representadas por coordenadas geográficas, onde a notação *x, y, z*
- correspondem à latitude, longitude e altitude dentro da região de voo. Dessa forma, é considerado que para saber quais pontos (vertices ou nós) a rota obrigatoriamente deverá passar, é preciso que a rota percorra determinadas arestas (percurso do nó).
-
-#### Zonas de exclusão
-
-Caracteriza localizações dentro da região de voo em que a aeronave não poderá operar, por exemplo terrenos que existam impedimentos maior que a altitude que o voo estará operando. Sua área pode ser representada por polígonos fechados, área de uma circunferência dado um raio *r*.
- a partir de uma coordenada no mapa, etc;
+Tomda de decisão para o fluxo minimo
+Xij = { 1 se usar o caminho, 0 se não usar
 
 ### Limitações existentes no problema
 
-A complexidade de desenvolver a solução para este problema é alta, para o desenvolvimento dos algoritmos é necessário o alto uso de memória, sendo que o uso da memória irá aumentar de acordo com a escala dos grafos fazendo com que haja demora na execução do algoritmo e não seja um produto altamente escalável.
-
-Outro fator importante é a experiência dos desenvolvedores para a criação da solução, devido a complexidade do problema, a acurácia do algoritmo pode ser um obstáculo considerando sua eficiência e implementação, sendo necessário pensar na estruturação dos dados e sua compatibilidade.
-
-Por fim, há fatores externos que são limitações para este problema, como a complexidade dos terrenos e a detecção de obstáculos para que não haja nenhuma colisão, também as condições climáticas podem atrapalhar o percurso criado pelos grafos.
+No A: 1 = XaR3 + XaR1
+No R3:XaR3 + XR1R3 + XR2R3 = XR3R4 
+No R1:XaR1 = XR1R2 + XR1R3
+No R2: XR1R2 = XR2R3 + XR2R4
+No R4: XR2R4 + XR3R4 + XR5R4+ XR13R4 + XR12R4 = XR4R5 + XR4R13 + XR4R12
+No R5: XR4R5 = XR5R13 + XR5R6
+No R6: XR5R6 = XR613+ XR6R12 + XR6R11 + XR6R7 
+No R7: XR6R7 = XR7R8 + XR7b + XR7R9 + XR710 + XR7R11
+No R8: XR7R8 = XR8b
+No B: XR7Rb + XR8b = XbR9 
+No R9: XbR9 + XR7R9 = XR9R10
+No R10: XR710 + XR9R10 = XR10R11
+No R11: XR6R11 + XR7R10 + XR10R11 = XR11R12 
+No R12: XR11R12 + XR6R12 + XR4R12 = XR12R4 + XR12R13
+No R13: XR4R13 + XR5R13 + XR6R13 + XR12R13 = XR13R4
 
 ## Representação do Problema em um Grafo usando Neo4j
 
-Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A representação do problema em um grafo pode ser realizada usando o banco de dados neo4j, com um código a título de exemplo abaixo:
+Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A area escolhida foi a região da USP, representado neste mapa:
+
+ ![Região](img/pontos%20-%20conectados.png)
+
+A representação do problema em um grafo pode ser realizada usando o banco de dados neo4j, com um código a título de exemplo abaixo:
 
 ```cypher
-Create(v0:Caraguatatuba{nome:"Caraguatatuba",coord:"22°54'.62''S 45°24'32.26''O ",elev_m:2}) 
-Create(v1:Region1{nome:"Regiao1",coord:"23°36'27.96''S 45°23'30.90''O",elev_m:17})
-Create(v2:Region2{nome:"Regiao2",coord:"23°37'.34.30''S 45°22'56.23''O",elev_m:3})
-Create(v3:Region3{nome:"Regiao3",coord:"23°35.26.82''S 45°22' 58.97''O",elev_m:150})
-Create(v4:Region4{nome:"Regiao 4",coord:"23°34'56.72''S 45°21'53.91''O",elev_m:80})
-Create(v5:Regiao5{nome:"Regiao5",coord:"23°36'31.10''S 45°22'29.60''O",elev_m:11})
-Create(v6:Region6{nome:"Regiao6",coord:"23°36'31.10''S 45°21'35.96''O",elev_m:11})
-Create(v7:Region7{nome:"Regiao7",coord:"23°35'45.52''S 45°20'34.25''O",elev_m:7})
-Create(v8:Region8{nome:"Regiao8",coord:"23°31'19.12''S 45°21'22.89''O",elev_m:116})
-Create(v9:Region9{nome:"Regiao9",coord:"23°34'51.37''S 45°22'29.60''O",elev_m:5})
-Create(v10:Region10{nome:"Regiao10",coord:"23°34'06.74''S 45°20'16.31''O",elev_m:60})
-Create(v11:Region11{nome:"Regiao11",coord:"23°34'34.34''S 45°19'00.34''O",elev_m:8})
-Create(v12:Region12{nome:"Regiao12",coord:"23°33'50.54''S 45°19'11.68''O",elev_m:130}    )
-Create(v13:Region13{nome:"Regiao13",coord:"23°34'23.24''S 45°17'21.07''O",elev_m:9})
-Create(v14:Region14{nome:"Regiao 14",coord:"23°34'49.20''S 45°19'56.28''O",elev_m:8})
-Create(v15:Regiao15{nome:"Regiao15",coord:"23°34'12.47''S 45°17'21.10''O",elev_m:10})
-Create(v16:Arrival_Place{nome:"Tabatinga",coord:"23°34'33.96''S 45°16'30.92''O",elev_m:7})
-Create(v0)-[r1:var_15]->(v1)
-Create(v0)-[r2:var_1]->(v2)
-Create(v1)-[r3:var_6]->(v5)
-Create(v2)-[r4:var_8]->(v5)
-Create(v5)-[r5:var_0]->(v6)
-Create(v6)-[r6:var_4]->(v7)
-Create(v7)-[r7:var_2]->(v9)
-Create(v7)-[r8:var_1]->(v14)
-Create(v9)-[r9:var_3]->(v11)
-Create(v14)-[r10:var_0]->(v11)
-Create(v11)-[r11:var_1]->(v16)
-Create(v11)-[r12:var_2]->(v13)
-Create(v11)-[r13:var_2]->(v15) 
-Create(v13)-[r14:var_2]->(v16)
-Create(v15)-[r15:var_3]->(v16) 
-Return v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16
+Create(v0:Share{nome:"Partida - Share",coord:"23°34'22.27'S 46°42'23.18'O"}) 
+Create(v1:Share{nome:"Destino - Inteli",coord:"23°33'20.63'S  46°44'2.89'O"}) 
+Create(v2:Region1{nome:"R1",coord:"23°34'18.82'S  46°42'30.63'O"})
+Create(v3:Region2{nome:"R2",coord:"23°34'15.70'S  46°42'33.14'O"})
+Create(v4:Region3{nome:"R3",coord:"23°34'4.30'S  46°42'28.85'O"})
+Create(v5:Regio4{nome:"R4",coord:"23°33'53.99'S  46°42'47.05'O"})
+Create(v6:Region5{nome:"R5",coord:"23°33'37.43'S  46°42'47.99'O"})
+Create(v7:Region6{nome:"R6",coord:"23°33'26.03'S  46°43'9.04'O"})
+Create(v8:Region7{nome:"R7",coord:"23°33'13.73'S  46°43'34.00'O"})
+Create(v9:Region8{nome:"R8",coord:"23°33'3.06'S  46°43'55.06'O"})
+Create(v10:Region9{nome:"R9",coord:"23°33'26.10'S  46°44'0.73'O"})
+Create(v11:Region10{nome:"R10",coord:"23°33'34.72'S  46°43'42.55'O"})
+Create(v12:Region11{nome:"R11",coord:"23°33'39.21'S  46°43'33.42'O"})
+Create(v13:Region12{nome:"R12",coord:"23°33'48.22'S  46°43'16.29'O"})
+Create(v14:Region13{nome:"R13",coord:"23°33'43.83'S  46°43'7.46'O"})
+Create(v0)-[a1:var_1{distancia:"0,5"}]->(v2)
+Create(v0)-[a2:var_2{distancia:"0,7"}]->(v4)
+Create(v2)-[a3:var_3{distancia:"0,5"}]->(v3)
+Create(v2)-[a4:var_4{distancia:"0,6"}]->(v4)
+Create(v3)-[a5:var_5{distancia:"0,4"}]->(v4)
+Create(v3)-[a6:var_6{distancia:"0,8"}]->(v5)
+Create(v4)-[a7:var_7{distancia:"0,65"}]->(v5)
+Create(v5)-[a8:var_8{distancia:"0,5"}]->(v6)
+Create(v5)-[a9:var_9{distancia:"0,6"}]->(v14)
+Create(v5)-[a10:var_10{distancia:"0,8"}]->(v13)
+Create(v6)-[a11:var_11{distancia:"0,55"}]->(v7)
+Create(v6)-[a12:var_12{distancia:"0,6"}]->(v14)
+Create(v7)-[a13:var_13{distancia:"1,2"}]->(v8)
+Create(v7)-[a14:var_14{distancia:"0,6"}]->(v14)
+Create(v7)-[a15:var_15{distancia:"0,8"}]->(v13)
+Create(v7)-[a16:var_16{distancia:"0,9"}]->(v12)
+Create(v8)-[a17:var_17{distancia:"0,7"}]->(v9)
+Create(v8)-[a18:var_18{distancia:"1"}]->(v10)
+Create(v8)-[a19:var_19{distancia:"0,5"}]->(v11)
+Create(v8)-[a20:var_20{distancia:"1"}]->(v12)
+Create(v8)-[a21:var_21{distancia:"1"}]->(v1)
+Create(v9)-[a22:var_22{distancia:"0,85"}]->(v1)
+Create(v1)-[a23:var_23{distancia:"0,1"}]->(v10)
+Create(v10)-[a24:var_24{distancia:"0,6"}]->(v11)
+Create(v11)-[a25:var_25{distancia:"0,4"}]->(v12)
+Create(v12)-[a26:var_26{distancia:"0,5"}]->(v13)
+Create(v13)-[a27:var_27{distancia:"0,8"}]->(v14)
+Create(v6)-[a28:var_28{distancia:"0,5"}]->(v5)
+Create(v14)-[a29:var_29{distancia:"0,6"}]->(v5)
+Create(v13)-[a30:var_30{distancia:"0,8"}]->(v5)
+
+Return v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,a2,a1,a3,a4, a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26,a27,a28,a29,a30
 ```
 
 O código acima irá gerar um grafo, que pode ser representado visualmente da seguinte forma:
 
-![Grafo](img/graph.png)
+![Grafo](img/grafo.png)
 
-Nesse caso, o ponto de partida seria Caraguatatuba e o de destino Tabatinga. Existem rotas impossíveis, que não tem arestas, como entre a Região 5 e Região 8. Também há rotas possíveis, porém não otimizadas, como entre a região 7 e região 9. A solução proposta utiliza um algoritmo que encontra a rota mais eficiente entre o ponto de destino e origem, que passa pelas regiões 2, 5, 6, 7, 14 e 11.
+Nesse caso, o ponto de partida seria  o ponto "Partida - Share" e o de destino "Destino - Inteli". Existem rotas impossíveis, que não tem arestas, como entre a Região 5 e Região 8. A possibilidade de um caminho factivel com o minimo de distância é:
+Partida-Share,R3 + R3,R4 + R4,R5 + R5,R6 + R6,R7 + R7,R8 + R8,Destino-Inteli
+Outra solução de caminho, com uma distância maior é:
+Partida-Share,R1 + R1,R2 + R2,R3 + R3,R4 + R4,R13 + R13,R12 + R12,R11 + R11,R10 + R10,R9 + 
+R9,Destino-Inteli
 
 ## Descrição da solução
 
