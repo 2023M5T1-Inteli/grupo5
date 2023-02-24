@@ -103,21 +103,66 @@ Esses dados, juntamente a outros, serão inputados pelo usuário no momento de u
 
 ### Qual o objetivo do problema
 
-Partida - Share -> A
-Destino - Inteli -> B
-
-#### Função objetivo
-
-Min = 0,7XaR3 + 0,5aR1 + 0,6R1R3 + 0,5R1R2 + 0,4R2R3 + 0,8R2R4 + 0,65R3R4 +
-0,5R4R5 + 0,5R4R13 + 0,8R4R12 +0,5R5R4 + 0,5R13R4 + 0,8R12R4 + 0,55R5R6 + 1,2R6R7+ 0,9R6R11 + 0,8R6R12 + 0,6R6R13 + 0,7R7R8 + 1R7R11 + 0,5R7R10 + 1R7R9 + 1R7b + 0,85R8b + 0,1bR9 + 0,6R9R10 + 0,4R10R11 + 0,5R11R12 + 0,8R12R13 + 0,8R12R4
+A resolução do problema consiste em trazer um planejador de trajetórias para voos de baixa altitude utilizando grafos, a partir do mapeamento do terreno com base nos dados de relevo disponibilizados.
 
 ### Qual a tomada de decisão do problema proposto
 
-Tomda de decisão para o fluxo minimo
-Xij = { 1 se usar o caminho, 0 se não usar
+Para desenvolvimento do projeto, é fundamental que todas as variáveis relacionadas ao problema, estejam tangiveis à solução. 
+
+Por isso, o grupo considera algumas variáveis para o desenvolvimento da solução que devem ser consideradas: região de voo, pontos de chegada e partida e zonas de exclusão.
+
+#### Região de voo
+
+Região que o voo será operado, incluindo variáveis de latitude, longitude e altitude da região.
+
+#### Pontos de chegada e partida 
+
+Os vértices no grafo são representadas por coordenadas geográficas, em notação *x, y, z*. 
+
+Correspondem à latitude, longitude e altitude, na região de voo. Dessa forma, é considerado que para saber quais pontos (vertices ou nós) a rota obrigatoriamente deverá passar, é preciso que a rota percorra determinadas arestas (percurso do nó).
+
+#### Zonas de exclusão
+
+Caracteriza uma localização na região de voo em que a aeronave não poderá operar. Por exemplo, terrenos em que existam um impedimento maior que a altitude que o voo estará operando. Sua área pode ser representada por polígonos fechados a partir de uma coordenada no mapa.
+
+## Modelagem Matemática do Problema
+
+Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A area escolhida foi a região da USP, representado neste mapa:
+
+![Região](img/pontos%20-%20conectados.png)
+
+```
+Partida - Share -> A
+Destino - Inteli -> B
+```
+
+
+### Variável de Decisão
+
+Para a tomada de decisão para o fluxo minimo, temos a seguinte variável:
+
+```
+Sendo X uma aresta do grafo entre o nó "i" e o nó "j", o peso da aresta será:
+
+Xij = {
+  1 se usar o caminho,
+  0 se não usar
+}
+```
+
+### Função objetivo
+
+
+A função objetivo considera as variáveis descritas previamente, na seção do problema, e atribui um peso para cada aresta.
+
+```
+Min = 0,7XaR3 + 0,5aR1 + 0,6R1R3 + 0,5R1R2 + 0,4R2R3 + 0,8R2R4 + 0,65R3R4 +
+0,5R4R5 + 0,5R4R13 + 0,8R4R12 +0,5R5R4 + 0,5R13R4 + 0,8R12R4 + 0,55R5R6 + 1,2R6R7+ 0,9R6R11 + 0,8R6R12 + 0,6R6R13 + 0,7R7R8 + 1R7R11 + 0,5R7R10 + 1R7R9 + 1R7b + 0,85R8b + 0,1bR9 + 0,6R9R10 + 0,4R10R11 + 0,5R11R12 + 0,8R12R13 + 0,8R12R4
+```
 
 ### Limitações existentes no problema
 
+```
 No A: 1 = XaR3 + XaR1
 No R3:XaR3 + XR1R3 + XR2R3 = XR3R4 
 No R1:XaR1 = XR1R2 + XR1R3
@@ -133,14 +178,12 @@ No R10: XR710 + XR9R10 = XR10R11
 No R11: XR6R11 + XR7R10 + XR10R11 = XR11R12 
 No R12: XR11R12 + XR6R12 + XR4R12 = XR12R4 + XR12R13
 No R13: XR4R13 + XR5R13 + XR6R13 + XR12R13 = XR13R4
+```
+
 
 ## Representação do Problema em um Grafo usando Neo4j
 
-Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A area escolhida foi a região da USP, representado neste mapa:
-
- ![Região](img/pontos%20-%20conectados.png)
-
-A representação do problema em um grafo pode ser realizada usando o banco de dados neo4j, com um código a título de exemplo abaixo:
+A representação do problema em um grafo pode ser realizada usando o banco de dados Neo4j, com o código abaixo:
 
 ```cypher
 Create(v0:Share{nome:"Partida - Share",coord:"23°34'22.27'S 46°42'23.18'O"}) 
@@ -196,10 +239,13 @@ O código acima irá gerar um grafo, que pode ser representado visualmente da se
 
 ![Grafo](img/grafo.png)
 
-Nesse caso, o ponto de partida seria  o ponto "Partida - Share" e o de destino "Destino - Inteli". Existem rotas impossíveis, que não tem arestas, como entre a Região 5 e Região 8. A possibilidade de um caminho factivel com o minimo de distância é:
+Nesse caso, o ponto de partida seria  o ponto "Partida - Share" e o de destino "Destino - Inteli". 
+
+A possibilidade de um caminho factivel com o minimo de distância é:
 Partida-Share,R1 + R1,R2 + R2,R3 + R3,R4 + R4,R13 + R13,R12 + R12,R11 + R11,R10 + R10,R9 + 
 R9,Destino-Inteli
 Com uma distância de 5,05km.
+
 Outra solução de caminho, com uma distância maior é:
 Partida-Share,R3 + R3,R4 + R4,R5 + R5,R6 + R6,R7 + R7,R8 + R8,Destino-Inteli
 Com uma distância de 5,15km.
