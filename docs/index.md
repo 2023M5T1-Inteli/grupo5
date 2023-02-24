@@ -150,6 +150,8 @@ Xij = {
 }
 ```
 
+Essa variável será aplicada conforme os pesos das arestas estabelecidos na função objetivo e as limitações existentes no problema, descritos a seguir.
+
 ### Função objetivo
 
 
@@ -161,6 +163,7 @@ Min = 0,7XaR3 + 0,5aR1 + 0,6R1R3 + 0,5R1R2 + 0,4R2R3 + 0,8R2R4 + 0,65R3R4 +
 ```
 
 ### Limitações existentes no problema
+
 
 ```
 No A: 1 = XaR3 + XaR1
