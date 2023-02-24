@@ -19,8 +19,13 @@ Planejador de trajetórias para voos em baixa altitude
     - [Contexto do problema](#contexto-do-problema)
     - [Quais os dados disponíveis](#quais-os-dados-disponíveis)
     - [Qual o objetivo do problema](#qual-o-objetivo-do-problema)
-      - [Função objetivo](#função-objetivo)
     - [Qual a tomada de decisão do problema proposto](#qual-a-tomada-de-decisão-do-problema-proposto)
+      - [Região de voo](#região-de-voo)
+      - [Pontos de chegada e partida](#pontos-de-chegada-e-partida)
+      - [Zonas de exclusão](#zonas-de-exclusão)
+  - [Modelagem Matemática do Problema](#modelagem-matemática-do-problema)
+    - [Variável de Decisão](#variável-de-decisão)
+    - [Função objetivo](#função-objetivo)
     - [Limitações existentes no problema](#limitações-existentes-no-problema)
   - [Representação do Problema em um Grafo usando Neo4j](#representação-do-problema-em-um-grafo-usando-neo4j)
   - [Descrição da solução](#descrição-da-solução)
@@ -351,6 +356,8 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 ## Análise do cenário: Matriz SWOT
 
 ![SWOT](img/SWOT.png)
+
+A informações atribuídas nesse framework tem como referência Notícias, Conversas Internas com a Empresa, Documentos estratégicos como o Tapi, Site Isntitucional da Ael e a Apresentação institucional da Empresa.
 
 ## Proposta de Valor: Value Proposition Canvas
 
