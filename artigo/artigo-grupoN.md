@@ -42,7 +42,7 @@ Ainda em outro trecho de DASGUPTA et. al. (2011), temos:
 # Referências Bibliográficas
 LINTZMAYER, CN; OLIVEIRA MOTA, G. **Análise de Algoritmos e Estruturas de Dados** . Estrutura de dados,cap. 3. Disponível em: <https://www.ime.usp.br/~mota/livros/livro_AAED.pdf>. Acesso em: 20 fev. 2023.
 
-LUIZ, O. **PETI**. Intodução,cap.2. Disponível em: <https://www.gov.br/inpi/pt-br/acesso-a-informacao/tecnologia-da-informacao/arquivos/documentos/peti_20162019.pdf>. Acesso em: 2O fev. 2023.
+LUIZ, O. **PETI**. Intodução,cap.2. Disponível em: <https://www.gov.br/inpi/pt-br/acesso-a-informacao/tecnologia-da-informacao/arquivos/documentos/peti_20162019.pdf>. Acesso em: 20 fev. 2023.
 
 AEL,Portal de comunicações. **Terrain Following**. Disponível em: <https://www.ael.com.br/terrain-following.html>. Acesso em: 20 fev. 2023.
 
