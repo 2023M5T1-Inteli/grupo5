@@ -41,8 +41,11 @@ Ainda em outro trecho de DASGUPTA et. al. (2011), temos:
 
 # Referências Bibliográficas
 Terrain Following. Disponível em: <https://www.ael.com.br/terrain-following.html>. Acesso em: 20 fev. 2023.
+
 LUIZ, O. et al. Disponível em: <https://www.gov.br/inpi/pt-br/acesso-a-informacao/tecnologia-da-informacao/arquivos/documentos/peti_20162019.pdf>. Acesso em: 20 fev. 2023.
 Disponível em: <http://file:///C:/Users/Inteli/Downloads/2494941.PDF>. Acesso em: 20 fev. 2023b.
+
 Disponível em: <https://slack-files.com/files-pri-safe/T02DWH2MXQR-F04PL34250X/2494941.pdf?c=1677203407-9dfac051163777f5>. Acesso em: 20 fev. 2023.
+
 Disponível em: <http://file:///C:/Users/Inteli/Downloads/ali,+131024%20(2).pdf>. Acesso em: 20 fev. 2023b.
 
