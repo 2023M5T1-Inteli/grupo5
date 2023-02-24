@@ -197,10 +197,12 @@ O código acima irá gerar um grafo, que pode ser representado visualmente da se
 ![Grafo](img/grafo.png)
 
 Nesse caso, o ponto de partida seria  o ponto "Partida - Share" e o de destino "Destino - Inteli". Existem rotas impossíveis, que não tem arestas, como entre a Região 5 e Região 8. A possibilidade de um caminho factivel com o minimo de distância é:
-Partida-Share,R3 + R3,R4 + R4,R5 + R5,R6 + R6,R7 + R7,R8 + R8,Destino-Inteli
-Outra solução de caminho, com uma distância maior é:
 Partida-Share,R1 + R1,R2 + R2,R3 + R3,R4 + R4,R13 + R13,R12 + R12,R11 + R11,R10 + R10,R9 + 
 R9,Destino-Inteli
+Com uma distância de 5,05km.
+Outra solução de caminho, com uma distância maior é:
+Partida-Share,R3 + R3,R4 + R4,R5 + R5,R6 + R6,R7 + R7,R8 + R8,Destino-Inteli
+Com uma distância de 5,15km.
 
 ## Descrição da solução
 
