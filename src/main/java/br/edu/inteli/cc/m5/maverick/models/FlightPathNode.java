@@ -25,11 +25,11 @@ public class FlightPathNode {
 
     // Relationship a --> b
     @Relationship(type = "PATH", direction = Relationship.Direction.OUTGOING)
-    public Set<FlightPathNode> goesTo;
+    public Set<Path> goesTo;
 
     // Relationship a <-- b
     @Relationship(type = "PATH", direction = Relationship.Direction.INCOMING)
-    public Set<FlightPathNode> goesInto;
+    public Set<Path> goesInto;
 
     // Getters and setters
     public Long getId() {
@@ -63,4 +63,12 @@ public class FlightPathNode {
     public void setElevation(Double elevation) {
         this.elevation = elevation;
     }
+
+    public Set<Path> getGoesTo() { return goesTo; }
+
+    public void setGoesTo(Path path) { this.goesTo.add(path); }
+
+    public Set<Path> getGoesInto() { return goesInto; }
+
+    public void setGoesInto(Path path) { this.goesInto.add(path); }
 }

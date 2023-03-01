@@ -1,6 +1,7 @@
 package br.edu.inteli.cc.m5.maverick.services;
 
 import br.edu.inteli.cc.m5.maverick.models.FlightPathNode;
+import br.edu.inteli.cc.m5.maverick.models.Path;
 import br.edu.inteli.cc.m5.maverick.repositories.FlightPathNodeRepository;
 import org.gdal.gdal.Dataset;
 import org.gdal.gdal.gdal;
@@ -184,6 +185,7 @@ public class DTEDDatabaseService {
                     }
 
                     flightPathNodeRepository.save(node);
+
                 }
             }
         }

@@ -2,6 +2,7 @@ package br.edu.inteli.cc.m5.maverick.controllers;
 
 import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
 import br.edu.inteli.cc.m5.maverick.models.FlightPathNode;
+import br.edu.inteli.cc.m5.maverick.models.Path;
 import br.edu.inteli.cc.m5.maverick.repositories.FlightPathNodeRepository;
 import br.edu.inteli.cc.m5.maverick.services.DTEDDatabaseService;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,8 @@ public class FlightPathController {
     @PostMapping("/nodes")
     public void populateNodes() {
         dtedDatabaseService.readPointsFromDataset();
+        System.out.println("111");
+
     }
 
     // Read - return all nodes from database
@@ -72,6 +75,35 @@ public class FlightPathController {
 
         flightPathNodeRepository.delete(node);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/relationship")
+    public void relateNodes() {
+        FlightPathNode[] nodes = new FlightPathNode[300];
+        int i = 0;
+        for (FlightPathNode node : flightPathNodeRepository.findAll()) {
+            if (i >= 255) {
+                break;
+            }
+            nodes[i] = node;
+            i++;
+        }
+        for (int j = 0; j < nodes.length; j++) {
+            if (j == nodes.length - 1) {
+                Path path = new Path();
+                path.setTarget(nodes[0]);
+                path.setElevation(nodes[j].getElevation());
+                path.setDistance(nodes[j].getLatitude(), nodes[j].getLongitude());
+                nodes[j].setGoesTo(path);
+                break;
+            }
+            // Relationship create
+            Path path = new Path();
+            path.setTarget(nodes[j+1]);
+            path.setElevation(nodes[j].getElevation());
+            path.setDistance(nodes[j].getLatitude(), nodes[j].getLongitude());
+            nodes[j].setGoesTo(path);
+        }
     }
 
     @GetMapping("/api")
