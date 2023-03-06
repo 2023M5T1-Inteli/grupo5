@@ -20,8 +20,18 @@ public class Path {
     private FlightPathNode target;
 
     //Fictional algo
-    private Double haversine (Double lat, Double lon) {
-        return (lat + lon) - (target.getLatitude() + target.getLongitude());
+    private Double haversine (Double lat1, Double lon1) {
+        double R = 6372.8; // In kilometers
+        double lat2 = target.getLatitude();
+        double lon2 = target.getLongitude();
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+        double a = Math.pow(Math.sin(dLat / 2), 2) +
+                Math.pow(Math.sin(dLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        return R * c;
     }
 
     public Double getDistance() {return distance;}
