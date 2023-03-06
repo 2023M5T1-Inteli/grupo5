@@ -1,22 +1,27 @@
 package br.edu.inteli.cc.m5.maverick.services;
 
 import java.util.*;
-class PathCalculator {
+
+class City {
     String name;
     List<Edge> edges;
+
     public City(String name) {
         this.name = name;
         this.edges = new ArrayList<>();
     }
+
     public void addEdge(Edge e) {
         this.edges.add(e);
     }
 }
+
 class Edge {
     City destination;
     int distance;
     int altitudeVariation;
     double hValue; // valor heurístico
+
     public Edge(City destination, int distance, int altitudeVariation, double hValue) {
         this.destination = destination;
         this.distance = distance;
@@ -24,15 +29,19 @@ class Edge {
         this.hValue = hValue;
     }
 }
+
 class Graph {
     Map<String, City> cities;
+
     public Graph() {
         this.cities = new HashMap<>();
     }
+
     public void addCity(String name) {
         City city = new City(name);
         this.cities.put(name, city);
     }
+
     public void addEdge(String from, String to, int distance, int altitudeVariation, double hValue) {
         City city1 = this.cities.get(from);
         City city2 = this.cities.get(to);
@@ -41,6 +50,7 @@ class Graph {
         city1.addEdge(e1);
         city2.addEdge(e2);
     }
+
     public List<String> findShortestPath(String start, String goal) {
         Map<City, Double> gScore = new HashMap<>();
         gScore.put(cities.get(start), 0.0);
@@ -72,6 +82,7 @@ class Graph {
         }
         return null;
     }
+
     private List<String> reconstructPath(Map<City, City> cameFrom, City current) {
         List<String> path = new ArrayList<>();
         path.add(current.name);
