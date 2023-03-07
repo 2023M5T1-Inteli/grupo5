@@ -7,6 +7,9 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.Set;
 
+import static org.springframework.data.neo4j.core.schema.Relationship.Direction.INCOMING;
+import static org.springframework.data.neo4j.core.schema.Relationship.Direction.OUTGOING;
+
 // Node representation
 @Node
 public class FlightPathNode {
@@ -24,12 +27,12 @@ public class FlightPathNode {
 
 
     // Relationship a --> b
-    @Relationship(type = "PATH", direction = Relationship.Direction.OUTGOING)
-    public Set<Path> goesTo;
+    @Relationship(type = "PATH", direction = OUTGOING)
+    private Set<Path> goesTo;
 
     // Relationship a <-- b
-    @Relationship(type = "PATH", direction = Relationship.Direction.INCOMING)
-    public Set<Path> goesInto;
+//    @Relationship(type = "PATH", direction = INCOMING)
+//    public Set<Path> goesInto;
 
     // Getters and setters
     public Long getId() {
@@ -68,7 +71,7 @@ public class FlightPathNode {
 
     public void setGoesTo(Path path) { this.goesTo.add(path); }
 
-    public Set<Path> getGoesInto() { return goesInto; }
+    // public Set<Path> getGoesInto() { return goesInto; }
 
-    public void setGoesInto(Path path) { this.goesInto.add(path); }
+    //public void setGoesInto(Path path) { this.goesInto.add(path); }
 }

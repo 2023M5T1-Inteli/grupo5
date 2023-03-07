@@ -4,6 +4,7 @@ import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
 import br.edu.inteli.cc.m5.maverick.models.FlightPathNode;
 import br.edu.inteli.cc.m5.maverick.models.Path;
 import br.edu.inteli.cc.m5.maverick.repositories.FlightPathNodeRepository;
+import br.edu.inteli.cc.m5.maverick.repositories.PathRepository;
 import br.edu.inteli.cc.m5.maverick.services.DTEDDatabaseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +23,13 @@ public class FlightPathController {
     // Database repository
     private final FlightPathNodeRepository flightPathNodeRepository;
 
+    private final PathRepository pathRepository;
+
     // Controller constructor
-    public FlightPathController(DTEDDatabaseService dtedDatabaseService, FlightPathNodeRepository flightPathNodeRepository) throws Exception {
+    public FlightPathController(DTEDDatabaseService dtedDatabaseService, FlightPathNodeRepository flightPathNodeRepository, PathRepository pathRepository) throws Exception {
         this.dtedDatabaseService = dtedDatabaseService;
         this.flightPathNodeRepository = flightPathNodeRepository;
+        this.pathRepository = pathRepository;
     }
 
     // Create - create all nodes in database from DTED file simplification
@@ -83,6 +87,7 @@ public class FlightPathController {
         int i = 0;
         for (FlightPathNode node : flightPathNodeRepository.findAll()) {
             if (i >= 255) {
+                System.out.println("111");
                 break;
             }
             nodes[i] = node;
@@ -90,19 +95,16 @@ public class FlightPathController {
         }
         for (int j = 0; j < nodes.length; j++) {
             if (j == nodes.length - 1) {
-                Path path = new Path();
-                path.setTarget(nodes[0]);
-                path.setElevation(nodes[j].getElevation());
-                path.setDistance(nodes[j].getLatitude(), nodes[j].getLongitude());
-                nodes[j].setGoesTo(path);
+//                Path path = new Path(nodes[0], nodes[j].getElevation(), nodes[j].getLatitude(), nodes[j].getLongitude());
+//                nodes[j].setGoesTo(path);
                 break;
             }
             // Relationship create
-            Path path = new Path();
-            path.setTarget(nodes[j+1]);
-            path.setElevation(nodes[j].getElevation());
-            path.setDistance(nodes[j].getLatitude(), nodes[j].getLongitude());
-            nodes[j].setGoesTo(path);
+            Path path = new Path(nodes[j+1], nodes[j].getElevation(), nodes[j].getLatitude(), nodes[j].getLongitude());
+            pathRepository.save(path);
+//            System.out.println("222");
+//            nodes[j].setGoesTo(path);
+//            flightPathNodeRepository.save(nodes[j]);
         }
     }
 
