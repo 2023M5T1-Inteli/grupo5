@@ -23,7 +23,7 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 95vw;
+  width: 90vw;
   height: 10vw;
   background-color: white;
   margin:2rem 0 0 0;
@@ -38,7 +38,7 @@ const Title = styled.h1`
 
 const Main = styled.div`
   display: flex;
-  width: 95vw;
+  width: 90vw;
   height: 100vh;
   padding: 4rem;
   flex-direction: column;
