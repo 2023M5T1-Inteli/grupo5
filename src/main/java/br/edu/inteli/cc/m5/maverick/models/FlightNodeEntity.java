@@ -5,11 +5,12 @@ import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 // Node representation
-@Node
-public class FlightPathNode {
+@Node("FlightNode")
+public class FlightNodeEntity {
     // Node properties
 
     // Auto generated id
@@ -24,14 +25,11 @@ public class FlightPathNode {
 
 
     // Relationship a --> b
-    @Relationship(type = "PATH", direction = Relationship.Direction.OUTGOING)
-    public Set<FlightPathNode> goesTo;
-
-    // Relationship a <-- b
-    @Relationship(type = "PATH", direction = Relationship.Direction.INCOMING)
-    public Set<FlightPathNode> goesInto;
+    @Relationship(type = "PATH")
+    private List<Path> paths = new ArrayList<>();
 
     // Getters and setters
+
     public Long getId() {
         return id;
     }
@@ -62,5 +60,13 @@ public class FlightPathNode {
 
     public void setElevation(Double elevation) {
         this.elevation = elevation;
+    }
+
+    public List<Path> getPaths() {
+        return paths;
+    }
+
+    public void setPaths(List<Path> paths) {
+        this.paths = paths;
     }
 }
