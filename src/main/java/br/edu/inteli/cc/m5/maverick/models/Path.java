@@ -22,27 +22,17 @@ public class Path {
     @Property
     private Long targetId;
 
-    private double sourceLon;
-
-    private double sourceLat;
-
-    private double sourceElevation;
-
-
-
-
     @TargetNode
     private final FlightNodeEntity target;
+    private FlightNodeEntity source;
 
-    public Path(FlightNodeEntity target, double sourceLon, double sourceLat, double sourceElevation, Long sourceId) {
+    public Path(FlightNodeEntity target, FlightNodeEntity source) {
         this.target = target;
-        this.targetId = target.getId();
-        this.sourceId = sourceId;
-        this.sourceLon = sourceLon;
-        this.sourceLat = sourceLat;
-        this.sourceElevation = sourceElevation;
-        this.elevation = target.getElevation() - this.sourceElevation;
-        this.distance = haversine(this.sourceLat, this.sourceLon);
+        this.source = source;
+        this.targetId = this.target.getId();
+        this.sourceId = this.source.getId();
+        this.elevation = target.getElevation() - this.source.getElevation();
+        this.distance = haversine(this.source.getLatitude(), this.source.getLongitude());
     }
 
     public Long getId() {
@@ -63,18 +53,6 @@ public class Path {
 
     public double getDistance() {
         return distance;
-    }
-
-    public double getSourceLon() {
-        return sourceLon;
-    }
-
-    public double getSourceLat() {
-        return sourceLat;
-    }
-
-    public double getSourceElevation() {
-        return sourceElevation;
     }
 
     //Haversine algorithm

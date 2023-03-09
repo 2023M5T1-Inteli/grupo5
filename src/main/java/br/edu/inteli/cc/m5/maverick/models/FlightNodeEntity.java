@@ -24,7 +24,7 @@ public class FlightNodeEntity {
     private Double elevation;
 
 
-    // Relationship a --> b
+    // Relationship between edges
     @Relationship(type = "PATH")
     private List<Path> paths = new ArrayList<>();
 
