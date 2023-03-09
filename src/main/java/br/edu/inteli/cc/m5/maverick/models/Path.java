@@ -22,17 +22,20 @@ public class Path {
     @Property
     private Long targetId;
 
+    private double sourceLat;
+    private double sourceLon;
+    private double sourceElevation;
+
     @TargetNode
     private final FlightNodeEntity target;
     private FlightNodeEntity source;
 
-    public Path(FlightNodeEntity target, FlightNodeEntity source) {
+    public Path(FlightNodeEntity target, double sourceLat, double sourceLon, double sourceElevation, Long sourceId) {
         this.target = target;
-        this.source = source;
         this.targetId = this.target.getId();
-        this.sourceId = this.source.getId();
-        this.elevation = target.getElevation() - this.source.getElevation();
-        this.distance = haversine(this.source.getLatitude(), this.source.getLongitude());
+        this.sourceId = sourceId;
+        this.elevation = target.getElevation() - sourceElevation;
+        this.distance = haversine(sourceLat, sourceLon);
     }
 
     public Long getId() {
