@@ -186,9 +186,9 @@ public class DTEDDatabaseService {
                 topNodes.add(null);
             }
 
+            // create left node
+            FlightNodeEntity leftNode = null;
             for (int y = 0; y < ysize; y += yStep) {
-                // create left node
-                FlightNodeEntity leftNode = null;
                 for (int x = 0; x < xsize; x += xStep) {
                     double lat = geoTransform[3] + y * geoTransform[5];
                     double lon = geoTransform[0] + x * geoTransform[1];
@@ -202,35 +202,34 @@ public class DTEDDatabaseService {
                     d.GetRasterBand(1).ReadRaster_Direct(x, y, 1, 1, 1, 1, gdalconst.GDT_Int32, byteBuffer);
                     int elevation = byteBuffer.getInt(0);
                     node.setElevation((double) elevation);
-                    if (node.getElevation() == 0) {
-                        System.out.println("LATITUDE: " + node.getLatitude() + "LONGITUDE: " + node.getLongitude());
-                    }
+                    flightNodeRepository.save(node);
+
                     // Create relationships with current dataset
                     if (leftNode != null) {
-                        Path outgoingLeftPath = new Path(leftNode, node.getLongitude(), node.getLatitude(), node.getElevation(), node.getId());
+                        Path outgoingLeftPath = new Path(leftNode, node);
                         node.getPaths().add(outgoingLeftPath);
 
-                        Path incomingLeftPath = new Path(node, leftNode.getLongitude(), leftNode.getLatitude(), leftNode.getElevation(), leftNode.getId());
+                        Path incomingLeftPath = new Path(node, leftNode);
                         leftNode.getPaths().add(incomingLeftPath);
                     }
 
                     FlightNodeEntity topNode = topNodes.get(x / xStep);
                     if (topNode != null) {
-                        Path outgoingTopPath = new Path(topNode, node.getLongitude(), node.getLatitude(), node.getElevation(), node.getId());
+                        Path outgoingTopPath = new Path(topNode, node);
                         node.getPaths().add(outgoingTopPath);
 
-                        Path incomingTopPath = new Path(node, topNode.getLongitude(), topNode.getLatitude(), topNode.getElevation(), topNode.getId());
+                        Path incomingTopPath = new Path(node, topNode);
                         topNode.getPaths().add(incomingTopPath);
                     }
 
-                    // Save the node to the repository
-                    flightNodeRepository.save(node);
-
                     // update previous left node
-                    leftNode = node;
+                    leftNode = (x + xStep >= xsize) ? null : node;
 
                     // update previous top node
                     topNodes.set(x / xStep, node);
+
+                    // Save the node to the repository
+                    flightNodeRepository.save(node);
                 }
             }
         }
