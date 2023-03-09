@@ -1,4 +1,4 @@
-package br.edu.inteli.cc.m5.maverick.repositories;
+package br.edu.inteli.cc.m5.maverick.services;
 
 import java.util.*;
 
