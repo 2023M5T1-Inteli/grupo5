@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "./assets/logo.svg";
+import logo from "../assets/logo.png";
 
 const Container = styled.div`
   display: flex;
@@ -58,15 +58,15 @@ const Subtitle = styled.h2`
 
 const Button = styled.button`
   background: #18568C;
-  border: 1px solid #18568C;
+  border: .1rem solid #18568C;
   border-radius: 10rem;
   margin-bottom: 3rem;
-  font-size:1.8rem;
+  font-size: 1.8rem;
   color: #FFFFFF;
   padding: 2rem 10rem;
 `
 
-function App () {
+function Home () {
   return(
     <Container>
       <LeftContainer>
@@ -76,11 +76,11 @@ function App () {
           </TitleContainer>
       </LeftContainer>
       <RightContainer>
-          <Button onClick={()=> {console.log("Alguma coisa")}}>Iniciar</Button>
+          <Button onClick={() => {window.location.href = '/form'}}>Iniciar</Button>
           <img src={logo} />
       </RightContainer>
     </Container>
   )
 }
 
-export default App;
+export default Home;
