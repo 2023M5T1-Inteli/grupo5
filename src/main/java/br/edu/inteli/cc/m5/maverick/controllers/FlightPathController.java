@@ -1,12 +1,15 @@
 package br.edu.inteli.cc.m5.maverick.controllers;
 
 import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
-import br.edu.inteli.cc.m5.maverick.models.FlightPathNode;
-import br.edu.inteli.cc.m5.maverick.repositories.FlightPathNodeRepository;
+import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity;
+import br.edu.inteli.cc.m5.maverick.models.Path;
+import br.edu.inteli.cc.m5.maverick.repositories.FlightNodeRepository;
 import br.edu.inteli.cc.m5.maverick.services.DTEDDatabaseService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -19,12 +22,12 @@ public class FlightPathController {
     private final DTEDDatabaseService dtedDatabaseService;
 
     // Database repository
-    private final FlightPathNodeRepository flightPathNodeRepository;
+    private final FlightNodeRepository flightNodeRepository;
 
     // Controller constructor
-    public FlightPathController(DTEDDatabaseService dtedDatabaseService, FlightPathNodeRepository flightPathNodeRepository) throws Exception {
+    public FlightPathController(DTEDDatabaseService dtedDatabaseService, FlightNodeRepository flightNodeRepository) throws Exception {
         this.dtedDatabaseService = dtedDatabaseService;
-        this.flightPathNodeRepository = flightPathNodeRepository;
+        this.flightNodeRepository = flightNodeRepository;
     }
 
     // Create - create all nodes in database from DTED file simplification
@@ -35,15 +38,15 @@ public class FlightPathController {
 
     // Read - return all nodes from database
     @GetMapping("/nodes")
-    public ResponseEntity<List<FlightPathNode>> getNodes() {
-        List<FlightPathNode> nodes = flightPathNodeRepository.findAll();
+    public ResponseEntity<List<FlightNodeEntity>> getNodes() {
+        List<FlightNodeEntity> nodes = (List<FlightNodeEntity>) flightNodeRepository.findAll();
         return ResponseEntity.ok(nodes);
     }
 
     // Update - update properties from specified node
     @PatchMapping("/nodes/{id}")
-    public ResponseEntity<FlightPathNode> updateNode(@PathVariable Long id, @RequestBody FlightPathNode updatedNode) {
-        FlightPathNode node = flightPathNodeRepository.findById(id)
+    public ResponseEntity<FlightNodeEntity> updateNode(@PathVariable Long id, @RequestBody FlightNodeEntity updatedNode) {
+        FlightNodeEntity node = flightNodeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
 
         // if updated node property is not null, replace node property
@@ -60,17 +63,17 @@ public class FlightPathController {
             node.setElevation(updatedNode.getElevation());
         }
 
-        FlightPathNode savedNode = flightPathNodeRepository.save(node);
+        FlightNodeEntity savedNode = flightNodeRepository.save(node);
         return ResponseEntity.ok(savedNode);
     }
 
     // Delete - remove specified node
     @DeleteMapping("/nodes/{id}")
     public ResponseEntity<?> deleteNode(@PathVariable Long id) {
-        FlightPathNode node = flightPathNodeRepository.findById(id)
+        FlightNodeEntity node = flightNodeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
 
-        flightPathNodeRepository.delete(node);
+        flightNodeRepository.delete(node);
         return ResponseEntity.ok().build();
     }
 
