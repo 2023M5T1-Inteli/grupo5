@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,6 +29,24 @@ public class FlightPathController {
     public FlightPathController(DTEDDatabaseService dtedDatabaseService, FlightNodeRepository flightNodeRepository) throws Exception {
         this.dtedDatabaseService = dtedDatabaseService;
         this.flightNodeRepository = flightNodeRepository;
+    }
+
+    @GetMapping("/path")
+    public ResponseEntity<List<FlightNodeEntity>> getPaths() {
+        List<FlightNodeEntity> paths = new ArrayList<>();
+        AStar shortPath = new AStar(flightNodeRepository);
+        Long startId = 0L;
+        Long endId = 645L;
+        FlightNodeEntity start = flightNodeRepository.findById(startId)
+                .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
+        FlightNodeEntity end = flightNodeRepository.findById(endId)
+                .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
+        for (FlightNodeEntity node : shortPath.findPath(start,end)) {
+            System.out.println(node.getId());
+            paths.add(node);
+
+        }
+        return ResponseEntity.ok(paths);
     }
 
     // Create - create all nodes in database from DTED file simplification
