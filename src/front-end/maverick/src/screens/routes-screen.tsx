@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 
 //Import components
-import Map from '../components/maps';
+import Graph from '../components/graphs';
 import Coordinates from '../components/coordinates';
 import ButtonComp from '../components/buttons';
 
@@ -54,7 +54,7 @@ function ViewRoutes() {
       </Header>
       <Main>
         <Coordinates />
-        <Map />
+        <Graph />
         <ButtonComp />
       </Main>
     </Container>
