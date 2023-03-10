@@ -136,7 +136,7 @@ Caracteriza uma localização na região de voo em que a aeronave não poderá o
 
 ## Modelagem Matemática do Problema
 
-Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A area escolhida foi a região da USP, representado neste mapa:
+Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A area escolhida foi a região da USP, representado neste mapa: Aonde, os vértices escolhidos são pontos de referência e as arestas são as distâncias entre os pontos.
 
 ![Região](img/pontos%20-%20conectados.png)
 
