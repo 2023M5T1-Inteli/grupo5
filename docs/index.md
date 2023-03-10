@@ -399,6 +399,7 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 | Armazenamento e compartilhamento de Rota | Eu, como planejador, gostaria de salvar e compartilhar minhas rotas de voo com outros membros da equipe para que possamos colaborar e melhorar a segurança da missão |
 
 # Arquitetura do Sistema
+![Arquitetura do sistema](img/arquitetura-do-sistema.png)
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
