@@ -1,28 +1,28 @@
-package br.edu.inteli.cc.m5.maverick.services;
+package br.edu.inteli.cc.m5.maverick.controllers;
 
-import java.nio.file.Path;
+import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
+import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity;
+import br.edu.inteli.cc.m5.maverick.models.Path;
+import br.edu.inteli.cc.m5.maverick.repositories.FlightNodeRepository;
+
 import java.util.*;
-import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity
-import br.edu.inteli.cc.m5.maverick.models.FlightPathNodeRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
 
 public class AStar {
 
-    private List<FlightNodeEntity> graph;
+    private Iterable<FlightNodeEntity> graph;
     private Map<FlightNodeEntity, Double> gScore;
     private Map<FlightNodeEntity, Double> fScore;
     private Map<FlightNodeEntity, FlightNodeEntity> cameFrom;
-    private FlightPathNodeRepository flightPathNodeRepository;
+    private FlightNodeRepository flightNodeRepository;
 
-    public AStar(List<FlightNodeEntity> graph) {
-        this.graph = graph;
+    public AStar(FlightNodeRepository flightNodeRepository) {
+        this.flightNodeRepository = flightNodeRepository;
+        this.graph = flightNodeRepository.findAll();
+
     }
 
-    public List<FlightNodeEntity> findPath(FlightNodeEntity start, FlightNodeEntity end) {
+    public Iterable<FlightNodeEntity> findPath(FlightNodeEntity start, FlightNodeEntity end) {
 
         // Inicialização
         gScore = new HashMap<>();
@@ -49,8 +49,9 @@ public class AStar {
 
             for (Path path : current.getPaths()) {
 
-                Long curretId = path.targetId();
-                FlightNodeEntity neighbor = flightPathNodeRepository.findById(curretId);
+                Long currentId = path.getTargetId();
+                FlightNodeEntity neighbor = flightNodeRepository.findById(currentId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
 
                 double weight = path.getElevation() + path.getDistance();
 
@@ -71,7 +72,7 @@ public class AStar {
         return null; // Caminho não encontrado
     }
 
-    private List<FlightNodeEntity> reconstructPath(FlightNodeEntity current) {
+    private Iterable<FlightNodeEntity> reconstructPath(FlightNodeEntity current) {
         List<FlightNodeEntity> path = new ArrayList<>();
         path.add(current);
 
@@ -121,10 +122,5 @@ public class AStar {
         double elevationDistance = Math.abs(dAlt);
 
         return Math.sqrt(distance * distance +elevationDistance *elevationDistance);
-    }
-
-    public static void main(String[] args) {
-        AStar teste = new AStar(FlightPathNodeRepository.findAll());
-        teste.findPath(null, null);
     }
 }
