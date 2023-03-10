@@ -408,6 +408,23 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 
 ## Tecnologias Utilizadas
 
+### Docker
+
+Para separação dos ambientes em containers, foi utilizado Docker. O sistema construído está dividido entre dois containers, um rodando a aplicação e o outro com o banco de dados. Mais informações sobre o particionamento do sistema pode ser encontrado na sessão "Módulos do Sistema de Visão Geral".
+
+### Ambiente de desenvolvimento
+
+A IDEs utilizadas para desenvolvimento do projeto foram IntelliJ (recomendação para Java/backend) e VSCode (recomendação para JavaScript/TypeScript)
+
+### Front-end
+
+As linguagens de programação utilizadas para o front-end foram JavaScript e TypeScript. Para a estruturação visual, foi utilizado o framework _React.js_ (podendo também ser considerado uma biblioteca de JavaScript) e a biblioteca _D3.JS_, biblioteca amplamente empregada para produzir visualizações de dados dinâmicas e interativas.
+
+### Back-end
+
+A linguagem de programação Java foi utilizada para construção da aplicação, por conta de sua estruturação orientada a objetos, juntamente com o framework _SpringBoot_. A principal biblioteca externa de Java utilizada foi _GDAL_, utilizada para processamento e manipulação de arquivos com dados geográficos. No presente projeto, a manipulação de arquivos `.dt2` para transformação em objetos no formato `json`.
+
+Para gerenciamento dos dados geográficos já processados, foi utilizado Neo4j, sistema para bancos de dados não relacionais, com fácil visualização para grafos.
 
 # UX e UI Design
 
