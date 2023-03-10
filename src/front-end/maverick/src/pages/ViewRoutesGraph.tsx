@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 
 //Import components
-import Graph from '../components/Graphs';
-import Coordinates from '../components/Coordinates';
-import ButtonComp from '../components/Buttons';
+import Graph from '../components/graphs';
+import Coordinates from '../components/coordinates';
+import ButtonComp from '../components/buttons';
 
 //Import elements
 import logo from '../assets/logoSVG.svg';
