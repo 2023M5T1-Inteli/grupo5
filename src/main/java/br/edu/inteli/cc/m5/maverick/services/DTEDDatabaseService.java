@@ -1,7 +1,8 @@
 package br.edu.inteli.cc.m5.maverick.services;
 
-import br.edu.inteli.cc.m5.maverick.models.FlightPathNode;
-import br.edu.inteli.cc.m5.maverick.repositories.FlightPathNodeRepository;
+import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity;
+import br.edu.inteli.cc.m5.maverick.models.Path;
+import br.edu.inteli.cc.m5.maverick.repositories.FlightNodeRepository;
 import org.gdal.gdal.Dataset;
 import org.gdal.gdal.gdal;
 import org.gdal.gdalconst.gdalconst;
@@ -27,10 +28,10 @@ import java.util.stream.Collectors;
 @Service
 public class DTEDDatabaseService {
     private final List<Dataset> m_DatabaseDtedDatasets;
-    private final FlightPathNodeRepository flightPathNodeRepository;
+    private final FlightNodeRepository flightNodeRepository;
 
-    public DTEDDatabaseService(@Value("dted/Rio") String resourcesDirectory, FlightPathNodeRepository flightPathNodeRepository) throws Exception {
-        this.flightPathNodeRepository = flightPathNodeRepository;
+    public DTEDDatabaseService(@Value("dted/Rio") String resourcesDirectory, FlightNodeRepository flightNodeRepository) throws Exception {
+        this.flightNodeRepository = flightNodeRepository;
 
         // Get version (for debug purposes only)
         String s = gdal.VersionInfo();
@@ -47,16 +48,22 @@ public class DTEDDatabaseService {
             throw new Exception("Unable to load resources directory: " + resourcesDirectory);
         }
 
-        List<File> dtedFiles = Files.walk(Paths.get(resource.toURI()))
+        // Get the first ".dt2" file in the folder
+        Optional<File> firstDtedFile = Files.walk(Paths.get(resource.toURI()))
                 .filter(Files::isRegularFile)
                 .map(x -> x.toFile())
-                .collect(Collectors.toList());
+                .filter(file -> file.getName().endsWith(".dt2"))
+                .findFirst();
 
-        // Loop over all ".dt2" files to get their datasets
-        for (File f : dtedFiles) {
-            Dataset d = gdal.Open(f.getAbsolutePath());
-            if (d != null)
+        if (firstDtedFile.isPresent()) {
+            Dataset d = gdal.Open(firstDtedFile.get().getAbsolutePath());
+            if (d != null) {
                 m_DatabaseDtedDatasets.add(d);
+            } else {
+                throw new Exception("Unable to open file: " + firstDtedFile.get().getAbsolutePath());
+            }
+        } else {
+            throw new Exception("No '.dt2' files found in directory: " + resourcesDirectory);
         }
     }
 
@@ -124,8 +131,8 @@ public class DTEDDatabaseService {
         return queryResult;
     }
 
-    public List<FlightPathNode> readPointsFromFile(String path) {
-        List<FlightPathNode> nodes = new ArrayList<>();
+    public List<FlightNodeEntity> readPointsFromFile(String path) {
+        List<FlightNodeEntity> nodes = new ArrayList<>();
 
         try {
             Dataset d = gdal.Open(path);
@@ -141,7 +148,7 @@ public class DTEDDatabaseService {
                         double lat = geoTransform[3] + j * geoTransform[5];
                         int elevation = QueryLonLatElevation(lon, lat).get();
 
-                        FlightPathNode node = new FlightPathNode();
+                        FlightNodeEntity node = new FlightNodeEntity();
                         node.setLatitude(lat);
                         node.setLongitude(lon);
                         node.setElevation((double) elevation);
@@ -159,6 +166,7 @@ public class DTEDDatabaseService {
 
 
     // Create nodes from 500 points in DTED file and save in db repository
+
     public void readPointsFromDataset() {
         for (Dataset d : m_DatabaseDtedDatasets) {
             int xsize = d.getRasterXSize();
@@ -166,24 +174,66 @@ public class DTEDDatabaseService {
 
             double[] geoTransform = d.GetGeoTransform();
 
-            int xstep = 500;
-            int ystep = 500;
+            int xStep = 500;
+            int yStep = 500;
 
-            for (int i = 0; i < xsize; i += ystep) {
-                for (int j = 0; j < ysize; j += xstep) {
-                    double lon = geoTransform[0] + i * geoTransform[1];
-                    double lat = geoTransform[3] + j * geoTransform[5];
-                    Optional<Integer> elevationQuery = QueryLonLatElevation(lon, lat);
+            // Add flight nodes
+            int xSlots = (xsize / xStep) + 1;
 
-                    FlightPathNode node = new FlightPathNode();
-                    node.setLatitude(lat);
+            // Create top nodes list
+            List<FlightNodeEntity> topNodes = new ArrayList<>(xSlots);
+            for (int k = 0; k < xSlots; k++) {
+                topNodes.add(null);
+            }
+
+            // create left node
+            FlightNodeEntity leftNode = null;
+            for (int y = 0; y < ysize; y += yStep) {
+                for (int x = 0; x < xsize; x += xStep) {
+                    double lat = geoTransform[3] + y * geoTransform[5];
+                    double lon = geoTransform[0] + x * geoTransform[1];
+
+                    FlightNodeEntity node = new FlightNodeEntity();
                     node.setLongitude(lon);
-                    if (elevationQuery != null) {
-                        double elevation = QueryLonLatElevation(lon, lat).get();
-                        node.setElevation(elevation);
+                    node.setLatitude(lat);
+                    // Set Elevation
+                    ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4);
+                    byteBuffer.order(ByteOrder.nativeOrder());
+                    d.GetRasterBand(1).ReadRaster_Direct(x, y, 1, 1, 1, 1, gdalconst.GDT_Int32, byteBuffer);
+                    int elevation = byteBuffer.getInt(0);
+                    node.setElevation((double) elevation);
+                    flightNodeRepository.save(node);
+
+                    // Create relationships with current dataset
+                    if (leftNode != null) {
+                        System.out.print("leftNode " + leftNode);
+                        Path outgoingLeftPath = new Path(leftNode, node.getLatitude(), node.getLongitude(), node.getElevation(), node.getId());
+                        node.getPaths().add(outgoingLeftPath);
+
+                        System.out.print("leftNode " + node);
+                        Path incomingLeftPath = new Path(node, leftNode.getLatitude(), leftNode.getLongitude(), leftNode.getElevation(), leftNode.getId());
+                        leftNode.getPaths().add(incomingLeftPath);
                     }
 
-                    flightPathNodeRepository.save(node);
+                    FlightNodeEntity topNode = topNodes.get(x / xStep);
+                    if (topNode != null) {
+                        System.out.print("topNode " + topNode);
+                        Path outgoingTopPath = new Path(topNode, node.getLatitude(), node.getLongitude(), node.getElevation(), node.getId());
+                        node.getPaths().add(outgoingTopPath);
+
+                        System.out.print("node " + node);
+                        Path incomingTopPath = new Path(node, topNode.getLatitude(), topNode.getLongitude(), topNode.getElevation(), topNode.getId());
+                        topNode.getPaths().add(incomingTopPath);
+                    }
+
+                    // update previous left node
+                    leftNode = (x + xStep >= xsize) ? null : node;
+
+                    // update previous top node
+                    topNodes.set(x / xStep, node);
+
+                    // Save the node to the repository
+                    flightNodeRepository.save(node);
                 }
             }
         }
