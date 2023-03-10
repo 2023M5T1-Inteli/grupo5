@@ -136,7 +136,7 @@ Caracteriza uma localização na região de voo em que a aeronave não poderá o
 
 ## Modelagem Matemática do Problema
 
-Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A area escolhida foi a região da USP, representado neste mapa:
+Para representar o problema descrito previamente de uma forma matemática e computacionalmente eficiente, foi necessário a utilização de grafos. A area escolhida para exemplificação foi a região da USP, representado neste mapa:
 
 ![Região](img/pontos%20-%20conectados.png)
 
@@ -285,7 +285,7 @@ Outro benefício que podemos citar, nesse caso, envolve as características fís
 
 ### Qual será o critério de sucesso e qual medida será utilizada para o avaliar
 
-Ao gerar uma trajetória dentro da área, foram definidos alguns critérios para avalia-la. É necessário que a trajetória ligue o ponto de partida ao ponto de chegada sem sair de dentro da área especificada e evitando as áreas restritas, alem de que deve ser viável para o modelo do avião especificado, ou seja, o percurso não pode conter curvas que não sejam possíveis de realizar com esse tipo de veículo. Como a solução tem como foco específico voos de baixa altitude, é muito importante que não haja uma elevação significante durante todo o trajeto, logo o avião irá contornar as zonas de alta altitude.
+Ao gerar uma trajetória dentro da área, foram definidos alguns critérios para avaliá-la. É necessário que a trajetória ligue o ponto de partida ao ponto de chegada sem sair de dentro da área especificada e evitando as áreas restritas, alem de que deve ser viável para o modelo do avião especificado, ou seja, o percurso não pode conter curvas que não sejam possíveis de realizar com esse tipo de veículo. Como a solução tem como foco específico voos de baixa altitude, é muito importante que não haja uma elevação significante durante todo o trajeto, logo o avião irá contornar as zonas de alta altitude.
 
 Um caminho que cumpra todos esses aspectos, de forma otimizada, pode ser considerado como sucesso. Mas, para validar este critério será necessário que o trajeto seja analisado pela AEL, para que possa ser classificado, de fato, como um caminho viável e otimizado.
 
@@ -399,8 +399,16 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 | Armazenamento e compartilhamento de Rota | Eu, como planejador, gostaria de salvar e compartilhar minhas rotas de voo com outros membros da equipe para que possamos colaborar e melhorar a segurança da missão |
 
 # Arquitetura do Sistema
+![Arquitetura da solução](img/arquitetura-solucao.png)
+
+
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
+Por questões de compatibilidade, a aplicação está rodando em dois diferentes containers nomeados como `spring-boot-1` e `neo4j-1`, separados utilizando Docker.
+
+A aplicação central, construída em Java, é rodada na divisão `spring-boot-1`, que recebe esse nome por conta do framework utilizado para sua construção.
+
+Para compatibilidade com o banco de dados Neo4j, a base NoSQL é rodada na divisão `neo4j-1`.
 
 ## Descrição dos Subsistemas
 
