@@ -29,7 +29,7 @@ const Button = styled.button`
 function ButtonComp() {
     return(
         <ContainerButton>
-            <Button>Calcular novamente</Button>
+            <Button onClick={() => {window.location.href = '/'}}>Calcular novamente</Button>
         </ContainerButton>
     )
 }

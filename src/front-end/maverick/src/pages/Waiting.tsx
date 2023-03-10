@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import styled from "styled-components";
 import CircularIndeterminate from "../components/CircularProgress";
@@ -36,6 +38,17 @@ const Logo = styled.img`
 `
 
 function Waiting (){
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            navigate("/viewroutes"); // replace with your desired URL
+        }, 5000); // replace with your desired timeout in milliseconds
+
+        return () => {
+        clearTimeout(timeoutId);
+        };
+    }, [navigate]);
     return(
         <Container>
             <CircularIndeterminate></CircularIndeterminate>

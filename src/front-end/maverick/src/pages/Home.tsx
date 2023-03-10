@@ -72,7 +72,7 @@ function Home () {
       <LeftContainer>
           <TitleContainer>
             <Title>Bem vindo ao sistema Maverick </Title>
-            <Subtitle>O sistema que irá promover maior segurança para sua viagem em altas altitudes planejando as melhores rotas para a sua missão.</Subtitle>
+            <Subtitle>O sistema que promove maior segurança para sua viagem em baixas altitudes, planejando as melhores rotas para a sua missão.</Subtitle>
           </TitleContainer>
       </LeftContainer>
       <RightContainer>

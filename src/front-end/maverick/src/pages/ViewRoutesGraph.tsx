@@ -4,13 +4,12 @@ import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 
 //Import components
-import Graph from '../components/graphs';
-import Coordinates from '../components/coordinates';
-import ButtonComp from '../components/buttons';
+import Graph from '../components/Graphs';
+import Coordinates from '../components/Coordinates';
+import ButtonComp from '../components/Buttons';
 
 //Import elements
-import './routes-screen.css'
-import logo from '../assets/logo.svg';
+import logo from '../assets/logoSVG.svg';
 
 //Create styles for components
 const Container = styled.div`
@@ -18,6 +17,11 @@ const Container = styled.div`
   flex-direction: column;
   width: 90vw;
   height: 100vh;
+`
+
+const Logo = styled.img`
+  width: 20rem;
+  height: 6.0rem;
 `
 
 const Header = styled.div`
@@ -45,12 +49,12 @@ const Main = styled.div`
 `
 
 // Render the components to export for HTML
-function ViewRoutes() {
+function ViewRoutesGraph() {
   return (
     <Container>
       <Header>
         <Title>Rota Gerada</Title>
-        <img src={logo} />
+        <Logo src={logo} />
       </Header>
       <Main>
         <Coordinates />
@@ -61,4 +65,4 @@ function ViewRoutes() {
   )
 }
 
-export default ViewRoutes;
+export default ViewRoutesGraph;
