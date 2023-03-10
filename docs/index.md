@@ -404,17 +404,19 @@ Caminho de uma requisição na aplicação:
 1. Usuário faz a requisiçao GET no front-end de criação do grafo para retornar a rota desejada
 2. Requisição passada ao back-end através do procolo REST
 3. A aplicação Spring Boot utiliza a biblioteca GDAL para manipulação dos dados geográficos da área delimitada e retorna um objeto json
-4. Através do protocolo bolt, o json gerado é usado para popular o banco de dados Neo4j
+4. Através do protocolo bolt, o json do grafo gerado é usado para popular o banco de dados Neo4j
 5. Neo4j, a partir do json recebido, calcula o caminho mínimo e retorno outro json para o back-end (Spring Boot)
 6. Esse mesmo json é retornado ao front-end que, através da biblioteca D3.js, produz uma visualização da rota em grafo
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
-Por questões de compatibilidade, a aplicação está rodando em dois diferentes containers nomeados como `spring-boot-1` e `neo4j-1`, separados utilizando Docker.
+Por questões de compatibilidade, a aplicação roda em dois diferentes containers nomeados como `spring-boot-1` e `neo4j-1`, separados utilizando Docker.
 
-A aplicação central, construída em Java, é rodada na divisão `spring-boot-1`, que recebe esse nome por conta do framework utilizado para sua construção.
+O back-end, construído em Java, está no container `spring-boot-1`, que recebe esse nome por conta do framework utilizado para sua construção. A imagem utilizada contém a biblioteca GDAL e o JDK 17, dependências do projeto.
 
-Para compatibilidade com o banco de dados Neo4j, a base NoSQL é rodada na divisão `neo4j-1`.
+Para persistir informações, o banco de dados NoSQL Neo4j roda no container `neo4j-1`.
+
+A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controller) dentro da pasta _src_.
 
 ## Descrição dos Subsistemas
 
@@ -424,11 +426,11 @@ Para compatibilidade com o banco de dados Neo4j, a base NoSQL é rodada na divis
 
 ### Docker
 
-Para separação dos ambientes em containers, foi utilizado Docker. O sistema construído está dividido entre dois containers, um rodando a aplicação e o outro com o banco de dados. Mais informações sobre o particionamento do sistema pode ser encontrado na sessão "Módulos do Sistema de Visão Geral".
+Para separação dos ambientes em containers, foi utilizado Docker. O sistema construído está dividido entre dois containers, um roda o backend e o outro o banco de dados. Mais informações sobre o particionamento do sistema pode ser encontrado na sessão "Módulos do Sistema de Visão Geral".
 
 ### Ambiente de desenvolvimento
 
-A IDEs utilizadas para desenvolvimento do projeto foram IntelliJ (recomendação para Java/backend) e VSCode (recomendação para JavaScript/TypeScript)
+A IDEs utilizadas para desenvolvimento do projeto foram IntelliJ (recomendação para Java/backend) e VSCode (recomendação para JavaScript/TypeScript). Para realizar testes de requisições para a API, os programas Postman e Insomnia.
 
 ### Front-end
 
