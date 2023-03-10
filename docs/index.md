@@ -400,6 +400,13 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 
 # Arquitetura do Sistema
 ![Arquitetura do sistema](img/arquitetura-do-sistema.png)
+Caminho de uma requisição na aplicação:
+1. Usuário faz a requisiçao GET no front-end de criação do grafo para retornar a rota desejada
+2. Requisição passada ao back-end através do procolo REST
+3. A aplicação Spring Boot utiliza a biblioteca GDAL para manipulação dos dados geográficos da área delimitada e retorna um objeto json
+4. Através do protocolo bolt, o json gerado é usado para popular o banco de dados Neo4j
+5. Neo4j, a partir do json recebido, calcula o caminho mínimo e retorno outro json para o back-end (Spring Boot)
+6. Esse mesmo json é retornado ao front-end que, através da biblioteca D3.js, produz uma visualização da rota em grafo
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
