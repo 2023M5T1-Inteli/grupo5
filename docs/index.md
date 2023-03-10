@@ -403,6 +403,12 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
+Por questões de compatibilidade, a aplicação está rodando em dois diferentes containers nomeados como `spring-boot-1` e `neo4j-1`, separados utilizando Docker.
+
+A aplicação central, construída em Java, é rodada na divisão `spring-boot-1`, que recebe esse nome por conta do framework utilizado para sua construção.
+
+Para compatibilidade com o banco de dados Neo4j, a base NoSQL é rodada na divisão `neo4j-1`.
+
 ## Descrição dos Subsistemas
 
 ### Requisitos de software
