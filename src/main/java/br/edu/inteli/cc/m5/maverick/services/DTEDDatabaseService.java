@@ -206,22 +206,18 @@ public class DTEDDatabaseService {
 
                     // Create relationships with current dataset
                     if (leftNode != null) {
-                        System.out.print("leftNode " + leftNode);
                         Path outgoingLeftPath = new Path(leftNode, node.getLatitude(), node.getLongitude(), node.getElevation(), node.getId());
                         node.getPaths().add(outgoingLeftPath);
 
-                        System.out.print("leftNode " + node);
                         Path incomingLeftPath = new Path(node, leftNode.getLatitude(), leftNode.getLongitude(), leftNode.getElevation(), leftNode.getId());
                         leftNode.getPaths().add(incomingLeftPath);
                     }
 
                     FlightNodeEntity topNode = topNodes.get(x / xStep);
                     if (topNode != null) {
-                        System.out.print("topNode " + topNode);
                         Path outgoingTopPath = new Path(topNode, node.getLatitude(), node.getLongitude(), node.getElevation(), node.getId());
                         node.getPaths().add(outgoingTopPath);
 
-                        System.out.print("node " + node);
                         Path incomingTopPath = new Path(node, topNode.getLatitude(), topNode.getLongitude(), topNode.getElevation(), topNode.getId());
                         topNode.getPaths().add(incomingTopPath);
                     }

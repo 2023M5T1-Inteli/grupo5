@@ -28,6 +28,17 @@ public class FlightNodeEntity {
     @Relationship(type = "PATH")
     private List<Path> paths = new ArrayList<>();
 
+    // Constructors
+    public FlightNodeEntity() {
+    }
+
+    public FlightNodeEntity(Long id, Double latitude, Double longitude, Double elevation) {
+        this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.elevation = elevation;
+    }
+
     // Getters and setters
 
     public Long getId() {
