@@ -415,7 +415,9 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 ## Wireframe + Storyboard
 
 ## Design de Interface - Guia de Estilos
-
+![Telas front](img/telas.png)
+![Telas front](img/tela1.png)
+![Guia de estilo](img/guia%20de%20estilo.png)
 
 # Projeto de Banco de Dados
 
