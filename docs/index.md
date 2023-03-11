@@ -62,7 +62,8 @@ Planejador de trajetórias para voos em baixa altitude
   - [Modelo Conceitual](#modelo-conceitual)
   - [Modelo Lógico](#modelo-lógico)
 - [Teste de Software](#teste-de-software)
-  - [Testes Unitários](#testes-unitários)
+  - [Testes Unitários Automatizados (JUnit 5)](#testes-unitários-automatizados-junit-5)
+  - [Testes de Integração da API Manuais](#testes-de-integração-da-api-manuais)
     - [Teste 1:](#teste-1)
     - [Teste 2:](#teste-2)
     - [Teste 3:](#teste-3)
@@ -116,7 +117,7 @@ A resolução do problema consiste em trazer um planejador de trajetórias para 
 
 ### Qual a tomada de decisão do problema proposto
 
-Para desenvolvimento do projeto, é fundamental que todas as variáveis relacionadas ao problema, estejam tangiveis à solução. 
+Para desenvolvimento do projeto, é fundamental que todas as variáveis relacionadas ao problema, estejam tangiveis à solução.
 
 Por isso, o grupo considera algumas variáveis para o desenvolvimento da solução que devem ser consideradas: região de voo, pontos de chegada e partida e zonas de exclusão.
 
@@ -124,9 +125,9 @@ Por isso, o grupo considera algumas variáveis para o desenvolvimento da soluç�
 
 Região que o voo será operado, incluindo variáveis de latitude, longitude e altitude da região.
 
-#### Pontos de chegada e partida 
+#### Pontos de chegada e partida
 
-Os vértices no grafo são representadas por coordenadas geográficas, em notação *x, y, z*. 
+Os vértices no grafo são representadas por coordenadas geográficas, em notação *x, y, z*.
 
 Correspondem à latitude, longitude e altitude, na região de voo. Dessa forma, é considerado que para saber quais pontos (vertices ou nós) a rota obrigatoriamente deverá passar, é preciso que a rota percorra determinadas arestas (percurso do nó).
 
@@ -176,18 +177,18 @@ Min = 0,7XaR3 + 0,5aR1 + 0,6R1R3 + 0,5R1R2 + 0,4R2R3 + 0,8R2R4 + 0,65R3R4 +
 
 ```
 No A: 1 = XaR3 + XaR1
-No R3:XaR3 + XR1R3 + XR2R3 = XR3R4 
+No R3:XaR3 + XR1R3 + XR2R3 = XR3R4
 No R1:XaR1 = XR1R2 + XR1R3
 No R2: XR1R2 = XR2R3 + XR2R4
 No R4: XR2R4 + XR3R4 + XR5R4+ XR13R4 + XR12R4 = XR4R5 + XR4R13 + XR4R12
 No R5: XR4R5 = XR5R13 + XR5R6
-No R6: XR5R6 = XR613+ XR6R12 + XR6R11 + XR6R7 
+No R6: XR5R6 = XR613+ XR6R12 + XR6R11 + XR6R7
 No R7: XR6R7 = XR7R8 + XR7b + XR7R9 + XR710 + XR7R11
 No R8: XR7R8 = XR8b
-No B: XR7Rb + XR8b = XbR9 
+No B: XR7Rb + XR8b = XbR9
 No R9: XbR9 + XR7R9 = XR9R10
 No R10: XR710 + XR9R10 = XR10R11
-No R11: XR6R11 + XR7R10 + XR10R11 = XR11R12 
+No R11: XR6R11 + XR7R10 + XR10R11 = XR11R12
 No R12: XR11R12 + XR6R12 + XR4R12 = XR12R4 + XR12R13
 No R13: XR4R13 + XR5R13 + XR6R13 + XR12R13 = XR13R4
 ```
@@ -198,8 +199,8 @@ No R13: XR4R13 + XR5R13 + XR6R13 + XR12R13 = XR13R4
 A representação do problema em um grafo pode ser realizada usando o banco de dados Neo4j, com o código abaixo:
 
 ```cypher
-Create(v0:Share{nome:"Partida - Share",coord:"23°34'22.27'S 46°42'23.18'O"}) 
-Create(v1:Share{nome:"Destino - Inteli",coord:"23°33'20.63'S  46°44'2.89'O"}) 
+Create(v0:Share{nome:"Partida - Share",coord:"23°34'22.27'S 46°42'23.18'O"})
+Create(v1:Share{nome:"Destino - Inteli",coord:"23°33'20.63'S  46°44'2.89'O"})
 Create(v2:Region1{nome:"R1",coord:"23°34'18.82'S  46°42'30.63'O"})
 Create(v3:Region2{nome:"R2",coord:"23°34'15.70'S  46°42'33.14'O"})
 Create(v4:Region3{nome:"R3",coord:"23°34'4.30'S  46°42'28.85'O"})
@@ -251,10 +252,10 @@ O código acima irá gerar um grafo, que pode ser representado visualmente da se
 
 ![Grafo](img/grafo.png)
 
-Nesse caso, o ponto de partida seria  o ponto "Partida - Share" e o de destino "Destino - Inteli". 
+Nesse caso, o ponto de partida seria  o ponto "Partida - Share" e o de destino "Destino - Inteli".
 
 A possibilidade de um caminho factivel com o minimo de distância é:
-Partida-Share,R1 + R1,R2 + R2,R3 + R3,R4 + R4,R13 + R13,R12 + R12,R11 + R11,R10 + R10,R9 + 
+Partida-Share,R1 + R1,R2 + R2,R3 + R3,R4 + R4,R13 + R13,R12 + R12,R11 + R11,R10 + R10,R9 +
 R9,Destino-Inteli
 Com uma distância de 5,05km.
 
@@ -425,13 +426,32 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 
 # Teste de Software
 
-## Testes Unitários
 
-Para a realização do teste unitário, foi utilizado o aplicativo Insomnia, na qual ao ativar o servidor possibilita o usuário de fazer requisições na aplicação, sendo elas POST (inserir dados na aplicação), GET (retornar os dados da aplicação), PATCH (atualizar os dados da aplicação) e DELETE (deletar os dados na aplicação).
-No desenvolvimento da aplicação foi utilizado o Springboot (framework para criação do servidor em java) com a arquitetura MVC (model, view e controller), no qual os controladores são responsáveis por fazer as manipulações dos dados através das requisições, e o Docker para virtualizar os sistemas, sendo executado em um container 2 imagens: Neo4j e SpringBoot.
+## Testes Unitários Automatizados (JUnit 5)
+
+Utilizamos o framework de testes unitários JUnit 5 para testar os métodos utilizados no framework Spring Boot para a criação do servidor. Os testes foram realizados utilizando o framework Mockito para simular as requisições HTTP.
+
+Para rodar os testes, é necessário abrir o arquivo `pom.xml` e excluir ou comentar a linha `<skipTests>true</skipTests>`. Esse passo é necessário pois caso contrário o comando `mvn install`, que roda durante a configuração, iria rodar os testes no ambiente local ao invés do docker, sem as dependências necessárias, o que causaria um erro.
+
+Após isso, basta:
+1. subir a aplicação - veja as instruções completas em [Manual de Implantação](#implantacao)
+2. logar no terminal do container Spring Boot da aplicação, com o comando `docker exec -it grupo5-spring-boot-1 sh` (sendo `grupo5-spring-boot-1` o nome do container)
+3. rodar dentro do terminal do container o comando `mvn test` para rodar os testes.
+
+O resultado esperado deverá ser semelhante a esse:
+
+![Testes Unitários](img/testes-unitarios.png)
+
+Os arquivos de teste estão disponíveis em `src/test/java/br/edu/inteli/cc/m5/maverick`.
+
+## Testes de Integração da API Manuais
+
+Para a realização do teste da API, foi utilizado o aplicativo Insomnia, que possibilita ao usuário fazer requisições para a aplicação, sendo elas POST (inserir dados na aplicação), GET (retornar os dados da aplicação), PATCH (atualizar os dados da aplicação) e DELETE (deletar os dados na aplicação).
+
+No desenvolvimento da aplicação foi utilizado o Spring Boot (framework para criação do servidor em java) com a arquitetura MVC (model, view e controller), no qual os controladores são responsáveis por fazer as manipulações dos dados através das requisições, e o Docker para virtualizar os sistemas, sendo executado em um container 2 imagens: Neo4j e SpringBoot.
 
 
-### Teste 1: 
+### Teste 1:
 
 
 Requisição POST - Através do Insominia inserir a rota para a enviar um requisição de criação de dados.
@@ -439,7 +459,7 @@ Requisição POST - Através do Insominia inserir a rota para a enviar um requis
 ![Requisição no aplicativo insomnia para o método POST](img/requisicao-post.png)
 
 
-**Resultado esperado:** 
+**Resultado esperado:**
 
 Espera-se que ao enviar a requisição os dados sejam carregados no Neo4j.
 
@@ -451,14 +471,14 @@ Os dados dos arquivos dt2 foram enviados para o Neo4j.
 ![Resultado da requisição POST](img/requisicao-post-resultado.png)
 
 
-### Teste 2: 
+### Teste 2:
 
 Requisição GET - Obter todos os dados que foram inseridos na base de dados através do método POST.
 
 ![Requisição no aplicativo insomnia para o método GET](img/requisicao-get.png)
 
 
-**Resultado esperado:** 
+**Resultado esperado:**
 
 Espera-se que todos os dados que foram importados sejam enviados através da requisição sejam visualizados através de um JSON.
 
@@ -476,14 +496,14 @@ Foram recebidos 256 dados, ou seja, todos os dados que foram enviados para a apl
 		"goesTo": [],
 		"goesInto": []
 	}]
-</code>  
+</code>
 
 
-### Teste 3: 
+### Teste 3:
 
 Requisição PATCH - Atualizar dados especificados no caminho da URI, ou seja, para atualizar os dados deve-se inserir no final do caminho o ID do nó que será atualizado.
 
-A requisição deve ter a especificação do ID no final da URI, e definir o JSON que será enviado para a mudança:  
+A requisição deve ter a especificação do ID no final da URI, e definir o JSON que será enviado para a mudança:
 
 <code>
   [{
@@ -491,12 +511,12 @@ A requisição deve ter a especificação do ID no final da URI, e definir o JSO
     "longitude": -122.4194,
     "elevation": 42
   }]
-</code>  
+</code>
 
 ![Requisição no aplicativo insomnia para o método PUTCH](img/requisicao-putch.png)
 
 
-**Resultado esperado:** 
+**Resultado esperado:**
 
 Espera-se que ao selecionar o ID, os dados sejam atualizados conforme a requisição feita pelo usuário.
 
@@ -505,7 +525,7 @@ Espera-se que ao selecionar o ID, os dados sejam atualizados conforme a requisi�
 
 Os dados foram atualizado conforme o id requisitado.
 
-Antes da requisição:  
+Antes da requisição:
 
 <code>
   [{
@@ -516,9 +536,9 @@ Antes da requisição:
 	  "goesTo": [],
 	  "goesInto": []
   }]
-</code>  
+</code>
 
-Depois da requisição:  
+Depois da requisição:
 
 <code>
   [{
@@ -529,10 +549,10 @@ Depois da requisição:
     "goesTo": [],
     "goesInto": []
   }]
-</code>  
+</code>
 
 
-### Teste 4: 
+### Teste 4:
 
 Requisição DELETE - Deletar dados especificados no caminho da URI, ou seja, para deletar os dados deve-se inserir no final do caminho o ID do nó que será deletado.
 
@@ -541,7 +561,7 @@ A requisição realizada para esse teste foi especificando o ID 0.
 ![Requisição no aplicativo insomnia para o método DELETE](img/requisicao-delete.png)
 
 
-**Resultado esperado:** 
+**Resultado esperado:**
 
 Espera-se que ao enviar a requisição o dado requisitado seja deletado.
 
@@ -560,7 +580,26 @@ O dado específicado foi deletado.
 
 # Manuais
 
-## Manual de Implantação
+## <a id="implantacao"></a>Manual de Implantação
+
+Para utilizar a aplicação, é necessário clonar o repositório e baixar as seguintes ferramentas:
+
+- Docker (https://www.docker.com/products/docker-desktop/)
+- Maven (https://maven.apache.org/)
+- Java 17 JDK (https://adoptium.net/temurin/releases/)
+
+Após baixar e instalar o descrito acima, é necessário abrir o terminal e navegar até a pasta do projeto. Para rodar a aplicação, é necessário executar a seguinte sequência de comandos no terminal:
+
+`mvn clean install`
+
+`docker-compose down`
+
+`docker-compose up -d`
+
+Caso utilize Linux ou MacOS, os comandos podem ser rodados em uma linha só, da seguinte forma:
+
+`mvn clean install && docker-compose down && docker-compose up -d`
+
 
 ## Manual do Usuário
 
