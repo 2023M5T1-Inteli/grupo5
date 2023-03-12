@@ -450,6 +450,7 @@ Para gerenciamento dos dados geográficos já processados, foi utilizado Neo4j, 
 # UX e UI Design
 
 ## Wireframe + Storyboard
+![Wireframe + Storyboard](img/storyboard-wireframe.png)
 
 ## Design de Interface - Guia de Estilos
 ![Telas front](img/telas.png)
