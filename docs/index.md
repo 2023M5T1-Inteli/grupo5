@@ -627,6 +627,7 @@ Para utilizar a aplicação, é necessário clonar o repositório e baixar as se
 - Docker (https://www.docker.com/products/docker-desktop/)
 - Maven (https://maven.apache.org/)
 - Java 17 JDK (https://adoptium.net/temurin/releases/)
+- Node (https://nodejs.org/en/)
 
 Após baixar e instalar o descrito acima, é necessário abrir o terminal e navegar até a pasta do projeto. Para rodar a aplicação, é necessário executar a seguinte sequência de comandos no terminal:
 
@@ -639,6 +640,14 @@ Após baixar e instalar o descrito acima, é necessário abrir o terminal e nave
 Caso utilize Linux ou MacOS, os comandos podem ser rodados em uma linha só, da seguinte forma:
 
 `mvn clean install && docker-compose down && docker-compose up -d`
+
+Na execução do front-end é necessário abrir o diretório front-end/maverick.
+
+Após abrir o diretório, insira os comandos para instalar as dependências e executar o front-end:
+
+`npm install`
+
+`npm run dev`
 
 
 ## Manual do Usuário
