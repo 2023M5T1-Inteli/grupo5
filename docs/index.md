@@ -452,7 +452,9 @@ Para gerenciamento dos dados geográficos já processados, foi utilizado Neo4j, 
 ## Wireframe + Storyboard
 
 ## Design de Interface - Guia de Estilos
-
+![Telas front](img/telas.png)
+![Telas front](img/tela1.png)
+![Guia de estilo](img/guia%20de%20estilo.png)
 
 # Projeto de Banco de Dados
 
