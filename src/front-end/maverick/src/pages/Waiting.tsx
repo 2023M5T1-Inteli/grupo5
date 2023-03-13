@@ -1,9 +1,15 @@
+//Import libraries
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
 import styled from "styled-components";
+
+//Import components
 import CircularIndeterminate from "../components/CircularProgress";
 
+//Import elements
+import logo from "../assets/logo.png";
+
+//Create styles for components
 const Container = styled.div`
     display: flex;
     width: 100vw;   
@@ -36,7 +42,7 @@ const Logo = styled.img`
     position: absolute;
     bottom:4rem;
 `
-
+// Render the components to export for HTML
 function Waiting (){
     const navigate = useNavigate();
 

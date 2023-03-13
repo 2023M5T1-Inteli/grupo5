@@ -1,6 +1,8 @@
+//Import libraries
 import styled from "styled-components";
+
+//Import elements
 import logo from "../assets/logo.png";
-import Waiting from "../pages/Waiting";
 
 //Create styles to components to render the button
 const ContainerButton = styled.div`
@@ -21,7 +23,7 @@ const Button = styled.button`
   font-size: 1.8rem;
   color: #FFFFFF;
 `
-
+// Render the components to export for HTML
 function FooterComponents (){
     return(
         <ContainerButton>
