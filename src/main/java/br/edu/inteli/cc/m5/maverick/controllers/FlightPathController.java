@@ -31,6 +31,7 @@ public class FlightPathController {
         this.flightNodeRepository = flightNodeRepository;
     }
 
+    // GET - return shortest path
     @GetMapping("/path")
     public ResponseEntity<List<FlightNodeEntity>> getPaths() {
         List<FlightNodeEntity> paths = new ArrayList<>();
