@@ -1,6 +1,10 @@
+//Import libraries
 import styled from "styled-components";
+
+//Import elements
 import logo from "../assets/logo.png";
 
+//Create styles to components to render the coordinates
 const Container = styled.div`
   display: flex;
   width: 100vw;
@@ -66,6 +70,7 @@ const Button = styled.button`
   padding: 2rem 10rem;
 `
 
+ // Return the components to export for HTML
 function Home () {
   return(
     <Container>
@@ -83,4 +88,5 @@ function Home () {
   )
 }
 
+//Export component coordinates
 export default Home;

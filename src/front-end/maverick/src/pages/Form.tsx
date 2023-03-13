@@ -1,9 +1,13 @@
 //Import libraries
 import styled from "styled-components";
-import logo from "../assets/logo.png";
+
+//Import components
 import Title from "../components/Title";
 import InputComponents from "../components/Input"
 import FooterComponents from "../components/Footer"
+
+//Import elements
+import logo from "../assets/logo.png";
 
 //Create styles to components to render the coordinates
 const Container = styled.div`
