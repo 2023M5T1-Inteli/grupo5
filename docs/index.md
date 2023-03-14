@@ -96,7 +96,7 @@ Planejador de trajetórias para voos em baixa altitude
 
 ## Empresa
 
-*Descrição_da_empresa*
+AEL Sistemas é uma empresa do ramo de tecnologias militares e espaciais que foca em pesquisas e soluções com aplicações em plataformas terrestres, aéreas e marítmas. Desde 2001 faz parte do grupo internacional Elbit Systems, que lidera o segmento de defesa militar mundial. Com sua sede em Porto Alegre, Rio Grande do Sul, AEL produz sistemas que são reconhecidos e utilizados tanto nacional quanto internacionalmente.
 
 ## O Problema
 
