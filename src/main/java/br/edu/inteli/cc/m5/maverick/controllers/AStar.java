@@ -1,62 +1,61 @@
 package br.edu.inteli.cc.m5.maverick.controllers;
 
-import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
 import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity;
 import br.edu.inteli.cc.m5.maverick.models.Path;
-import br.edu.inteli.cc.m5.maverick.repositories.FlightNodeRepository;
 
 import java.util.*;
 
 public class AStar {
-    private Iterable<FlightNodeEntity> graph;
-    private Map<Long, Double> gScore;
-    private Map<Long, Double> fScore;
-    private Map<Long, Long> cameFrom;
-    private FlightNodeRepository flightNodeRepository;
+    private HashMap<UUID, FlightNodeEntity> graph;
+    private Map<UUID, Double> gScore;
+    private Map<UUID, Double> fScore;
+    private Map<UUID, UUID> cameFrom;
+    //private FlightNodeRepository flightNodeRepository;
 
-    public AStar(FlightNodeRepository flightNodeRepository) {
+    public AStar(HashMap<UUID, FlightNodeEntity> nodeSet) {
         // Initialize the A* algorithm with the flight node repository
-        this.flightNodeRepository = flightNodeRepository;
-        this.graph = flightNodeRepository.findAll();
+        //this.flightNodeRepository = flightNodeRepository;
+        //this.graph = flightNodeRepository.findAll();
+        this.graph = nodeSet;
     }
 
-    public Iterable<Long> findPath(FlightNodeEntity start, FlightNodeEntity end) {
+    public Iterable<Long> findPath(UUID start, UUID end) {
         // Initialization
         gScore = new HashMap<>();
         fScore = new HashMap<>();
-        cameFrom = new HashMap<>();
+        cameFrom = new HashMap<UUID, UUID>();
 
         // Set the initial scores to infinity for each node in the graph
-        for (FlightNodeEntity node : graph) {
-            gScore.put(node.getId(), Double.POSITIVE_INFINITY);
-            fScore.put(node.getId(), Double.POSITIVE_INFINITY);
+        for (UUID node : graph.keySet()) {
+            gScore.put(node, Double.POSITIVE_INFINITY);
+            fScore.put(node, Double.POSITIVE_INFINITY);
         }
 
         // Set the score for the starting node
-        gScore.put(start.getId(), 0.0);
-        fScore.put(start.getId(), haversineDistance(start, end));
+        gScore.put(start, 0.0);
+        fScore.put(start, haversineDistance(graph.get(start), graph.get(end)));
 
         // Add the starting node to the open set
-        PriorityQueue<Long> openSet = new PriorityQueue<>(Comparator.comparingDouble(fScore::get));
-        openSet.add(start.getId());
+        PriorityQueue<UUID> openSet = new PriorityQueue<>(Comparator.comparingDouble(fScore::get));
+        openSet.add(start);
 
         // Loop through the nodes until the end node is reached
         while (!openSet.isEmpty()) {
-            Long currentId = openSet.poll();
-            FlightNodeEntity current = flightNodeRepository.findById(currentId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
+            UUID currentId = openSet.poll();
+//            FlightNodeEntity current = flightNodeRepository.findById(currentId)
+//                    .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
+            FlightNodeEntity current = graph.get(currentId);
 
-            if (currentId.equals(end.getId())) {
+            if (currentId.equals(end)) {
                 // If the end node has been reached, reconstruct the path and return it
-                return reconstructPath(end.getId());
+                return reconstructPath(end);
             }
 
             // Check each neighbor of the current node
 
             for (Path path : current.getPaths()) {
                 Long pathId = path.getTargetId();
-                FlightNodeEntity neighbor = flightNodeRepository.findById(pathId)
-                        .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
+                FlightNodeEntity neighbor = graph.get(pathId);
 
                 System.out.println(neighbor);
                 System.out.println(neighbor.getId());
@@ -69,7 +68,7 @@ public class AStar {
                 if (tentativeGScore < gScore.get(neighbor.getId())) {
                     cameFrom.put(neighbor.getId(), current.getId());
                     gScore.put(neighbor.getId(), tentativeGScore);
-                    fScore.put(neighbor.getId(), tentativeGScore + haversineDistance(neighbor, end));
+                    fScore.put(neighbor.getId(), tentativeGScore + haversineDistance(neighbor, graph.get(end)));
 
                     if (!openSet.contains(neighbor.getId())) {
                         openSet.add(neighbor.getId());
@@ -83,9 +82,9 @@ public class AStar {
         return null;
     }
 
-    private Iterable<Long> reconstructPath(Long currentId) {
+    private Iterable<UUID> reconstructPath(UUID currentId) {
         // Reconstruct the path using the "came from" map
-        List<Long> path = new ArrayList<>();
+        List<UUID> path = new ArrayList<>();
 
         path.add(currentId);
 
@@ -101,7 +100,7 @@ public class AStar {
         // Calculate the haversine distance between two nodes
         final int EARTH_RADIUS = 6371;
 
-            double lat1 = node1.getLatitude();
+        double lat1 = node1.getLatitude();
         double lon1 = node1.getLongitude();
         double alt1 = node1.getElevation();
 

@@ -15,10 +15,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * Implementa operações básicas de acesso a dados geográficos armazenados em arquivos
@@ -29,6 +26,8 @@ import java.util.stream.Collectors;
 public class DTEDDatabaseService {
     private final List<Dataset> m_DatabaseDtedDatasets;
     private final FlightNodeRepository flightNodeRepository;
+
+    private HashMap<UUID, FlightNodeEntity> nodeSet;
 
     public DTEDDatabaseService(@Value("dted/Rio") String resourcesDirectory, FlightNodeRepository flightNodeRepository) throws Exception {
         this.flightNodeRepository = flightNodeRepository;
@@ -167,7 +166,8 @@ public class DTEDDatabaseService {
 
     // Create nodes from 500 points in DTED file and save in db repository
 
-    public void readPointsFromDataset() {
+    public HashMap<UUID, FlightNodeEntity> readPointsFromDataset() {
+        this.nodeSet = new HashMap<UUID, FlightNodeEntity>();
         for (Dataset d : m_DatabaseDtedDatasets) {
             int xsize = d.getRasterXSize();
             int ysize = d.getRasterYSize();
@@ -202,7 +202,7 @@ public class DTEDDatabaseService {
                     d.GetRasterBand(1).ReadRaster_Direct(x, y, 1, 1, 1, 1, gdalconst.GDT_Int32, byteBuffer);
                     int elevation = byteBuffer.getInt(0);
                     node.setElevation((double) elevation);
-                    flightNodeRepository.save(node);
+                    //flightNodeRepository.save(node);
 
                     // Create relationships with current dataset
                     if (leftNode != null) {
@@ -229,9 +229,12 @@ public class DTEDDatabaseService {
                     topNodes.set(x / xStep, node);
 
                     // Save the node to the repository
-                    flightNodeRepository.save(node);
+                    nodeSet.put(node.getId(), node);
+                    System.out.println(node.getId());
+                    //flightNodeRepository.save(node);
                 }
             }
         }
+        return this.nodeSet;
     }
 }
