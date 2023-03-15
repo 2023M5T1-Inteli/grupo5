@@ -28,8 +28,6 @@ public class AStar {
 
         // Set the initial scores to infinity for each node in the graph
         for (FlightNodeEntity node : graph) {
-            System.out.println(node);
-            System.out.println(node.getId());
             gScore.put(node.getId(), Double.POSITIVE_INFINITY);
             fScore.put(node.getId(), Double.POSITIVE_INFINITY);
         }
@@ -56,8 +54,6 @@ public class AStar {
             // Check each neighbor of the current node
 
             for (Path path : current.getPaths()) {
-                System.out.println("1 vez roda");
-
                 Long pathId = path.getTargetId();
                 FlightNodeEntity neighbor = flightNodeRepository.findById(pathId)
                         .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
@@ -68,8 +64,6 @@ public class AStar {
                 double weight = path.getElevation() + path.getDistance();
 
                 double tentativeGScore = gScore.get(currentId) + weight;
-                System.out.println(tentativeGScore);
-                System.out.println(gScore.get(neighbor.getId()));
 
                 // If the tentative g score is better than the current g score for the neighbor, update the scores
                 if (tentativeGScore < gScore.get(neighbor.getId())) {
