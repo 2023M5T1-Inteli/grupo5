@@ -362,7 +362,31 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 
 ![SWOT](img/SWOT.png)
 
-A informações atribuídas nesse framework tem como referência Notícias, Conversas Internas com a Empresa, Documentos estratégicos como o Tapi, Site Isntitucional da Ael e a Apresentação institucional da Empresa.
+Fontes:
+
+[(1) - Terrain-Following](https://www.ael.com.br/terrain-following.html)
+
+[(2) - Player de Relevância](https://www.ael.com.br/noticias.php?cd_publicacao=288)
+
+[(3) - Parcerias](https://www.ael.com.br/noticias.php?cd_publicacao=225)
+
+[(4) - Qualificação](https://www.aereo.jor.br/2015/09/22/gripen-suecia-recebe-os-primeiros-engenheiros-brasileiros-que-vao-trabalhar-no-novo-caca/)
+
+[(5) - Dados](https://github.com/2023M5T1-Inteli/grupo5/tree/master/src/main/resources)
+
+[(6) - Interoperabilidade e Integração](https://www.ael.com.br/noticias.php?cd_publicacao=331)
+
+[(7) - Guerras](https://www.poder360.com.br/internacional/nao-esperava-ser-papa-na-epoca-da-3a-guerra-mundial-diz-francisco/)
+
+(8) - Apresentação institucional da Ael no Onboarding do módulo 5 (30/01/2023)
+
+(9) - Workshop com o parceiro do projeto (06/02/2023)
+
+[(10) - Concorrência](https://exame.com/negocios/as-10-maiores-empresas-de-defesa-do-mundo/)
+
+[(11) - Carência de Recursos](https://www.camara.leg.br/noticias/925341-relatorio-setorial-da-defesa-no-orcamento-de-2023-aponta-carencia-de-recursos-para-institutos-militares/)
+
+[(12) - Crises de Matérias Primas](https://www.cnnbrasil.com.br/economia/falta-de-materia-prima-e-maior-preocupacao-das-industrias-aponta-cni/#:~:text=Em%20rela%C3%A7%C3%A3o%20a%20agosto%20de,mantendo%2Dse%20em%2072%25.)
 
 ## Proposta de Valor: Value Proposition Canvas
 
