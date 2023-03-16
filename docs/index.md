@@ -172,8 +172,8 @@ Essa variável será aplicada conforme os pesos das arestas estabelecidos na fun
 A função objetivo considera as variáveis descritas previamente, na seção do problema, e atribui um peso para cada aresta.
 
 ```
-Min = 0,7XaR3 + 0,5aR1 + 0,6R1R3 + 0,5R1R2 + 0,4R2R3 + 0,8R2R4 + 0,65R3R4 +
-0,5R4R5 + 0,5R4R13 + 0,8R4R12 +0,5R5R4 + 0,5R13R4 + 0,8R12R4 + 0,55R5R6 + 1,2R6R7+ 0,9R6R11 + 0,8R6R12 + 0,6R6R13 + 0,7R7R8 + 1R7R11 + 0,5R7R10 + 1R7R9 + 1R7b + 0,85R8b + 0,1bR9 + 0,6R9R10 + 0,4R10R11 + 0,5R11R12 + 0,8R12R13 + 0,8R12R4
+$Min = 0,7XaR3 + 0,5XaR1 + 0,6XR1R3 + 0,5XR1R2 + 0,4XR2R3 + 0,8XR2R4 + 0,65XR3R4 +
+0,5XR4R5 + 0,5XR4R13 + 0,8XR4R12 +0,5XR5R4 + 0,5XR13R4 + 0,8XR12R4 + 0,55XR5R6 + 1,2XR6R7+ 0,9XR6R11 + 0,8XR6R12 + 0,6XR6R13 + 0,7XR7R8 + 1XR7R11 + 0,5XR7R10 + 1XR7R9 + 1XR7b + 0,85XR8b + 0,1XbR9 + 0,6XR9R10 + 0,4XR10R11 + 0,5XR11R12 + 0,8XR12R13 + 0,8XR12R4$
 ```
 
 ### Limitações existentes no problema
