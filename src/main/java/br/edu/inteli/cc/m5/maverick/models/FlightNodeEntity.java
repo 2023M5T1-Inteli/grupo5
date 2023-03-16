@@ -1,5 +1,6 @@
 package br.edu.inteli.cc.m5.maverick.models;
 
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
@@ -15,6 +16,9 @@ public class FlightNodeEntity {
 
     // Auto generated id
     @Id
+    @GeneratedValue
+    private Long idNeo;
+
     private UUID id;
 
     // Manually set properties
@@ -32,7 +36,7 @@ public class FlightNodeEntity {
         this.id = UUID.randomUUID();
     }
 
-//    public FlightNodeEntity(Long id, Double latitude, Double longitude, Double elevation) {
+//    public FlightNodeEntity(UUID id, Double latitude, Double longitude, Double elevation) {
 //        this.id = id;
 //        this.latitude = latitude;
 //        this.longitude = longitude;
@@ -41,11 +45,23 @@ public class FlightNodeEntity {
 
     // Getters and setters
 
+    public Long getIdNeo() {
+        return idNeo;
+    }
+
+    public void setIdNeo(Long idNeo) {
+        this.idNeo = idNeo;
+    }
+
     public UUID getId() {
         return id;
     }
 
-//    public void setId(Long id) {
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    //    public void setId(Long id) {
 //        this.id = id;
 //    }
 

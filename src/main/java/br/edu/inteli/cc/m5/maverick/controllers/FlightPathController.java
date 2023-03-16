@@ -32,20 +32,29 @@ public class FlightPathController {
     // GET - return shortest path
     @GetMapping("/path")
     public ResponseEntity<List<FlightNodeEntity>> getPaths() {
-//        List<FlightNodeEntity> paths = new ArrayList<>();
-//        AStar shortPath = new AStar(this.nodeSet);
-//        UUID startId = 0L;
-//        UUID endId = 22L;
-//        FlightNodeEntity start = nodeSet.get(startId);
-//        FlightNodeEntity end = nodeSet.get(endId);
-//
-//        for (Long nodeId : shortPath.findPath(startId,endId)) {
-//            FlightNodeEntity node = flightNodeRepository.findById(nodeId)
-//                    .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
-//            paths.add(node);
-//
-//        }
-           return ResponseEntity.ok(paths);
+        List<FlightNodeEntity> paths = new ArrayList<>();
+        AStar shortPath = new AStar(this.nodeSet);
+        int i = 0;
+        UUID startId = null;
+        UUID endId = null;
+        for (UUID tmp : nodeSet.keySet()) {
+            if (i == 0) {
+                startId = tmp;
+            }
+            if (i == 31) {
+                endId = tmp;
+            }
+            i++;
+            System.out.println(tmp);
+        }
+        for (FlightNodeEntity node : shortPath.findPath(startId,endId)) {
+            paths.add(node);
+        }
+
+        System.out.println(paths.size());
+        flightNodeRepository.saveAll(paths);
+
+        return ResponseEntity.ok(paths);
     }
 
     // Create - create all nodes in database from DTED file simplification

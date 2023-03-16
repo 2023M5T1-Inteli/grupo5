@@ -19,7 +19,7 @@ public class AStar {
         this.graph = nodeSet;
     }
 
-    public Iterable<Long> findPath(UUID start, UUID end) {
+    public Iterable<FlightNodeEntity> findPath(UUID start, UUID end) {
         // Initialization
         gScore = new HashMap<>();
         fScore = new HashMap<>();
@@ -54,7 +54,7 @@ public class AStar {
             // Check each neighbor of the current node
 
             for (Path path : current.getPaths()) {
-                Long pathId = path.getTargetId();
+                UUID pathId = path.getTargetId();
                 FlightNodeEntity neighbor = graph.get(pathId);
 
                 System.out.println(neighbor);
@@ -82,15 +82,15 @@ public class AStar {
         return null;
     }
 
-    private Iterable<UUID> reconstructPath(UUID currentId) {
+    private Iterable<FlightNodeEntity> reconstructPath(UUID currentId) {
         // Reconstruct the path using the "came from" map
-        List<UUID> path = new ArrayList<>();
+        List<FlightNodeEntity> path = new ArrayList<>();
 
-        path.add(currentId);
+        path.add(graph.get(currentId));
 
         while (cameFrom.containsKey(currentId)) {
             currentId = cameFrom.get(currentId);
-            path.add(0, currentId);
+            path.add(graph.get(currentId));
         }
 
         return path;
