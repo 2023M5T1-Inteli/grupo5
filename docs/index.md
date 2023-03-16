@@ -394,7 +394,7 @@ Fontes:
 
 ## Matriz de Risco
 
-A matriz de risco foi elaborada considerando fatores categorizados em externos, internos e software. A categoria externa engloba condições climáticas e oportunidades de mercados, além de dependência para o desenvolvimento da solução como a quantidade de dados. Já a categoria interna contém problemas e oportunidades como problemas nos processos de criação que envolvem o nível de experiência da equipe. Por último a categoria de software, na qual inclui complexidade do algoritmo e outros fatores.
+A matriz de risco foi elaborada considerando fatores categorizados em internos e software. A categoria interna contém problemas e oportunidades como problemas nos processos de criação que envolvem o nível de experiência da equipe. Já a categoria de software, na qual inclui complexidade do algoritmo e outros fatores.
 
 ![Matriz_de_risco](img/risk-matrix.png)
 
