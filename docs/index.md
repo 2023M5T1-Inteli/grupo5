@@ -106,14 +106,14 @@ Diversas operações militares destinadas principalmente à defesa e segurança 
 
 ### Quais os dados disponíveis
 
-Inicialmente, a empresa parceira passou dados de duas regiões para testagem e desenvolvimento do sistema. São duas pastas com informações geográficas dos estados do Rio de Janeiro e São Paulo contidas em arquivos de extensão `.dt2`. Em seu carregamento, utilizando a biblioteca GDAL em Java, são visualizadas regiões com variações de cores dependendo de suas respectivas altitudes e coordenadas geográficas.
+Inicialmente, a empresa parceira disponibilizou dados de duas regiões para testagem e desenvolvimento do sistema. São duas pastas com informações geográficas dos estados do Rio de Janeiro e São Paulo contidas em arquivos de extensão `.dt2`. Em seu carregamento, utilizando a biblioteca GDAL em Java, são visualizadas regiões com variações de cores dependendo de suas respectivas altitudes e coordenadas geográficas.
 
 Esses dados, juntamente a outros, serão inputados pelo usuário no momento de utilização do sistema. Os seguintes inputs são planejados no escopo do projeto:
 
-- Região de voo - como já mencionado, o sistema será alimentado com dados geográficos indicando a região que o voo acontecerá, incluindo latitude, longitude e altitude, nos arquivos `.dt2`;
-- Pontos de partida e chegada - serão vértices do grafo, representados por coordenadas geográficas, onde a notação *x, y, z* correspondem à latitude, longitude e altitude dentro da região de voo;
-- Zona de exclusão - caracterizadas por localizações dentro da região de voo em que a aeronave não poderá passar, ou seja, será uma zona excluída pelo sistema ao planejar a rota de voo. Sua área pode ser representada por polígonos fechados, área de uma circunferência dado um raio *r* a partir de uma coordenada no mapa, etc;
-- Vértices de rota obrigatórias - se é de desejo do(s) usuário(s), existirá a opção de seleção de vértices no mapa (nós do grafo) que serão obrigatórias no planejamento de rota de voo;
+- Região de voo - como já mencionado, o sistema será alimentado com dados geográficos indicando a região que o voo acontecerá, incluindo latitude, longitude e altitude. O input será uma caixa de upload de arquivos tipo `.dt2`;
+- Pontos de partida e chegada - serão vértices do grafo, representados por coordenadas geográficas. O input consiste em dados tipo `float` (como as coordenadas são no formato X.XXXXX) de latitude e longitude dentro da região de voo;
+- Zona de exclusão - caracterizadas por localizações dentro da região de voo em que a aeronave não poderá passar, ou seja, será uma zona excluída pelo sistema ao planejar a rota de voo. Sua área pode ser representada por polígonos fechados, área de uma circunferência dado um raio *r* a partir de uma coordenada no mapa, etc. O modelo de input ainda está a ser definido;
+- Vértices de rota obrigatórias - se é de desejo do(s) usuário(s), existirá a opção de seleção de vértices do mapa (nós do grafo) que serão obrigatórias no planejamento de rota de voo. O tipo de input para seleção dos vértices ainda está a ser definido;
 
 ### Qual o objetivo do problema
 
@@ -150,53 +150,50 @@ Partida - Share -> A
 Destino - Inteli -> B
 ```
 
+<br>
 
 ### Variável de Decisão
 
-Para a tomada de decisão para o fluxo minimo, temos a seguinte variável:
+Para a tomada de decisão para o fluxo minimo, temos a seguinte variável: <br>
+Sendo $x$ uma aresta do grafo entre o nó $i$ e o nó $j$, o peso da aresta será:
 
-```
-Sendo X uma aresta do grafo entre o nó "i" e o nó "j", o peso da aresta será:
-
-Xij = {
-  1 se usar o caminho,
-  0 se não usar
+$x_{ij}$ = {<br>
+  $\hspace{5mm}1$ se usar o caminho, <br>
+  $\hspace{5mm}0$ se não usar <br>
 }
-```
 
 Essa variável será aplicada conforme os pesos das arestas estabelecidos na função objetivo e as limitações existentes no problema, descritos a seguir.
 
-### Função objetivo
+<br>
 
+
+### Função objetivo
 
 A função objetivo considera as variáveis descritas previamente, na seção do problema, e atribui um peso para cada aresta.
 
-```
-Min = 0,7XaR3 + 0,5aR1 + 0,6R1R3 + 0,5R1R2 + 0,4R2R3 + 0,8R2R4 + 0,65R3R4 +
-0,5R4R5 + 0,5R4R13 + 0,8R4R12 +0,5R5R4 + 0,5R13R4 + 0,8R12R4 + 0,55R5R6 + 1,2R6R7+ 0,9R6R11 + 0,8R6R12 + 0,6R6R13 + 0,7R7R8 + 1R7R11 + 0,5R7R10 + 1R7R9 + 1R7b + 0,85R8b + 0,1bR9 + 0,6R9R10 + 0,4R10R11 + 0,5R11R12 + 0,8R12R13 + 0,8R12R4
-```
+$Min = 0,7x_{AR3} + 0,5x_{AR1} + 0,6x_{R1R3} + 0,5x_{R1R2} + 0,4x_{R2R3} + 0,8x_{R2R4} + 0,65x_{R3R4} + 0,5x_{R4R5} + 0,5x_{R4R13} + 0,8x_{R4R12} +0,5x_{R5R4} + 0,5x_{R13R4} + 0,8x_{R12R4} + 0,55x_{R5R6} + 1,2x_{R6R7}+ 0,9x_{R6R11} + 0,8x_{R6R12} + 0,6x_{R6R13} + 0,7x_{R7R8} + 1x_{R7R11} + 0,5x_{R7R10} + 1x_{R7R9} + 1x_{R7B} + 0,85x_{R8B} + 0,1x_{BR9} + 0,6x_{R9R10} + 0,4x_{R10R11} + 0,5x_{R11R12} + 0,8x_{R12R13} + 0,8x_{R12R4}$
+
+<br>
 
 ### Limitações existentes no problema
 
+$Nó\hspace {2mm} A: 1 = x_{AR3} + x_{AR1} \\
+Nó\hspace {2mm} R3:x_{AR3} + x_{R1R3} + x_{R2R3} = x_{R3R4} \\
+Nó\hspace {2mm} R1:x_{AR1} = x_{R1R2} + x_{R1R3} \\
+Nó\hspace {2mm} R2: x_{R1R2} = x_{R2R3} + x_{R2R4} \\
+Nó\hspace {2mm} R4: x_{R2R4} + x_{R3R4} + x_{R5R4} + x_{R13R4} + x_{R12R4} = x_{R4R5} + x_{R4R13} + x_{R4R12} \\
+Nó\hspace {2mm} R5: x_{R4R5} = x_{R5R13} + x_{R5R6} \\
+Nó\hspace {2mm} R6: x_{R5R6} = x_{R613} + x_{R6R12} + x_{R6R11} + x_{R6R7} \\
+Nó\hspace {2mm} R7: x_{R6R7} = x_{R7R8} + x_{R7B} + x_{R7R9} + x_{R710} + x_{R7R11} \\
+Nó\hspace {2mm} R8: x_{R7R8} = x_{R8B} \\
+Nó\hspace {2mm} B: x_{R7RB} + x_{R8B} = 1 \\
+Nó\hspace {2mm} R9: x_{BR9} + x_{R7R9} = x_{R9R10} \\
+Nó\hspace {2mm} R10: x_{R710} + x_{R9R10} = x_{R10R11} \\
+Nó\hspace {2mm} R11: x_{R6R11} + x_{R7R10} + x_{R10R11} = x_{R11R12} \\
+Nó\hspace {2mm} R12: x_{R11R12} + x_{R6R12} + x_{R4R12} = x_{R12R4} + x_{R12R13} \\
+Nó\hspace {2mm} R13: x_{R4R13} + x_{R5R13} + x_{R6R13} + x_{R12R13} = x_{R13R4} \\$
 
-```
-No A: 1 = XaR3 + XaR1
-No R3:XaR3 + XR1R3 + XR2R3 = XR3R4
-No R1:XaR1 = XR1R2 + XR1R3
-No R2: XR1R2 = XR2R3 + XR2R4
-No R4: XR2R4 + XR3R4 + XR5R4+ XR13R4 + XR12R4 = XR4R5 + XR4R13 + XR4R12
-No R5: XR4R5 = XR5R13 + XR5R6
-No R6: XR5R6 = XR613+ XR6R12 + XR6R11 + XR6R7
-No R7: XR6R7 = XR7R8 + XR7b + XR7R9 + XR710 + XR7R11
-No R8: XR7R8 = XR8b
-No B: XR7Rb + XR8b = XbR9
-No R9: XbR9 + XR7R9 = XR9R10
-No R10: XR710 + XR9R10 = XR10R11
-No R11: XR6R11 + XR7R10 + XR10R11 = XR11R12
-No R12: XR11R12 + XR6R12 + XR4R12 = XR12R4 + XR12R13
-No R13: XR4R13 + XR5R13 + XR6R13 + XR12R13 = XR13R4
-```
-
+<br>
 
 ## Representação do Problema em um Grafo usando Neo4j
 
