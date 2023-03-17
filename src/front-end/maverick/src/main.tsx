@@ -5,5 +5,5 @@ import Test from './test/Test'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <Test/>
+    <Router/>
 )
