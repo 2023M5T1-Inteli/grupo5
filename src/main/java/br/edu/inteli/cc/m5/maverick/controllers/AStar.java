@@ -9,9 +9,9 @@ import java.util.*;
 
 public class AStar {
     private Iterable<FlightNodeEntity> graph;
-    private Map<Long, Double> gScore;
-    private Map<Long, Double> fScore;
-    private Map<Long, Long> cameFrom;
+    private Map<FlightNodeEntity, Double> gScore;
+    private Map<FlightNodeEntity, Double> fScore;
+    private Map<FlightNodeEntity, FlightNodeEntity> cameFrom;
     private FlightNodeRepository flightNodeRepository;
 
     public AStar(FlightNodeRepository flightNodeRepository) {
@@ -20,7 +20,7 @@ public class AStar {
         this.graph = flightNodeRepository.findAll();
     }
 
-    public Iterable<Long> findPath(FlightNodeEntity start, FlightNodeEntity end) {
+    public Iterable<FlightNodeEntity> findPath(FlightNodeEntity start, FlightNodeEntity end) {
         // Initialization
         gScore = new HashMap<>();
         fScore = new HashMap<>();
@@ -28,76 +28,68 @@ public class AStar {
 
         // Set the initial scores to infinity for each node in the graph
         for (FlightNodeEntity node : graph) {
-            gScore.put(node.getId(), Double.POSITIVE_INFINITY);
-            fScore.put(node.getId(), Double.POSITIVE_INFINITY);
+            gScore.put(node, Double.POSITIVE_INFINITY);
+            fScore.put(node, Double.POSITIVE_INFINITY);
         }
 
         // Set the score for the starting node
-        gScore.put(start.getId(), 0.0);
-        fScore.put(start.getId(), haversineDistance(start, end));
+        gScore.put(start, 0.0);
+        fScore.put(start, haversineDistance(start, end));
 
         // Add the starting node to the open set
-        PriorityQueue<Long> openSet = new PriorityQueue<>(Comparator.comparingDouble(fScore::get));
-        openSet.add(start.getId());
+        PriorityQueue<FlightNodeEntity> openSet = new PriorityQueue<>(Comparator.comparingDouble(fScore::get));
+        openSet.add(start);
 
         // Loop through the nodes until the end node is reached
         while (!openSet.isEmpty()) {
-            Long currentId = openSet.poll();
-            FlightNodeEntity current = flightNodeRepository.findById(currentId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
+            FlightNodeEntity current = openSet.poll();
 
-            if (currentId.equals(end.getId())) {
+            if (current.equals(end)) {
                 // If the end node has been reached, reconstruct the path and return it
-                return reconstructPath(end.getId());
+                return reconstructPath(end);
             }
 
             // Check each neighbor of the current node
-
             for (Path path : current.getPaths()) {
-                Long pathId = path.getTargetId();
-                FlightNodeEntity neighbor = flightNodeRepository.findById(pathId)
+                Long currentId = path.getTargetId();
+                FlightNodeEntity neighbor = flightNodeRepository.findById(currentId)
                         .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
-
-                System.out.println(neighbor);
-                System.out.println(neighbor.getId());
 
                 double weight = path.getElevation() + path.getDistance();
 
-                double tentativeGScore = gScore.get(currentId) + weight;
+                double tentativeGScore = gScore.get(current) + weight;
 
                 // If the tentative g score is better than the current g score for the neighbor, update the scores
-                if (tentativeGScore < gScore.get(neighbor.getId())) {
-                    cameFrom.put(neighbor.getId(), current.getId());
-                    gScore.put(neighbor.getId(), tentativeGScore);
-                    fScore.put(neighbor.getId(), tentativeGScore + haversineDistance(neighbor, end));
+                if (tentativeGScore < gScore.get(neighbor)) {
+                    cameFrom.put(neighbor, current);
+                    gScore.put(neighbor, tentativeGScore);
+                    fScore.put(neighbor, tentativeGScore + haversineDistance(neighbor, end));
 
-                    if (!openSet.contains(neighbor.getId())) {
-                        openSet.add(neighbor.getId());
+                    if (!openSet.contains(neighbor)) {
+                        openSet.add(neighbor);
                     }
                 }
             }
         }
 
         // If no path was found, return null
-        System.out.println("NULO");
         return null;
     }
 
-    private Iterable<Long> reconstructPath(Long currentId) {
+    private Iterable<FlightNodeEntity> reconstructPath(FlightNodeEntity current) {
         // Reconstruct the path using the "came from" map
-        List<Long> path = new ArrayList<>();
+        List<FlightNodeEntity> path = new ArrayList<>();
+        path.add(current);
 
-        path.add(currentId);
-
-        while (cameFrom.containsKey(currentId)) {
-            currentId = cameFrom.get(currentId);
-            path.add(0, currentId);
+        while (cameFrom.containsKey(current)) {
+            current = cameFrom.get(current);
+            path.add(0, current);
         }
 
         return path;
     }
 
-    public double haversineDistance(FlightNodeEntity node1, FlightNodeEntity node2) {
+    public static double haversineDistance(FlightNodeEntity node1, FlightNodeEntity node2) {
         // Calculate the haversine distance between two nodes
         final int EARTH_RADIUS = 6371;
 

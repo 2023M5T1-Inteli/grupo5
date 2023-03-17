@@ -37,15 +37,13 @@ public class FlightPathController {
         List<FlightNodeEntity> paths = new ArrayList<>();
         AStar shortPath = new AStar(flightNodeRepository);
         Long startId = 0L;
-        Long endId = 22L;
+        Long endId = 645L;
         FlightNodeEntity start = flightNodeRepository.findById(startId)
                 .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
         FlightNodeEntity end = flightNodeRepository.findById(endId)
                 .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
-        shortPath.findPath(start,end);
-        for (Long nodeId : shortPath.findPath(start,end)) {
-            FlightNodeEntity node = flightNodeRepository.findById(nodeId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
+        for (FlightNodeEntity node : shortPath.findPath(start,end)) {
+            System.out.println(node.getId());
             paths.add(node);
 
         }
