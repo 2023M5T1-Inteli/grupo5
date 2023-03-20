@@ -96,4 +96,16 @@ public class FlightNodeEntity {
     public void setPaths(List<Path> paths) {
         this.paths = paths;
     }
+
+    public void clearPaths(UUID trgId) {
+        List<Path> tmpPaths = new ArrayList<>();
+        for (Path path : paths) {
+            if (path.getTargetId() != trgId) {
+                tmpPaths.add(path);
+            }
+        }
+        for (Path pth : tmpPaths) {
+            paths.remove(pth);
+        }
+    }
 }

@@ -2,6 +2,7 @@ package br.edu.inteli.cc.m5.maverick.controllers;
 
 import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
 import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity;
+import br.edu.inteli.cc.m5.maverick.models.Path;
 import br.edu.inteli.cc.m5.maverick.repositories.FlightNodeRepository;
 import br.edu.inteli.cc.m5.maverick.services.DTEDDatabaseService;
 import org.springframework.http.ResponseEntity;
@@ -41,14 +42,23 @@ public class FlightPathController {
             if (i == 0) {
                 startId = tmp;
             }
-            if (i == 31) {
+            if (i == 30) {
                 endId = tmp;
             }
             i++;
             System.out.println(tmp);
         }
         for (FlightNodeEntity node : shortPath.findPath(startId,endId)) {
-            paths.add(node);
+            for (FlightNodeEntity comp : shortPath.findPath(startId,endId)) {
+                for (Path path : node.getPaths()) {
+                    if (node != comp) {
+                        if (comp.getId() == path.getTargetId()) {
+                            node.clearPaths(comp.getId());
+                            paths.add(node);
+                        }
+                    }
+                }
+            }
         }
 
         System.out.println(paths.size());
