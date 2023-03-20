@@ -22,7 +22,6 @@ Planejador de trajetórias para voos em baixa altitude
     - [Qual a tomada de decisão do problema proposto](#qual-a-tomada-de-decisão-do-problema-proposto)
       - [Região de voo](#região-de-voo)
       - [Pontos de chegada e partida](#pontos-de-chegada-e-partida)
-      - [Zonas de exclusão](#zonas-de-exclusão)
   - [Modelagem Matemática do Problema](#modelagem-matemática-do-problema)
     - [Variável de Decisão](#variável-de-decisão)
     - [Função objetivo](#função-objetivo)
@@ -112,12 +111,10 @@ Esses dados, juntamente a outros, serão inputados pelo usuário no momento de u
 
 - Região de voo - como já mencionado, o sistema será alimentado com dados geográficos indicando a região que o voo acontecerá, incluindo latitude, longitude e altitude. O input será uma caixa de upload de arquivos tipo `.dt2`;
 - Pontos de partida e chegada - serão vértices do grafo, representados por coordenadas geográficas. O input consiste em dados tipo `float` (como as coordenadas são no formato X.XXXXX) de latitude e longitude dentro da região de voo;
-- Zona de exclusão - caracterizadas por localizações dentro da região de voo em que a aeronave não poderá passar, ou seja, será uma zona excluída pelo sistema ao planejar a rota de voo. Sua área pode ser representada por polígonos fechados, área de uma circunferência dado um raio *r* a partir de uma coordenada no mapa, etc. O modelo de input ainda está a ser definido;
-- Vértices de rota obrigatórias - se é de desejo do(s) usuário(s), existirá a opção de seleção de vértices do mapa (nós do grafo) que serão obrigatórias no planejamento de rota de voo. O tipo de input para seleção dos vértices ainda está a ser definido;
 
 ### Qual o objetivo do problema
 
-A resolução do problema consiste em trazer um planejador de trajetórias para voos de baixa altitude utilizando grafos, a partir do mapeamento do terreno com base nos dados de relevo disponibilizados.
+A resolução do problema consiste em trazer um planejador de trajetórias para voos de baixa altitude utilizando grafos e o problema do caminho mínimo, a partir do mapeamento do terreno com base nos dados de relevo disponibilizados.
 
 ### Qual a tomada de decisão do problema proposto
 
@@ -131,13 +128,9 @@ Região que o voo será operado, incluindo variáveis de latitude, longitude e a
 
 #### Pontos de chegada e partida
 
-Os vértices no grafo são representadas por coordenadas geográficas, em notação *x, y, z*.
+Os vértices no grafo são representadas por coordenadas geográficas, em notação $x, y, z$.
 
 Correspondem à latitude, longitude e altitude, na região de voo. Dessa forma, é considerado que para saber quais pontos (vertices ou nós) a rota obrigatoriamente deverá passar, é preciso que a rota percorra determinadas arestas (percurso do nó).
-
-#### Zonas de exclusão
-
-Caracteriza uma localização na região de voo em que a aeronave não poderá operar. Por exemplo, terrenos em que existam um impedimento maior que a altitude que o voo estará operando. Sua área pode ser representada por polígonos fechados a partir de uma coordenada no mapa.
 
 ## Modelagem Matemática do Problema
 
@@ -284,23 +277,26 @@ Outro benefício que podemos citar, nesse caso, envolve as características fís
 
 ### Qual será o critério de sucesso e qual medida será utilizada para o avaliar
 
-Ao gerar uma trajetória dentro da área, foram definidos alguns critérios para avalia-la. É necessário que a trajetória ligue o ponto de partida ao ponto de chegada sem sair de dentro da área especificada e evitando as áreas restritas, alem de que deve ser viável para o modelo do avião especificado, ou seja, o percurso não pode conter curvas que não sejam possíveis de realizar com esse tipo de veículo. Como a solução tem como foco específico voos de baixa altitude, é muito importante que não haja uma elevação significante durante todo o trajeto, logo o avião irá contornar as zonas de alta altitude.
+Ao gerar uma trajetória dentro da área, foram definidos alguns critérios para avaliá-la. É necessário que a trajetória ligue o ponto de partida ao ponto de chegada sem sair de dentro da área especificada e evitando as áreas restritas, alem de que deve ser viável para o modelo do avião especificado, ou seja, o percurso não pode conter curvas que não sejam possíveis de realizar com esse tipo de veículo. Como a solução tem como foco específico voos de baixa altitude, é muito importante que não haja uma elevação significante durante todo o trajeto, logo o avião irá contornar as zonas de alta altitude.
 
 Um caminho que cumpra todos esses aspectos, de forma otimizada, pode ser considerado como sucesso. Mas, para validar este critério será necessário que o trajeto seja analisado pela AEL, para que possa ser classificado, de fato, como um caminho viável e otimizado.
 
 ## Objetivos
 
 ### Objetivos gerais
-
-*Lista_de_objetivos_gerais*
+O principal objetivo a ser alcançado com o sistema é encontrar a melhor rota possível entre dois pontos de um mapa, representado por um grafo.
 
 ### Objetivos específicos
-
-*Lista_de_objetivos específicos*
+- Formar um grafo com base no mapa disponibilizado pelo *input* do usuário
+- A partir desse mapa, encontrar o caminho mínimo utilizando o algoritmo a*
+- Mostrar no front-end da solução a rota processada
+- Popular o banco de dados Neo4j com a melhor rota encontrada a cada vez que o algoritmo é rodado
 
 ## Partes interessadas
-
-*Lista_e_apresentação_das_partes_interessadas*
+citar restante dos stakeholders
+- AEL Sistemas 
+- Grupo 5 - Maverick
+- Inteli
 
 # Análise do Problema
 
