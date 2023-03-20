@@ -253,16 +253,13 @@ O código acima irá gerar um grafo, que pode ser representado visualmente da se
 
 ![Grafo](img/grafo.png)
 
-Nesse caso, o ponto de partida seria  o ponto "Partida - Share" e o de destino "Destino - Inteli".
+Nesse caso, o ponto de partida seria  o ponto "Partida (Share)" e o de destino "Destino (Inteli)".
 
-A possibilidade de um caminho factivel com o minimo de distância é:
-Partida-Share,R1 + R1,R2 + R2,R3 + R3,R4 + R4,R13 + R13,R12 + R12,R11 + R11,R10 + R10,R9 +
-R9,Destino-Inteli
-Com uma distância de 5,05km.
+Sendo a variável $a$ responsável por representar o peso das arestas no grafo, temos um total de 30 arestas. Um exemplo de caminho é o problema do caminho mínimo, procurando a menor distância possível:
+$Partida (Share), R1, R2, R3, R4, R13, R12, R11, R10, R9,Destino(Inteli)$ com uma distância de $5,05km$.
 
 Outra solução de caminho, com uma distância maior é:
-Partida-Share,R3 + R3,R4 + R4,R5 + R5,R6 + R6,R7 + R7,R8 + R8,Destino-Inteli
-Com uma distância de 5,15km.
+$Partida (Share), R3, R4, R5, R6, R7, R8, Destino (Inteli)$ com uma distância de $5,15km$.
 
 ## Descrição da solução
 
@@ -412,17 +409,17 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 
 ## Histórias dos usuários ("User Stories")
 
-| Épico | User Story |
-| --- | --- |
-| Otimização de rota  | Eu, como planejador, quero fornecer um arquivo contendo informações sobre uma região de voo (com dados de longitude, latitude e longitude) e encontrar a melhor rota de voo militar em baixa altitude entre um ponto inicial e final, para que possa garantir o sucesso da missão |
-|  | Eu, como piloto, quero seguir a rota de voo fornecida pelo planejador, para reduzir minha carga cognitiva e facilitar a conclusão da minha missão |
-| Parâmetros pré-definidos | Eu, como planejador, quero fornecer alguns parâmetros predeterminados (altitude máxima aceitável, raio mínimo de curva entre dois pontos, diferença de altitude entre dois pontos, consumo de combustível) para que possa restringir as rotas possíveis |
-| Restrição de altitude | Eu, como planejador, quero calcular uma rota que não exceda uma altitude predeterminada do solo, para previnir possíveis riscos operacionais e dar maior segurança ao piloto |
-|  | Eu, como piloto, quero que o planejador forneça uma rota segura para um voo em baixa altitude, para que exista o máximo de segurança em uma operação |
-| Eficiência na escolha da rota | Eu, como planejador, quero encontrar uma rota usando um sistema com eficiência computacional aceitável e que forneça uma solução dentro de um tempo razoável, para evitar atrasos operacionais |
-| Gasto de combustível | Eu, como planejador, quero evitar o gasto excessivo de combustível, para garantir que não haja interrupções no voo devido a falta de recursos (pane seca) |
-| Restrições de Rota e Zonas de Exclusão | Eu, como planejador, quero ser capaz de inserir informações sobre a presença de obstáculos ou ameaças aéreas em uma determinada área, para que o piloto possa evitá-los e garantir a segurança do voo |
-| Armazenamento e compartilhamento de Rota | Eu, como planejador, gostaria de salvar e compartilhar minhas rotas de voo com outros membros da equipe para que possamos colaborar e melhorar a segurança da missão |
+| Épico                                    | User Story                                                                                                                                                                                                                                                                        |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Otimização de rota                       | Eu, como planejador, quero fornecer um arquivo contendo informações sobre uma região de voo (com dados de longitude, latitude e longitude) e encontrar a melhor rota de voo militar em baixa altitude entre um ponto inicial e final, para que possa garantir o sucesso da missão |
+|                                          | Eu, como piloto, quero seguir a rota de voo fornecida pelo planejador, para reduzir minha carga cognitiva e facilitar a conclusão da minha missão                                                                                                                                 |
+| Parâmetros pré-definidos                 | Eu, como planejador, quero fornecer alguns parâmetros predeterminados (altitude máxima aceitável, raio mínimo de curva entre dois pontos, diferença de altitude entre dois pontos, consumo de combustível) para que possa restringir as rotas possíveis                           |
+| Restrição de altitude                    | Eu, como planejador, quero calcular uma rota que não exceda uma altitude predeterminada do solo, para previnir possíveis riscos operacionais e dar maior segurança ao piloto                                                                                                      |
+|                                          | Eu, como piloto, quero que o planejador forneça uma rota segura para um voo em baixa altitude, para que exista o máximo de segurança em uma operação                                                                                                                              |
+| Eficiência na escolha da rota            | Eu, como planejador, quero encontrar uma rota usando um sistema com eficiência computacional aceitável e que forneça uma solução dentro de um tempo razoável, para evitar atrasos operacionais                                                                                    |
+| Gasto de combustível                     | Eu, como planejador, quero evitar o gasto excessivo de combustível, para garantir que não haja interrupções no voo devido a falta de recursos (pane seca)                                                                                                                         |
+| Restrições de Rota e Zonas de Exclusão   | Eu, como planejador, quero ser capaz de inserir informações sobre a presença de obstáculos ou ameaças aéreas em uma determinada área, para que o piloto possa evitá-los e garantir a segurança do voo                                                                             |
+| Armazenamento e compartilhamento de Rota | Eu, como planejador, gostaria de salvar e compartilhar minhas rotas de voo com outros membros da equipe para que possamos colaborar e melhorar a segurança da missão                                                                                                              |
 
 # Arquitetura do Sistema
 ![Arquitetura do sistema](img/arquitetura-do-sistema.png)
