@@ -96,7 +96,7 @@ Planejador de trajetórias para voos em baixa altitude
 
 ## Empresa
 
-*Descrição_da_empresa*
+AEL Sistemas é uma empresa do ramo de tecnologias militares e espaciais que foca em pesquisas e soluções com aplicações em plataformas terrestres, aéreas e marítmas. Desde 2001 faz parte do grupo internacional Elbit Systems, que lidera o segmento de defesa militar mundial. Com sua sede em Porto Alegre, Rio Grande do Sul, AEL produz sistemas que são reconhecidos e utilizados tanto nacional quanto internacionalmente.
 
 ## O Problema
 
@@ -309,35 +309,35 @@ Um caminho que cumpra todos esses aspectos, de forma otimizada, pode ser conside
 
 ## Análise da área de atuação: Contexto da indústria
 
-A AEL Sistemas está inserida nas indústrias aeroespacial, de defesa e de segurança pública, sendo sua atuação focada no território brasileiro. A empresa tem como produto principal a produção de sistemas eletrônicos militares para aplicações em plataformas aéreas, mas também atua em outras áreas, como na produção de simuladores de voo e sistemas eletro-ópticos, espaciais e para veículos blindados.
+A [AEL Sistemas](https://www.ael.com.br/ael-sistemas.html) está inserida nas indústrias aeroespacial, de defesa e de segurança pública, sendo sua atuação focada no território brasileiro. A empresa tem como [produto principal](https://www.ael.com.br/solucoes.html) a produção de sistemas eletrônicos militares para aplicações em plataformas aéreas, mas também atua em outras áreas, como na produção de simuladores de voo e sistemas eletro-ópticos, espaciais e para veículos blindados.
 
 ### Principais competidores
 
 Tendo em mente que a AEL Sistemas é uma empresa de médio porte que atua principalmente no mercado brasileiro aeroespacial, seus principais competidores são empresas de médio e grande porte nacionais, como:
 
-- Embraer S.A. -  empresa de capital aberto com sede em São José dos Campos, São Paulo, Brasil. É uma das maiores empresas brasileiras de engenharia e fabricação de aeronaves, com atuação em diversos segmentos do mercado aeroespacial, como aeronaves comerciais, executivas, militares, de defesa e de transporte de cargas.
+- [Embraer S.A.](https://embraer.com/br/pt/sobre-nos) -  empresa de capital aberto com sede em São José dos Campos, São Paulo, Brasil. É uma das maiores empresas brasileiras de engenharia e fabricação de aeronaves, com atuação em diversos segmentos do mercado aeroespacial, como aeronaves comerciais, executivas, militares, de defesa e de transporte de cargas.
 
-- Atech - empresa integrante do grupo econômico da Embraer, com foco em sistemas críticos civis e militares, como, por exemplo, sistemas de Controle de Tráfego Aéreo.
+- [Atech](https://atech.com.br/quem-somos/) - empresa integrante do grupo econômico da Embraer, com foco em sistemas críticos civis e militares, como, por exemplo, sistemas de Controle de Tráfego Aéreo.
 
-- Helibras (Helicópteros do Brasil S.A.) - empresa brasileira consolidada em Itajubá, Minas Gerais, sendo uma subsidiária da Airbus Helicopters. A empresa primariamente no ramo de fabricação de helicópteros civis e militares.
+- [Helibras (Helicópteros do Brasil S.A.)](https://www.helibras.com.br/website/po/ref/Airbus-Helicopters_70.html) - empresa brasileira consolidada em Itajubá, Minas Gerais, sendo uma subsidiária da Airbus Helicopters. A empresa primariamente no ramo de fabricação de helicópteros civis e militares.
 
-- Avibras Indústria Aeroespacial - empresa sediada em São José dos Campos, São Paulo, Brasil, que atua no ramo de defesa, com foco em sistemas de mísseis, foguetes e sistemas antiaéreos e com atuação no setor aeroespacial.
+- [Avibras Indústria Aeroespacial](https://www.avibras.com.br/site/institucional/quem-somos.html) - empresa sediada em São José dos Campos, São Paulo, Brasil, que atua no ramo de defesa, com foco em sistemas de mísseis, foguetes e sistemas antiaéreos e com atuação no setor aeroespacial.
 
-- Akaer - empresa brasileira de engenharia aeroespacial, com sede em São José dos Campos, São Paulo, Brasil. Desenvolveu projetos militares para aeronaves como o caça SAAB Gripen e helicópteros da Helibras.
+- [Akaer](https://www.akaer.com.br/) - empresa brasileira de engenharia aeroespacial, com sede em São José dos Campos, São Paulo, Brasil. Desenvolveu projetos militares para aeronaves como o caça SAAB Gripen e helicópteros da Helibras.
 
 ### Modelos de negócio
 
 Companhias do setor aeroespacial e de defesa possuem modelos de negócio diversos, que envolvem produtos e serviços complexos e altamente tecnológicos. As atividades envolvidas abrangem desde a produção de aeronaves, como no caso da Embraer (fabricante de aeronaves comerciais, executivas e militares), até o desenvolvimento de sistemas eletrônicos para aeronaves (aviônicos), como ocorre com a AEL Sistemas, que produz sistemas eletrônicos militares com aplicações em plataformas aéreas e outras áreas.
 
-Existe um grande foco na área de defesa em contratos governamentais, pois os clientes das companhias são as forças armadas de diferentes países. Além disso, as companhias do setor aeroespacial e de defesa possuem um grande foco em pesquisa e desenvolvimento, por se tratar de um mercado competitivo em que a inovação tecnológica é um importante diferencial. Existe também uma tendência de diversificação, com o foco em uma área principal e oferta de produtos e serviços complementares, relacionado com as competências e capacidades do corpo técnico da companhia.
+Existe um grande foco na área de defesa em contratos governamentais, pois os [clientes](https://www.gov.br/defesa/pt-br/assuntos/seprod/servicos-e-informacoes/arquivos/guia_2019.pdf) das companhias são as forças armadas de diferentes países. Além disso, as companhias do setor aeroespacial e de defesa possuem um grande foco em pesquisa e desenvolvimento, por se tratar de um mercado competitivo em que a inovação tecnológica é um importante diferencial. Existe também uma tendência de diversificação, com o foco em uma área principal e oferta de produtos e serviços complementares, relacionado com as competências e capacidades do corpo técnico da companhia.
 
 ### Tendências de mercado
 
 As tendências do mercado de aviação militar no Brasil incluem:
 
-- a modernização de alguns aviões da frota da Força Aérea Brasileira (FAB), como os “aviões-radares” E-99;
-- a aquisição de novos aviões militares para melhorar a capacidade de defesa aérea e de operações aéreas, como o caça sueco F-39 Gripen E/F, com a adoção de tecnologias e aviônicos como o Wide Area Display (WAD) desenvolvido pela AEL Sistemas;
-- a expansão da cooperação internacional e a parceria com empresas estrangeiras, como no caso da Embraer e da BAE Systems PLC (uma empresa britânica), que firmaram dois memorandos de entendimento ("MoU"s) para possibilitar a venda de aeronaves militares produzidas pela Embraer como o C-390 Millennium, um avião militar de transporte de cargas, em mercados onde a BAE Systems possui maior presença (especialmente no Oriente Médio).
+- a modernização de alguns aviões da frota da Força Aérea Brasileira (FAB), como os “aviões-radares” [E-99](https://www.defesaaereanaval.com.br/aviacao/avioes-e-99-da-forca-aerea-brasileira-passam-por-modernizacao);
+- a aquisição de novos aviões militares para melhorar a capacidade de defesa aérea e de operações aéreas, como o caça sueco [F-39 Gripen E/F](https://www.defesaemfoco.com.br/a-aquisicao-e-producao-de-um-aviao-supersonico/), com a adoção de tecnologias e aviônicos como o Wide Area Display (WAD) desenvolvido pela AEL Sistemas;
+- a expansão da cooperação internacional e a parceria com empresas estrangeiras, como no caso da Embraer e da BAE Systems PLC (uma empresa britânica), que firmaram dois memorandos de entendimento ("MoU"s) para possibilitar a venda de aeronaves militares produzidas pela Embraer como o [C-390 Millennium](https://epocanegocios.globo.com/Empresa/noticia/2022/07/epoca-negocios-embraer-acerta-parceria-com-bae-systems-envolvendo-c-390-e-potencial-joint-venture-de-evtol.html), um avião militar de transporte de cargas, em mercados onde a BAE Systems possui maior presença (especialmente no Oriente Médio).
 
 ## Análise estratégica: 5 forças de Porter
 
@@ -345,21 +345,45 @@ Considerando a AEL Sistemas como uma empresa que atua no mercado brasileiro aero
 
 ![5_forças_de_Porter](img/porter.png)
 
-1. Rivalidade entre os concorrentes existentes: a indústria aeroespacial militar brasileira é um mercado relativamente concentrado. Existem alguns players dominantes, especialmente a Embraer S.A., que possuem uma grande participação no mercado.
+1. Rivalidade entre os [concorrentes (Pg. 27)](https://www.marinha.mil.br/egn/sites/www.marinha.mil.br.egn/files/CEMOS_023_DIS_CC_IM_MERCADANTE.pdf) existentes: a indústria aeroespacial militar brasileira é um mercado relativamente concentrado. Existem alguns players dominantes, especialmente a Embraer S.A., que possuem uma [grande participação no mercado](https://economia.uol.com.br/noticias/redacao/2019/09/07/embraer-ranking-empresas-setor-aeroespacial.htm).
 
-2. Poder de barganha dos fornecedores: a cadeia de suprimentos da indústria é complexa, incluindo materiais especializados e tecnologia avançada. Isso pode dar aos fornecedores um poder de barganha elevado, pois não existem tantos players capacitados para fornecer os insumos necessários.
+2. Poder de barganha dos fornecedores: a [cadeia de suprimentos da indústria é complexa](https://www.cossconsulting.com/ind%C3%BAstria-4-0/aeroespacial), incluindo materiais especializados e tecnologia avançada. Isso pode dar aos fornecedores um poder de barganha elevado, [pois não existem tantos players capacitados para fornecer os insumos necessários (Pg. 22)](https://www.marinha.mil.br/egn/sites/www.marinha.mil.br.egn/files/CEMOS_023_DIS_CC_IM_MERCADANTE.pdf).
 
-3. Poder de barganha dos compradores: os compradores são principalmente governos e agências militares, que têm um poder de barganha considerável devido ao seu grande porte e capacidade elevada de investimento.
+3. Poder de barganha dos compradores: os compradores são principalmente governos e agências militares, que têm um [poder de barganha considerável](https://www12.senado.leg.br/noticias/materias/2021/09/21/ministerio-da-defesa-fica-com-maior-parte-dos-novos-investimentos-do-orcamento-de-2022) devido ao seu grande porte e capacidade elevada de investimento.
 
-4. Ameaça de novos concorrentes: a barreira de entrada na indústria aeroespacial é altamente elevada devido aos custos significativos de desenvolvimento e produção. Além disso, se trata de uma indústria muito regulamentada, o que pode limitar a entrada de novos players.
+4. Ameaça de novos concorrentes: a barreira de entrada na indústria aeroespacial é [altamente elevada devido aos custos significativos de desenvolvimento e produção](https://revista.esg.br/index.php/revistadaesg/article/download/478/434/761). Além disso, se trata de uma indústria muito regulamentada, o que pode limitar a entrada de novos players.
 
-5. Ameaça de produtos substitutos: não existem alternativas viáveis para os sistemas militares avançados desenvolvidos pelas empresas do setor, o que limita a ameaça de produtos substitutos.
+5. Ameaça de produtos substitutos: [não existem alternativas viáveis (Pg. 41)](https://www.marinha.mil.br/egn/sites/www.marinha.mil.br.egn/files/CEMOS_023_DIS_CC_IM_MERCADANTE.pdf) para os sistemas militares avançados desenvolvidos pelas empresas do setor, o que limita a ameaça de produtos substitutos.
 
 ## Análise do cenário: Matriz SWOT
 
 ![SWOT](img/SWOT.png)
 
-A informações atribuídas nesse framework tem como referência Notícias, Conversas Internas com a Empresa, Documentos estratégicos como o Tapi, Site Isntitucional da Ael e a Apresentação institucional da Empresa.
+Fontes:
+
+[(1) - Terrain-Following](https://www.ael.com.br/terrain-following.html)
+
+[(2) - Player de Relevância](https://www.ael.com.br/noticias.php?cd_publicacao=288)
+
+[(3) - Parcerias](https://www.ael.com.br/noticias.php?cd_publicacao=225)
+
+[(4) - Qualificação](https://www.aereo.jor.br/2015/09/22/gripen-suecia-recebe-os-primeiros-engenheiros-brasileiros-que-vao-trabalhar-no-novo-caca/)
+
+[(5) - Dados](https://github.com/2023M5T1-Inteli/grupo5/tree/master/src/main/resources)
+
+[(6) - Interoperabilidade e Integração](https://www.ael.com.br/noticias.php?cd_publicacao=331)
+
+[(7) - Guerras](https://www.poder360.com.br/internacional/nao-esperava-ser-papa-na-epoca-da-3a-guerra-mundial-diz-francisco/)
+
+(8) - Apresentação institucional da Ael no Onboarding do módulo 5 (30/01/2023)
+
+(9) - Workshop com o parceiro do projeto (06/02/2023)
+
+[(10) - Concorrência](https://exame.com/negocios/as-10-maiores-empresas-de-defesa-do-mundo/)
+
+[(11) - Carência de Recursos](https://www.camara.leg.br/noticias/925341-relatorio-setorial-da-defesa-no-orcamento-de-2023-aponta-carencia-de-recursos-para-institutos-militares/)
+
+[(12) - Crises de Matérias Primas](https://www.cnnbrasil.com.br/economia/falta-de-materia-prima-e-maior-preocupacao-das-industrias-aponta-cni/#:~:text=Em%20rela%C3%A7%C3%A3o%20a%20agosto%20de,mantendo%2Dse%20em%2072%25.)
 
 ## Proposta de Valor: Value Proposition Canvas
 
@@ -367,7 +391,7 @@ A informações atribuídas nesse framework tem como referência Notícias, Conv
 
 ## Matriz de Risco
 
-A matriz de risco foi elaborada considerando fatores categorizados em externos, internos e software. A categoria externa engloba condições climáticas e oportunidades de mercados, além de dependência para o desenvolvimento da solução como a quantidade de dados. Já a categoria interna contém problemas e oportunidades como problemas nos processos de criação que envolvem o nível de experiência da equipe. Por último a categoria de software, na qual inclui complexidade do algoritmo e outros fatores.
+A matriz de risco foi elaborada considerando fatores categorizados em internos e software. A categoria interna contém problemas e oportunidades como problemas nos processos de criação que envolvem o nível de experiência da equipe. Já a categoria de software, na qual inclui complexidade do algoritmo e outros fatores.
 
 ![Matriz_de_risco](img/risk-matrix.png)
 
