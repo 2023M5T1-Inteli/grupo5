@@ -53,6 +53,7 @@ public class FlightPathController {
         return ResponseEntity.ok(paths);
     }
 
+    // return shortest path between 2 specified nodes
     @GetMapping("/cordPath")
     public ResponseEntity<Deque<FlightNodeEntity>> getCordPath(@RequestParam("sourceLat") double sourceLat,
                                                   @RequestParam("sourceLon") double sourceLon,
@@ -64,6 +65,7 @@ public class FlightPathController {
         FlightNodeEntity start = null;
         FlightNodeEntity end = null;
 
+        //find nodes corresponding to the parameters
         for (FlightNodeEntity compNode : nodeSet.values()) {
             if (compNode.getLatitude() == sourceLat && compNode.getLongitude() == sourceLon) {
                 start = compNode;
