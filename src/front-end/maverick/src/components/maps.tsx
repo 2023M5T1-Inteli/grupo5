@@ -1,141 +1,174 @@
-//Import libraries
-import React, { useEffect, useRef } from "react";
-import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import { Node, Edge, FeatureCollection, Feature } from "../types";
 import * as d3 from "d3";
+import styled from "styled-components";
+import geojsonFile from "../data/local";
 
-//Create a container component to render the map
 const Container = styled.div`
-    display:flex;
-    flex-direction:column;
-    width: 95vw;
-    height: 70vh;
-    align-items: center;
-    margin-top: 2.5rem;
-`
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
+  height: 70vh;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+`;
 
-// Return the components to export for HTML
 const Map = () => {
-    const svgRef = useRef<SVGSVGElement>(null); 
+  const [mergedData, setMergedData] = useState<FeatureCollection | null>(null);
+  const [nodes, setNodes] = useState<Node[]>([]);
+  const [edges, setEdges] = useState<Edge[]>([]);
 
-    //Define svg size
-    const width = 940;
-    const height = 600;
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:8080/flight-path/nodes");
+      const data = await response.json();
+      const newNodes: Node[] = [];
+      const newEdges: Edge[] = [];
+      const newCoord: Feature[] = [];
 
-    //Define Geo mercator projection
-    const projection = d3.geoMercator().center([-46.377626304,-23.5159233375]).translate([width/2, height/2]).scale(4000);
-    const path = d3.geoPath().projection(projection);
+      data.forEach((node: any) => {
+        newCoord.push({
+          type: "Feature",
+          properties: {
+            id: String(node.id),
+            name: String(node.id),
+            description: String(node.id),
+          },
+          geometry: {
+            type: "Point",
+            coordinates: [node.longitude, node.latitude],
+          },
+        });
 
-    //Create d3 map and graphs after render.
-    useEffect(() => {
-        //Create svg on div with id selected
-        const svg = d3.select("#svgReference").append("svg").attr("width", width).attr("height", height);
-        //Import GEOJSON from github
-        const data = d3.json<FeatureCollection>("https://raw.githubusercontent.com/andlljr/geojson-sp-rj/main/sp-rio.json").then(function(json){
-            //Case errors that cant be null, return error.
-            if (!json) {
-                console.error("Error loading JSON data");
-                return;
-            }
+        newNodes.push({
+          id: node.id,
+          latitude: node.latitude,
+          longitude: node.longitude,
+          elevation: node.elevation,
+        });
 
-            if (!svg) {
-                console.error("Error selecting SVG element");
-                return;
-            }
-            
-            //Create the map
-            svg.selectAll('path')
-                .data(json.features)
-                .enter()
-                .append("path")
-                .attr("d", path)
-                .attr("stroke", "dimgray")
-                .attr("fill", "#F2CA52");
-            
-            //Define nodes
-            const nodes: { name: string, coordinates: [number, number] }[] = [
-                { name: "São Paulo", coordinates: [-46.5372287017,-23.3691818313] },
-                { name: "Angra dos Reis", coordinates: [-44.1955721491,-23.0983083542] },
-                { name: "Votorantim", coordinates: [-47.3726760637,-23.5178348439] }
-            ]
+        node.paths.forEach((path: any) => {
+          const { id: pathId, sourceId, targetId } = path;
+          newEdges.push({ id: pathId, source: sourceId, target: targetId });
+        });
+      });
 
-            //Create node on the map
-            svg.selectAll("circle")
-                .data(nodes)
-                .enter()
-                .append("circle")
-                .attr("cx", (d) => {
-                    const projected = projection(d.coordinates);
-                    return projected ? projected[0] : 0;
-                })
-                .attr("cy", (d) => {
-                    const projected = projection(d.coordinates);
-                    return projected ? projected[1] : 0;
-                })
-                .attr("r", 5)
-                .attr("fill", "red");
-            
-            //Define edges
-            const edges = [
-                { source: "Votorantim", target: "São Paulo" },
-                { source: "São Paulo", target: "Angra dos Reis" },
-                { source: "Votorantim", target: "São Paulo" }
-            ];
-            
-            //Put direction on edges
-            svg.append("defs").append("marker")
-                .attr("id", "arrowhead")
-                .attr("viewBox", "0 -5 10 10")
-                .attr("refX", 10)
-                .attr("refY", 0)
-                .attr("markerWidth", 8)
-                .attr("markerHeight", 8)
-                .attr("orient", "auto")
-                .append("path")
-                .attr("d", "M0,-5L10,0L0,5")
-                .attr("fill", "blue");
+      const coordinates: FeatureCollection = {
+        type: "FeatureCollection",
+        features: newCoord,
+      };
 
-            // Create edge
-            svg.selectAll("line")
-                .data(edges)
-                .enter()
-                .append("line")
-                .attr("x1", (d) => {
-                    const sourceNode = nodes.find((node) => node.name === d.source);
-                    const projected = sourceNode ? projection(sourceNode.coordinates) : null;
-                    return projected ? projected[0] : 0;
-                })
-                .attr("y1", (d) => {
-                    const sourceNode = nodes.find((node) => node.name === d.source);
-                    const projected = sourceNode ? projection(sourceNode.coordinates) : null;
-                    return projected ? projected[1] : 0;
-                })
-                .attr("x2", (d) => {
-                    const targetNode = nodes.find((node) => node.name === d.target);
-                    const projected = targetNode ? projection(targetNode.coordinates) : null;
-                    return projected ? projected[0] : 0;
-                })
-                .attr("y2", (d) => {
-                    const targetNode = nodes.find((node) => node.name === d.target);
-                    const projected = targetNode ? projection(targetNode.coordinates) : null;
-                    return projected ? projected[1] : 0;
-                })
-                .attr("stroke", "blue")
-                .attr("marker-end", "url(#arrowhead)");
+      setNodes(newNodes);
+      setEdges(newEdges);
+      setMergedData({
+        type: "FeatureCollection",
+        features: [...geojsonFile.features, ...coordinates.features],
+      });
+    };
 
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    let projection = d3.geoMercator().scale(3000).translate([2900, -1000]);
+
+    let geoGenerator = d3.geoPath().projection(projection).pointRadius((d) => 0);
+
+    let zoom = d3.zoom()
+      .on('zoom', handleZoom);
+    
+    function handleZoom(e: any){
+      d3.select('svg g')
+        .attr('transform', e.transform);
+    }
+
+    function initZoom(){
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      d3.select('svg').call(zoom);
+    }
+
+    function update(geojson: FeatureCollection) {
+      let map = d3.select("#content g.map")
+        .selectAll("path")
+        .data(geojson.features);
+    
+      map.enter()
+        .append("path")
+        .attr("d", (d: any) => geoGenerator(d.geometry))
+        .style("fill", (d: any) => d.geometry.type === "Point" ? "none" : "#d4d4d4")
+        .attr("stroke", "#aaa");
+    }
+
+    function createNode(nodes: Node[]){
+      let node = d3.select("#content g.map")
+        .selectAll("g")
+        .data(nodes)
+        .enter()
+        .append("g")
+        .attr("transform", (d: any) => {
+          let coords = projection([d.longitude, d.latitude]);
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          return `translate(${coords[0]}, ${coords[1]})`;
+        });
+
+      node.append("circle")
+        .attr("r", 1.5)
+        .style("fill", (d, i) => (i === 1 ? "blue" : "red"));
+    }
+
+    function createEdge(edges: Edge[]) {
+      const edgeGroup = d3.select("#content g.map")
+        .selectAll("g")
+        .data(edges)
+        .enter()
+        .append("g");
+    
+      const projection = d3.geoMercator().scale(3000).translate([2900, -1000]);
+    
+      const lineGenerator = d3.line()
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        .x((d: any) => projection([d.longitude, d.latitude])[0])
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        .y((d: any) => projection([d.longitude, d.latitude])[1]);
+    
+      edgeGroup.append("path")
+        .attr("d", (d: any) => {
+          const source = nodes.find((node) => node.id === d.source);
+          const target = nodes.find((node) => node.id === d.target);
+          const lineData = [
+            { longitude: source?.longitude, latitude: source?.latitude },
+            { longitude: target?.longitude, latitude: target?.latitude },
+          ];
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          return lineGenerator(lineData);
         })
-        // This return is necessary to not append multiples svg on div
-        return () => {
-            svg.remove();
-        }
-    })
-    //Add the div with id select in D3
-   return (
-        <Container id="svgReference"></Container>
-   )
-}
+        .attr("stroke", "black")
+        .attr("stroke-width", 0.1)
+        .attr("fill", "none");
+    }
 
-//Export component map
+    if (mergedData) {
+      initZoom();
+      update(mergedData);
+      createNode(nodes);
+      createEdge(edges);
+    }
+
+  }, [mergedData]);
+  console.log(mergedData);
+  return (
+    <Container id="content">
+      <svg id="svgReference" width="800px" height="400px">
+        <g className="map"></g>
+      </svg>
+    </Container>
+  );
+};
+
 export default Map;
-
-
