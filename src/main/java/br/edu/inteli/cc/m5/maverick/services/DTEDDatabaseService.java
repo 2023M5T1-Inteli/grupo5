@@ -230,7 +230,7 @@ public class DTEDDatabaseService {
 
                     // Save the node to the repository
                     nodeSet.put(node.getId(), node);
-                    System.out.println(node.getId());
+                    System.out.println("x: " + x + " " + "y: " + y);
                     //flightNodeRepository.save(node);
                 }
             }

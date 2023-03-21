@@ -36,12 +36,12 @@ public class FlightNodeEntity {
         this.id = UUID.randomUUID();
     }
 
-//    public FlightNodeEntity(UUID id, Double latitude, Double longitude, Double elevation) {
-//        this.id = id;
-//        this.latitude = latitude;
-//        this.longitude = longitude;
-//        this.elevation = elevation;
-//    }
+    public FlightNodeEntity(Double latitude, Double longitude, Double elevation) {
+        this.id = UUID.randomUUID();
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.elevation = elevation;
+    }
 
     // Getters and setters
 
@@ -60,10 +60,6 @@ public class FlightNodeEntity {
     public void setId(UUID id) {
         this.id = id;
     }
-
-    //    public void setId(Long id) {
-//        this.id = id;
-//    }
 
     public Double getLatitude() {
         return latitude;
@@ -97,15 +93,11 @@ public class FlightNodeEntity {
         this.paths = paths;
     }
 
-    public void clearPaths(UUID trgId) {
-        List<Path> tmpPaths = new ArrayList<>();
-        for (Path path : paths) {
-            if (path.getTargetId() != trgId) {
-                tmpPaths.add(path);
-            }
-        }
-        for (Path pth : tmpPaths) {
-            paths.remove(pth);
-        }
+    public void clearAllPaths() {
+        this.paths.clear();
+    }
+
+    public void addPath(Path path) {
+        this.paths.add(path);
     }
 }

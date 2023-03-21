@@ -1,21 +1,17 @@
-package br.edu.inteli.cc.m5.maverick.controllers;
+package br.edu.inteli.cc.m5.maverick.services;
 
 import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity;
 import br.edu.inteli.cc.m5.maverick.models.Path;
 
 import java.util.*;
 
-public class AStar {
+public class AStarService {
     private HashMap<UUID, FlightNodeEntity> graph;
     private Map<UUID, Double> gScore;
     private Map<UUID, Double> fScore;
     private Map<UUID, UUID> cameFrom;
-    //private FlightNodeRepository flightNodeRepository;
 
-    public AStar(HashMap<UUID, FlightNodeEntity> nodeSet) {
-        // Initialize the A* algorithm with the flight node repository
-        //this.flightNodeRepository = flightNodeRepository;
-        //this.graph = flightNodeRepository.findAll();
+    public AStarService(HashMap<UUID, FlightNodeEntity> nodeSet) {
         this.graph = nodeSet;
     }
 
@@ -57,9 +53,6 @@ public class AStar {
                 UUID pathId = path.getTargetId();
                 FlightNodeEntity neighbor = graph.get(pathId);
 
-                System.out.println(neighbor);
-                System.out.println(neighbor.getId());
-
                 double weight = path.getElevation() + path.getDistance();
 
                 double tentativeGScore = gScore.get(currentId) + weight;
@@ -78,24 +71,41 @@ public class AStar {
         }
 
         // If no path was found, return null
-        System.out.println("NULO");
         return null;
     }
 
+    // helper method for findPath
     private Iterable<FlightNodeEntity> reconstructPath(UUID currentId) {
         // Reconstruct the path using the "came from" map
-        List<FlightNodeEntity> path = new ArrayList<>();
+        Deque<FlightNodeEntity> path = new ArrayDeque<>();
+        // Add the first node to the path
+        UUID currId = currentId;
+        FlightNodeEntity currNode = graph.get(currId);
+        // Remove all paths from that node
+        currNode.clearAllPaths();
+        // Add the current node to the flight path
+        System.out.println(currNode);
+        path.addFirst(currNode);
 
-        path.add(graph.get(currentId));
-
-        while (cameFrom.containsKey(currentId)) {
-            currentId = cameFrom.get(currentId);
-            path.add(graph.get(currentId));
+        while (cameFrom.containsKey(currId)) {
+            // store the previous node id
+            UUID prevId = currId;
+            FlightNodeEntity prevNode = currNode;
+            // update the current node id and node
+            currId = cameFrom.get(currId);
+            currNode = graph.get(currId);
+            // remove all existing relationships
+            currNode.clearAllPaths();
+            // add an edge from the previous node to the current one
+            currNode.addPath(new Path(prevNode, currNode.getLatitude(), currNode.getLongitude(), currNode.getElevation(), currId));
+            // add the current node to the start of the list
+            path.addFirst(currNode);
         }
 
         return path;
     }
 
+    // helper method for findPath
     public double haversineDistance(FlightNodeEntity node1, FlightNodeEntity node2) {
         // Calculate the haversine distance between two nodes
         final int EARTH_RADIUS = 6371;

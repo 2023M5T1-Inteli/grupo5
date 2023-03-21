@@ -2,8 +2,8 @@ package br.edu.inteli.cc.m5.maverick.controllers;
 
 import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
 import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity;
-import br.edu.inteli.cc.m5.maverick.models.Path;
 import br.edu.inteli.cc.m5.maverick.repositories.FlightNodeRepository;
+import br.edu.inteli.cc.m5.maverick.services.AStarService;
 import br.edu.inteli.cc.m5.maverick.services.DTEDDatabaseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,36 +32,22 @@ public class FlightPathController {
 
     // GET - return shortest path
     @GetMapping("/path")
-    public ResponseEntity<List<FlightNodeEntity>> getPaths() {
-        List<FlightNodeEntity> paths = new ArrayList<>();
-        AStar shortPath = new AStar(this.nodeSet);
-        int i = 0;
-        UUID startId = null;
-        UUID endId = null;
-        for (UUID tmp : nodeSet.keySet()) {
-            if (i == 0) {
-                startId = tmp;
-            }
-            if (i == 30) {
-                endId = tmp;
-            }
-            i++;
-            System.out.println(tmp);
+    public ResponseEntity<Deque<FlightNodeEntity>> getPath() {
+        // get a random element from nodeset
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(this.nodeSet.size());
+        FlightNodeEntity start = (FlightNodeEntity) this.nodeSet.values().toArray()[randomIndex];
+        // get a different random element from nodeset (do not repeat)
+        int randomIndex2 = rand.nextInt(this.nodeSet.size());
+        while (randomIndex2 == randomIndex) {
+            randomIndex2 = rand.nextInt(this.nodeSet.size());
         }
-        for (FlightNodeEntity node : shortPath.findPath(startId,endId)) {
-            for (FlightNodeEntity comp : shortPath.findPath(startId,endId)) {
-                for (Path path : node.getPaths()) {
-                    if (node != comp) {
-                        if (comp.getId() == path.getTargetId()) {
-                            node.clearPaths(comp.getId());
-                            paths.add(node);
-                        }
-                    }
-                }
-            }
-        }
+        FlightNodeEntity end = (FlightNodeEntity) this.nodeSet.values().toArray()[randomIndex2];
 
-        System.out.println(paths.size());
+        AStarService shortPath = new AStarService(this.nodeSet);
+        UUID startId = start.getId();
+        UUID endId = end.getId();
+        Deque<FlightNodeEntity> paths = (Deque<FlightNodeEntity>) shortPath.findPath(startId, endId);
         flightNodeRepository.saveAll(paths);
 
         return ResponseEntity.ok(paths);
