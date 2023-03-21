@@ -248,10 +248,15 @@ O código acima irá gerar um grafo, que pode ser representado visualmente da se
 
 Nesse caso, o ponto de partida seria  o ponto "Partida (Share)" e o de destino "Destino (Inteli)".
 
-Sendo a variável $a$ responsável por representar o peso das arestas no grafo, temos um total de 30 arestas. Um exemplo de caminho é o problema do caminho mínimo, procurando a menor distância possível:
+Outra maneira de representar o grafo é com a seguinte matriz de adjacência:
+![Matriz de incidência](img/matriz-adjacencia.png)
+
+Utilizando o grafo formado, um exemplo de caminho é o problema do caminho mínimo, procurando a menor distância possível:
+
 $Partida (Share), R1, R2, R3, R4, R13, R12, R11, R10, R9,Destino(Inteli)$ com uma distância de $5,05km$.
 
-Outra solução de caminho, com uma distância maior é:
+Outro caminho possível, inciando no vértice de partida (Share) e terminando no vértice de chegada (Inteli), porém sem utilizar peso mínimo como critério:
+
 $Partida (Share), R3, R4, R5, R6, R7, R8, Destino (Inteli)$ com uma distância de $5,15km$.
 
 ## Descrição da solução
