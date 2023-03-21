@@ -289,13 +289,16 @@ Um caminho que cumpra todos esses aspectos, de forma otimizada, pode ser conside
 ## Objetivos
 
 ### Objetivos gerais
-O principal objetivo a ser alcançado com o sistema é encontrar a melhor rota possível entre dois pontos de um mapa, representado por um grafo.
+Os principais objetivos a serem alcançados com a entrega do sistema são, primeiramente, a aquisição de conhecimento por parte dos integrantes do Grupo 5 - Maverick sobre teoria e problemas em grafos, lógica formal, linguagem de programação Java, lógica algorítmica, avaliação de performance de algoritmos, estrutura de dados, banco de dados não relacionais e desenvolvimento web. 
+
+Segundamente, como uma ferramenta para obter os conhecimentos citados, o objetivo central é a criação do sistema planejador de rotas de baixa altitude entre dois pontos de um mapa, representado por um grafo.
 
 ### Objetivos específicos
-- Formar um grafo com base no mapa disponibilizado pelo *input* do usuário
-- A partir desse mapa, encontrar o caminho mínimo utilizando o algoritmo a*
-- Mostrar no front-end da solução a rota processada
-- Popular o banco de dados Neo4j com a melhor rota encontrada a cada vez que o algoritmo é rodado
+Para alncançar os objetivos gerais citados acima, foram formulados objetivos especpificos para melhor direcionamento do projeto:
+- Construir um grafo em Java com base nos dados do arquivo geográfico disponibilizado pelo *input* do usuário
+- A partir do grafo formado, encontrar o caminho mínimo utilizando o algoritmo a* levando em conta os pesos das arestas
+- Armazenar a rota encontrada no banco de dados Neo4j
+- Construir a representação no frontend da melhor rota calculada 
 
 ## Partes interessadas
 citar restante dos stakeholders
