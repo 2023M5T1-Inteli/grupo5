@@ -2,16 +2,13 @@ package br.edu.inteli.cc.m5.maverick.controllers;
 
 import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
 import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity;
-import br.edu.inteli.cc.m5.maverick.models.Path;
 import br.edu.inteli.cc.m5.maverick.repositories.FlightNodeRepository;
+import br.edu.inteli.cc.m5.maverick.services.AStarService;
 import br.edu.inteli.cc.m5.maverick.services.DTEDDatabaseService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RestController
 
@@ -25,6 +22,8 @@ public class FlightPathController {
     // Database repository
     private final FlightNodeRepository flightNodeRepository;
 
+    private HashMap<UUID, FlightNodeEntity> nodeSet;
+
     // Controller constructor
     public FlightPathController(DTEDDatabaseService dtedDatabaseService, FlightNodeRepository flightNodeRepository) throws Exception {
         this.dtedDatabaseService = dtedDatabaseService;
@@ -33,27 +32,31 @@ public class FlightPathController {
 
     // GET - return shortest path
     @GetMapping("/path")
-    public ResponseEntity<List<FlightNodeEntity>> getPaths() {
-        List<FlightNodeEntity> paths = new ArrayList<>();
-        AStar shortPath = new AStar(flightNodeRepository);
-        Long startId = 0L;
-        Long endId = 645L;
-        FlightNodeEntity start = flightNodeRepository.findById(startId)
-                .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
-        FlightNodeEntity end = flightNodeRepository.findById(endId)
-                .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
-        for (FlightNodeEntity node : shortPath.findPath(start,end)) {
-            System.out.println(node.getId());
-            paths.add(node);
-
+    public ResponseEntity<Deque<FlightNodeEntity>> getPath() {
+        // get a random element from nodeset
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(this.nodeSet.size());
+        FlightNodeEntity start = (FlightNodeEntity) this.nodeSet.values().toArray()[randomIndex];
+        // get a different random element from nodeset (do not repeat)
+        int randomIndex2 = rand.nextInt(this.nodeSet.size());
+        while (randomIndex2 == randomIndex) {
+            randomIndex2 = rand.nextInt(this.nodeSet.size());
         }
+        FlightNodeEntity end = (FlightNodeEntity) this.nodeSet.values().toArray()[randomIndex2];
+
+        AStarService shortPath = new AStarService(this.nodeSet);
+        UUID startId = start.getId();
+        UUID endId = end.getId();
+        Deque<FlightNodeEntity> paths = (Deque<FlightNodeEntity>) shortPath.findPath(startId, endId);
+        flightNodeRepository.saveAll(paths);
+
         return ResponseEntity.ok(paths);
     }
 
     // Create - create all nodes in database from DTED file simplification
     @PostMapping("/nodes")
     public void populateNodes() {
-        dtedDatabaseService.readPointsFromDataset();
+        this.nodeSet = dtedDatabaseService.readPointsFromDataset();
     }
 
     // Read - return all nodes from database

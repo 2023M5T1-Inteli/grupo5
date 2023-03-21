@@ -5,6 +5,8 @@ import org.springframework.data.neo4j.core.schema.RelationshipId;
 import org.springframework.data.neo4j.core.schema.RelationshipProperties;
 import org.springframework.data.neo4j.core.schema.TargetNode;
 
+import java.util.UUID;
+
 @RelationshipProperties
 public class Path {
 
@@ -17,10 +19,10 @@ public class Path {
     private double elevation;
 
     @Property
-    private Long sourceId;
+    private UUID sourceId;
 
     @Property
-    private Long targetId;
+    private UUID targetId;
 
     private double sourceLat;
     private double sourceLon;
@@ -30,7 +32,7 @@ public class Path {
     private final FlightNodeEntity target;
     private FlightNodeEntity source;
 
-    public Path(FlightNodeEntity target, double sourceLat, double sourceLon, double sourceElevation, Long sourceId) {
+    public Path(FlightNodeEntity target, double sourceLat, double sourceLon, double sourceElevation, UUID sourceId) {
         this.target = target;
         this.targetId = this.target.getId();
         this.sourceId = sourceId;
@@ -42,11 +44,15 @@ public class Path {
         return id;
     }
 
-    public Long getSourceId() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public UUID getSourceId() {
         return sourceId;
     }
 
-    public Long getTargetId() {
+    public UUID getTargetId() {
         return targetId;
     }
 
@@ -59,7 +65,7 @@ public class Path {
     }
 
     //Haversine algorithm
-    private Double haversine (Double lat1, Double lon1) {
+    private Double haversine(Double lat1, Double lon1) {
         double R = 6372.8; // Earth radius in kilometers
 
         // target coordinates
@@ -81,4 +87,3 @@ public class Path {
         return R * c * 1000; // Multiply by 1000 to convert km to meters
     }
 }
-

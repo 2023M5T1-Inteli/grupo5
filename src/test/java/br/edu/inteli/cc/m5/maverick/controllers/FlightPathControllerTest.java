@@ -38,8 +38,9 @@ class FlightPathControllerTest {
 
     @BeforeEach
     public void setup() {
-        FlightNodeEntity node1 = new FlightNodeEntity(1L, 2.0, 3.0, 4.0);
-        FlightNodeEntity node2 = new FlightNodeEntity(2L, 5.0, 6.0, 7.0);
+        // Generate two FlightNodeEntity objects
+        FlightNodeEntity node1 = new FlightNodeEntity(2.0, 3.0, 4.0);
+        FlightNodeEntity node2 = new FlightNodeEntity(5.0, 6.0, 7.0);
         nodes = Arrays.asList(node1, node2);
     }
 
@@ -63,8 +64,8 @@ class FlightPathControllerTest {
 
     @Test
     void updateNode_shouldUpdateSpecifiedNode() throws Exception {
-        FlightNodeEntity nodeToUpdate = new FlightNodeEntity(1L, 2.0, 3.0, 4.0);
-        FlightNodeEntity updatedNode = new FlightNodeEntity(1L, 2.0, 5.0, 3.0);
+        FlightNodeEntity nodeToUpdate = new FlightNodeEntity(2.0, 3.0, 4.0);
+        FlightNodeEntity updatedNode = new FlightNodeEntity(2.0, 5.0, 3.0);
 
         when(flightNodeRepository.findById(1L)).thenReturn(java.util.Optional.ofNullable(nodeToUpdate));
         when(flightNodeRepository.save(any())).thenReturn(updatedNode);
@@ -88,7 +89,7 @@ class FlightPathControllerTest {
 
     @Test
     void deleteNode_shouldDeleteSpecifiedNode() throws Exception {
-        FlightNodeEntity nodeToDelete = new FlightNodeEntity(1L, 2.0, 3.0, 4.0);
+        FlightNodeEntity nodeToDelete = new FlightNodeEntity(2.0, 3.0, 4.0);
 
         when(flightNodeRepository.findById(1L)).thenReturn(java.util.Optional.ofNullable(nodeToDelete));
 

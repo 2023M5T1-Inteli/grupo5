@@ -7,6 +7,7 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 // Node representation
 @Node("FlightNode")
@@ -16,7 +17,9 @@ public class FlightNodeEntity {
     // Auto generated id
     @Id
     @GeneratedValue
-    private Long id;
+    private Long idNeo;
+
+    private UUID id;
 
     // Manually set properties
     private Double latitude;
@@ -30,10 +33,11 @@ public class FlightNodeEntity {
 
     // Constructors
     public FlightNodeEntity() {
+        this.id = UUID.randomUUID();
     }
 
-    public FlightNodeEntity(Long id, Double latitude, Double longitude, Double elevation) {
-        this.id = id;
+    public FlightNodeEntity(Double latitude, Double longitude, Double elevation) {
+        this.id = UUID.randomUUID();
         this.latitude = latitude;
         this.longitude = longitude;
         this.elevation = elevation;
@@ -41,11 +45,19 @@ public class FlightNodeEntity {
 
     // Getters and setters
 
-    public Long getId() {
+    public Long getIdNeo() {
+        return idNeo;
+    }
+
+    public void setIdNeo(Long idNeo) {
+        this.idNeo = idNeo;
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -79,5 +91,13 @@ public class FlightNodeEntity {
 
     public void setPaths(List<Path> paths) {
         this.paths = paths;
+    }
+
+    public void clearAllPaths() {
+        this.paths.clear();
+    }
+
+    public void addPath(Path path) {
+        this.paths.add(path);
     }
 }
