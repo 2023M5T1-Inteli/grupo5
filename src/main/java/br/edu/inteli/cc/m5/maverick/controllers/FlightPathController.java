@@ -53,6 +53,36 @@ public class FlightPathController {
         return ResponseEntity.ok(paths);
     }
 
+    @GetMapping("/cordPath")
+    public ResponseEntity<Deque<FlightNodeEntity>> getCordPath(@RequestParam("sourceLat") double sourceLat,
+                                                  @RequestParam("sourceLon") double sourceLon,
+                                                  @RequestParam("targetLat") double targetLat,
+                                                  @RequestParam("targetLon") double targetLon) {
+
+        AStarService shortPath = new AStarService(this.nodeSet);
+
+        FlightNodeEntity start = null;
+        FlightNodeEntity end = null;
+
+        for (FlightNodeEntity compNode : nodeSet.values()) {
+            if (compNode.getLatitude() == sourceLat && compNode.getLongitude() == sourceLon) {
+                start = compNode;
+            }
+            if (compNode.getLatitude() == targetLat && compNode.getLongitude() == targetLon) {
+                end = compNode;
+            }
+        }
+
+        UUID startId = start.getId();
+        UUID endId = end.getId();
+        Deque<FlightNodeEntity> paths = (Deque<FlightNodeEntity>) shortPath.findPath(startId, endId);
+        flightNodeRepository.saveAll(paths);
+
+        return ResponseEntity.ok(paths);
+    }
+
+
+
     // Create - create all nodes in database from DTED file simplification
     @PostMapping("/nodes")
     public void populateNodes() {
