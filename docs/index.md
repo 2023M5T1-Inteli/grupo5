@@ -301,10 +301,10 @@ Para alncançar os objetivos gerais citados acima, foram formulados objetivos es
 - Construir a representação no frontend da melhor rota calculada 
 
 ## Partes interessadas
-citar restante dos stakeholders
-- AEL Sistemas 
-- Grupo 5 - Maverick
-- Inteli
+Podemos identificar três principais stakeholders:
+- AEL Sistemas, que irá receber um MVP de um sistema gerador de rotas mínimas;
+- Grupo 5 - Maverick, que irá adquirir conhecimentos já citados por meio do desenvolvimento do projeto; 
+- Inteli, que ganhará visibilidade externa.
 
 # Análise do Problema
 
@@ -427,6 +427,7 @@ Para a elaborar uma solução centrada ao usuário, foram criadas 2 personas que
 
 # Arquitetura do Sistema
 ![Arquitetura do sistema](img/arquitetura-do-sistema.png)
+
 Caminho de uma requisição na aplicação:
 1. Usuário faz a requisiçao GET no front-end de criação do grafo para retornar a rota desejada
 2. Requisição passada ao back-end através do procolo REST
