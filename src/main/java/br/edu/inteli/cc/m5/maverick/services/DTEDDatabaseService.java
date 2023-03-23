@@ -166,7 +166,7 @@ public class DTEDDatabaseService {
 
     // Create nodes from 500 points in DTED file and save in db repository
 
-    public HashMap<UUID, FlightNodeEntity> readPointsFromDataset() {
+    public HashMap<UUID, FlightNodeEntity> readPointsFromDataset(int elevationWeight, int distanceWeight) {
         this.nodeSet = new HashMap<>();
         for (Dataset d : m_DatabaseDtedDatasets) {
             int xsize = d.getRasterXSize();
@@ -207,18 +207,22 @@ public class DTEDDatabaseService {
                     // Create relationships with current dataset
                     if (leftNode != null) {
                         Path outgoingLeftPath = new Path(leftNode, node.getLatitude(), node.getLongitude(), node.getElevation(), node.getId());
+                        outgoingLeftPath.setWeight(distanceWeight, elevationWeight);
                         node.getPaths().add(outgoingLeftPath);
 
                         Path incomingLeftPath = new Path(node, leftNode.getLatitude(), leftNode.getLongitude(), leftNode.getElevation(), leftNode.getId());
+                        incomingLeftPath.setWeight(distanceWeight, elevationWeight);
                         leftNode.getPaths().add(incomingLeftPath);
                     }
 
                     FlightNodeEntity topNode = topNodes.get(x / xStep);
                     if (topNode != null) {
                         Path outgoingTopPath = new Path(topNode, node.getLatitude(), node.getLongitude(), node.getElevation(), node.getId());
+                        outgoingTopPath.setWeight(distanceWeight, elevationWeight);
                         node.getPaths().add(outgoingTopPath);
 
                         Path incomingTopPath = new Path(node, topNode.getLatitude(), topNode.getLongitude(), topNode.getElevation(), topNode.getId());
+                        incomingTopPath.setWeight(distanceWeight, elevationWeight);
                         topNode.getPaths().add(incomingTopPath);
                     }
 

@@ -56,9 +56,9 @@ public class FlightPathController {
     // return shortest path between 2 specified nodes
     @GetMapping("/cordPath")
     public ResponseEntity<Deque<FlightNodeEntity>> getCordPath(@RequestParam("sourceLat") double sourceLat,
-                                                  @RequestParam("sourceLon") double sourceLon,
-                                                  @RequestParam("targetLat") double targetLat,
-                                                  @RequestParam("targetLon") double targetLon) {
+                                                               @RequestParam("sourceLon") double sourceLon,
+                                                               @RequestParam("targetLat") double targetLat,
+                                                               @RequestParam("targetLon") double targetLon) {
 
         AStarService shortPath = new AStarService(this.nodeSet);
 
@@ -84,11 +84,10 @@ public class FlightPathController {
     }
 
 
-
     // Create - create all nodes in database from DTED file simplification
     @PostMapping("/nodes")
-    public void populateNodes() {
-        this.nodeSet = dtedDatabaseService.readPointsFromDataset();
+    public void populateNodes(@RequestParam(required = false, defaultValue = "3") int elevationWeight, @RequestParam(required = false, defaultValue = "1") int distanceWeight) {
+        this.nodeSet = dtedDatabaseService.readPointsFromDataset(elevationWeight, distanceWeight);
     }
 
     // Read - return all nodes from database
