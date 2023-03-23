@@ -108,7 +108,8 @@ const Map = () => {
         .append("path")
         .attr("d", (d: any) => geoGenerator(d.geometry))
         .style("fill", (d: any) => d.geometry.type === "Point" ? "none" : "#d4d4d4")
-        .attr("stroke", "#aaa");
+        .attr("stroke", "#aaa")
+        .attr("stroke-width", 0.3 );
     }
 
     // Function to create nodes
@@ -134,7 +135,7 @@ const Map = () => {
       
       // Add title to nodes
       node.append("title")
-        .text(function(d) { return d.latitude + ", " + d.longitude + ", " + d.elevation });
+        .text(function(d) { return "lat: " + d.latitude + ", lon: " + d.longitude + ", elevation: " + d.elevation });
 
     }
 
