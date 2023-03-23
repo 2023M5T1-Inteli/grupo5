@@ -13,10 +13,6 @@ public class Path {
     @RelationshipId
     private Long id;
 
-    @Property
-    private double distance;
-    @Property("elevationChange")
-    private double elevation;
 
     @Property
     private UUID sourceId;
@@ -24,6 +20,13 @@ public class Path {
     @Property
     private UUID targetId;
 
+    @Property
+    private double distance;
+
+    @Property("elevationChange")
+    private double elevation;
+
+    private double weight;
     private double sourceLat;
     private double sourceLon;
     private double sourceElevation;
@@ -62,6 +65,22 @@ public class Path {
 
     public double getDistance() {
         return distance;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int distanceWeight, int elevationWeight) {
+        // make some adjustments to elevation (invert signal if negative, weight it more it if positive)
+        double adjustedElevation;
+        if (this.elevation < 0) {
+            adjustedElevation = this.elevation * -1;
+        } else {
+            adjustedElevation = this.elevation * 3;
+        }
+        // compute weighted average of distance and elevation
+        this.weight = (distanceWeight * this.distance + elevationWeight * adjustedElevation) / (distanceWeight + elevationWeight);
     }
 
     //Haversine algorithm
