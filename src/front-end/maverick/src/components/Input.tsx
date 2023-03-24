@@ -91,17 +91,41 @@ function InputComponents (){
   const [sourceLon, setSourceLon] = useState('');
   const [sourceLat, setSourceLat] = useState('');
 
+  // Load stored data when the component mounts
+  useEffect(() => {
+    const storedSourceLat = localStorage.getItem('sourceLat');
+    if (storedSourceLat) {
+      setSourceLat(storedSourceLat);
+    }
+    const storedSourceLon = localStorage.getItem('sourceLon');
+    if (storedSourceLon) {
+      setSourceLon(storedSourceLon);
+    }
+    const storedTargetLat = localStorage.getItem('targetLat');
+    if (storedTargetLat) {
+      setTargetLat(storedTargetLat);
+    }
+    const storedTargetLon = localStorage.getItem('targetLon');
+    if (storedTargetLon) {
+      setTargetLon(storedTargetLon);
+    }
+  }, []);
+
   function handleTargetLat(e: any) {
     setTargetLat(e.target.value);
+    localStorage.setItem('targetLat', e.target.value);
   } 
   function handleTargetLon(e: any) {
     setTargetLon(e.target.value);
+    localStorage.setItem('targetLon', e.target.value);
   } 
   function handleSourceLat(e: any) {
     setSourceLat(e.target.value);
+    localStorage.setItem('sourceLat', e.target.value);
   } 
   function handleSourceLon(e: any) {
     setSourceLon(e.target.value);
+    localStorage.setItem('sourceLon', e.target.value);
   } 
   async function getMap() {
 
@@ -110,7 +134,8 @@ function InputComponents (){
     const response = await fetch(url);
     const json = await response.json();
 
-    //window.location.href = 'viewRoutesMap';
+    // Redirect to another page and pass the data as query parameters
+    window.location.href = '`viewRoutesMap?sourceLat=${sourceLat}&sourceLon=${sourceLon}&targetLat=${targetLat}&targetLon=${targetLon}`'
     console.log(json);
 
   }
