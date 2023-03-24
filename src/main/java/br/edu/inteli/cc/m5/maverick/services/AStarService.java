@@ -1,20 +1,75 @@
+/**
+ * This class, AStarService, implements the A* search algorithm to find the shortest path between two nodes in a 
+ * graph, represented by FlightNodeEntity objects. It takes in a HashMap of UUIDs and FlightNodeEntity objects, 
+ * with each FlightNodeEntity object containing the attributes and paths of a node in the graph.
+ * 
+ * The findPath method performs the A* search algorithm by initializing two HashMaps to keep track of g-scores 
+ * and f-scores for each node in the graph. It sets the initial scores for each node to infinity, except for the 
+ * starting node, whose g-score is set to 0 and f-score is set to the heuristic function h(start, end). 
+ * The method then creates a priority queue of nodes ordered by f-score, with the starting node as the only node in the queue.
+ * 
+ * The method then loops through the priority queue, dequeuing the node with the lowest f-score and checking its 
+ * neighbors. For each neighbor, it computes a tentative g-score and updates the scores if the tentative score 
+ * is lower than the current score for that node. If the scores are updated, the neighbor is added to the priority queue.
+ * 
+ * Once the algorithm reaches the end node, it calls the reconstructPath method to reconstruct the path and 
+ * returns it. If the algorithm does not find a path to the end node, it returns null.
+ * 
+ * The reconstructPath method reconstructs the flight path from the starting node to the ending node using the 
+ * "came from" map generated during the A* search algorithm in the findPath method. It starts from the ending 
+ * node and follows the links to the previous nodes until the starting node is reached. For each node on the 
+ * path, it creates a new Path object between it and the previous node, and adds it as a new relationship to the 
+ * node. Finally, it returns an Iterable of FlightNodeEntity objects representing the flight path in the order in 
+ * which they should be traversed.
+ * 
+ * @param nodeSet HashMap with the ID and Node that has the attributes of the node and its paths.
+ * @return an Iterable of FlightNodeEntity objects representing the shortest path from start to end or null if no path was found.
+ * @throws ResourceNotFoundException if the starting node cannot be found in the graph.
+ */
 package br.edu.inteli.cc.m5.maverick.services;
 
 import br.edu.inteli.cc.m5.maverick.models.FlightNodeEntity;
 import br.edu.inteli.cc.m5.maverick.models.Path;
 
 import java.util.*;
-
 public class AStarService {
     private HashMap<UUID, FlightNodeEntity> graph;
     private Map<UUID, Double> gScore;
     private Map<UUID, Double> fScore;
     private Map<UUID, UUID> cameFrom;
 
+    /**
+     * Constructs an AStarService instance with a graph.
+     *
+     * @param nodeSet a HashMap containing all nodes in the graph.
+     */
     public AStarService(HashMap<UUID, FlightNodeEntity> nodeSet) {
         this.graph = nodeSet;
     }
 
+    /**
+     * This method performs an A* search algorithm to find the shortest path between two nodes in a graph. It takes in two
+     * UUIDs representing the start and end nodes of the path, and returns an Iterable of FlightNodeEntity objects
+     * representing the path from start to end.
+     *
+     * The method initializes two HashMaps to keep track of g-scores and f-scores for each node in the graph. It sets the
+     * initial scores for each node to infinity, except for the starting node, whose g-score is set to 0 and f-score is
+     * set to the heuristic function h(start, end). The method then creates a priority queue of nodes ordered by f-score,
+     * with the starting node as the only node in the queue.
+     *
+     * The method then loops through the priority queue, dequeuing the node with the lowest f-score and checking its
+     * neighbors. For each neighbor, it computes a tentative g-score and updates the scores if the tentative score is lower
+     * than the current score for that node. If the scores are updated, the neighbor is added to the priority queue.
+     *
+     * Once the algorithm reaches the end node, it calls the reconstructPath method to reconstruct the path and returns it.
+     * If the algorithm does not find a path to the end node, it returns null.
+     *
+     * @param start the UUID of the starting node
+     * @param end the UUID of the ending node
+     * @return an Iterable of FlightNodeEntity objects representing the shortest path from start to end
+     *         or null if no path was found
+     * @throws ResourceNotFoundException if the starting node cannot be found in the graph
+     */
     public Iterable<FlightNodeEntity> findPath(UUID start, UUID end) {
         // Initialization
         gScore = new HashMap<>();
@@ -74,7 +129,17 @@ public class AStarService {
         return null;
     }
 
-    // helper method for findPath
+    /**
+     * This method reconstructs the flight path from the starting node to the ending node using the "came from" map
+     * generated during the A* search algorithm in the findPath method.
+     * It starts from the ending node and follows the links to the previous nodes until the starting node is reached.
+     * For each node on the path, it creates a new Path object between it and the previous node, and adds it as a new
+     * relationship to the node. Finally, it returns an Iterable of FlightNodeEntity objects representing the flight path
+     * in the order in which they should be traversed.
+     *
+     * @param currentId the ID of the node to start the reconstruction from
+     * @return an Iterable of FlightNodeEntity objects representing the reconstructed flight path
+     */
     private Iterable<FlightNodeEntity> reconstructPath(UUID currentId) {
         // Reconstruct the path using the "came from" map
         Deque<FlightNodeEntity> path = new ArrayDeque<>();
@@ -104,7 +169,14 @@ public class AStarService {
         return path;
     }
 
-    // helper method for findPath
+    /**
+     * Calculates the haversine distance between two FlightNodeEntity objects, taking into account their
+     * latitude, longitude, and elevation. The haversine distance is the great-circle distance between two
+     * points on a sphere (i.e., the Earth).
+     * @param node1 The first FlightNodeEntity object.
+     * @param node2 The second FlightNodeEntity object.
+     * @return The haversine distance between node1 and node2, in meters.
+     */
     public double haversineDistance(FlightNodeEntity node1, FlightNodeEntity node2) {
         // Calculate the haversine distance between two nodes
         final int EARTH_RADIUS = 6371;

@@ -24,7 +24,6 @@ public class FlightPathController {
 
     private HashMap<UUID, FlightNodeEntity> nodeSet;
 
-    // Controller constructor
     public FlightPathController(DTEDDatabaseService dtedDatabaseService, FlightNodeRepository flightNodeRepository) throws Exception {
         this.dtedDatabaseService = dtedDatabaseService;
         this.flightNodeRepository = flightNodeRepository;
