@@ -135,7 +135,7 @@ function InputComponents (){
     const json = await response.json();
 
     // Redirect to another page and pass the data as query parameters
-    window.location.href = '`/viewRoutesMap`'
+    window.location.href = '/viewroutesMap'
     console.log(json);
 
   }
