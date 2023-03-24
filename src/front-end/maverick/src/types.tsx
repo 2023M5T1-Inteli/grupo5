@@ -1,16 +1,16 @@
 import { SimulationNodeDatum } from 'd3';
 
 export interface Node extends SimulationNodeDatum{
-    id: number;
+    id: string;
     latitude: number;
     longitude: number;
     elevation: number;
 }
 
 export interface Edge{
-    id: number;
-    source:number;
-    target:number;
+    id: string;
+    source:string;
+    target:string;
 }
 
 export interface FeatureProperties {

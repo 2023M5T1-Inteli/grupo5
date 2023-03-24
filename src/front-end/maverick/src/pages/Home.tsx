@@ -70,6 +70,17 @@ const Button = styled.button`
   padding: 2rem 10rem;
 `
 
+async function postData() {
+
+  const url = `http://localhost:8080/flight-path/nodes`
+  const options = {
+    method: 'POST'
+  };
+  const response = await fetch(url, options);
+  
+  window.location.href = '/form';
+}
+
  // Return the components to export for HTML
 function Home () {
   return(
@@ -81,7 +92,7 @@ function Home () {
           </TitleContainer>
       </LeftContainer>
       <RightContainer>
-          <Button onClick={() => {window.location.href = '/form'}}>Iniciar</Button>
+          <Button onClick={postData}>Iniciar</Button>
           <img src={logo} />
       </RightContainer>
     </Container>

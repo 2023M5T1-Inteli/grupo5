@@ -56,9 +56,9 @@ public class FlightPathController {
     // return shortest path between 2 specified nodes
     @GetMapping("/cordPath")
     public ResponseEntity<Deque<FlightNodeEntity>> getCordPath(@RequestParam("sourceLat") double sourceLat,
-                                                  @RequestParam("sourceLon") double sourceLon,
-                                                  @RequestParam("targetLat") double targetLat,
-                                                  @RequestParam("targetLon") double targetLon) {
+                                                               @RequestParam("sourceLon") double sourceLon,
+                                                               @RequestParam("targetLat") double targetLat,
+                                                               @RequestParam("targetLon") double targetLon) {
 
         AStarService shortPath = new AStarService(this.nodeSet);
 
@@ -84,11 +84,38 @@ public class FlightPathController {
     }
 
 
-
     // Create - create all nodes in database from DTED file simplification
     @PostMapping("/nodes")
-    public void populateNodes() {
-        this.nodeSet = dtedDatabaseService.readPointsFromDataset();
+    public void populateNodes(@RequestParam(required = false, defaultValue = "3") int elevationWeight,
+                              @RequestParam(required = false, defaultValue = "1") int distanceWeight,
+                              @RequestParam(required = false) List<String> exclusionZones) {
+        HashMap<UUID, FlightNodeEntity> allNodes = dtedDatabaseService.readPointsFromDataset(elevationWeight, distanceWeight);
+
+        // Filter nodes if exclusion zones are specified
+        if (exclusionZones != null) {
+            // Filter out nodes that fall within the exclusion zones
+            for (String exclusionZone : exclusionZones) {
+                String[] coordinates = exclusionZone.split(",");
+                Double minLatitude = Double.parseDouble(coordinates[0]);
+                Double maxLatitude = Double.parseDouble(coordinates[1]);
+                Double minLongitude = Double.parseDouble(coordinates[2]);
+                Double maxLongitude = Double.parseDouble(coordinates[3]);
+
+                Iterator<Map.Entry<UUID, FlightNodeEntity>> iterator = allNodes.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry<UUID, FlightNodeEntity> entry = iterator.next();
+                    Double latitude = entry.getValue().getLatitude();
+                    Double longitude = entry.getValue().getLongitude();
+
+                    if (latitude >= minLatitude && latitude <= maxLatitude
+                            && longitude >= minLongitude && longitude <= maxLongitude) {
+                        iterator.remove(); // Node falls within an exclusion zone
+                    }
+                }
+            }
+        }
+
+        this.nodeSet = allNodes;
     }
 
     // Read - return all nodes from database

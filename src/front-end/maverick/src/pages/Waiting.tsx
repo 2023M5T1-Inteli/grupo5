@@ -46,9 +46,9 @@ const Logo = styled.img`
 function Waiting (){
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useEffect(() => {   
         const timeoutId = setTimeout(() => {
-            navigate("/viewroutes"); // replace with your desired URL
+            navigate("/viewroutesMap"); // replace with your desired URL
         }, 5000); // replace with your desired timeout in milliseconds
 
         return () => {

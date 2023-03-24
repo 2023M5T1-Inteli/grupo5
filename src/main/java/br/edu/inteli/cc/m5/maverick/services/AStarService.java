@@ -53,7 +53,8 @@ public class AStarService {
                 UUID pathId = path.getTargetId();
                 FlightNodeEntity neighbor = graph.get(pathId);
 
-                double weight = path.getElevation() + path.getDistance();
+                // print id, altitude, elevation and weight for node
+                double weight = path.getWeight();
 
                 double tentativeGScore = gScore.get(currentId) + weight;
 
