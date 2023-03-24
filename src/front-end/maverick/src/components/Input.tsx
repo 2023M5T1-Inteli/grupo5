@@ -110,7 +110,7 @@ function InputComponents (){
     const response = await fetch(url);
     const json = await response.json();
 
-    //window.location.href = 'viewRoutesMap';
+    window.location.href = '/viewRoutesMap';
     console.log(json);
 
   }
