@@ -135,10 +135,11 @@ function InputComponents (){
     const json = await response.json();
 
     // Redirect to another page and pass the data as query parameters
-    window.location.href = '`viewRoutesMap?sourceLat=${sourceLat}&sourceLon=${sourceLon}&targetLat=${targetLat}&targetLon=${targetLon}`'
+    window.location.href = '`/viewRoutesMap`'
     console.log(json);
 
   }
+  
 
     return(
         <>
@@ -176,3 +177,7 @@ function InputComponents (){
 
 //Export component coordinates
 export default InputComponents;
+export const storedSourceLat = localStorage.getItem('sourceLat');
+export const storedSourceLon = localStorage.getItem('sourceLon');
+export const storedTargetLat = localStorage.getItem('targetLat');
+export const storedTargetLon = localStorage.getItem('targetLon');
