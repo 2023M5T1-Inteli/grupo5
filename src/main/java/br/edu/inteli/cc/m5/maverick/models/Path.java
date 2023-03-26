@@ -1,3 +1,7 @@
+/**
+* Represents the relationship between two nodes in a graph database.
+* Each instance of this class represents a directed edge from one node to another.
+*/
 package br.edu.inteli.cc.m5.maverick.models;
 
 import org.springframework.data.neo4j.core.schema.Property;
@@ -15,6 +19,10 @@ public class Path {
 
     @Property
     private double distance;
+
+    /**
+     * The elevation change between the source and target nodes of this path.
+     */
     @Property("elevationChange")
     private double elevation;
 
@@ -28,10 +36,25 @@ public class Path {
     private double sourceLon;
     private double sourceElevation;
 
+    /**
+     * The target node of this path.
+     */
     @TargetNode
     private final FlightNodeEntity target;
+
+    /**
+     * The source node of this path.
+     */
     private FlightNodeEntity source;
 
+    /**
+     * Constructs a new Path instance.
+     * @param target the target node of this path
+     * @param sourceLat the latitude of the source node of this path
+     * @param sourceLon the longitude of the source node of this path
+     * @param sourceElevation the elevation of the source node of this path
+     * @param sourceId the UUID of the source node of this path
+     */
     public Path(FlightNodeEntity target, double sourceLat, double sourceLon, double sourceElevation, UUID sourceId) {
         this.target = target;
         this.targetId = this.target.getId();
@@ -40,31 +63,67 @@ public class Path {
         this.distance = haversine(sourceLat, sourceLon);
     }
 
+    /**
+     * Returns the ID of this path.
+     * 
+     * @return the ID of this path
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets the ID of this path.
+     * 
+     * @param id the ID of this path
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Returns the UUID of the source node of this path.
+     * 
+     * @return the UUID of the source node of this path
+     */
     public UUID getSourceId() {
         return sourceId;
     }
 
+    /**
+     * Returns the UUID of the target node of this path.
+     * 
+     * @return the UUID of the target node of this path
+     */
     public UUID getTargetId() {
         return targetId;
     }
 
+    /**
+     * Returns the elevation change between the source and target nodes of this path.
+     * 
+     * @return the elevation change between the source and target nodes of this path
+     */
     public double getElevation() {
         return elevation;
     }
 
+    /**
+     * Returns the distance between the source and target nodes of this path.
+     * 
+     * @return the distance between the source and target nodes of this path
+     */
     public double getDistance() {
         return distance;
     }
 
-    //Haversine algorithm
+    /**
+     * Calculates the great-circle distance between two points on a sphere using the Haversine formula.
+     * 
+     * @param lat1 the latitude of the first point in degrees
+     * @param lon1 the longitude of the first point in degrees
+     * @return the distance between the two points in meters
+     */
     private Double haversine(Double lat1, Double lon1) {
         double R = 6372.8; // Earth radius in kilometers
 

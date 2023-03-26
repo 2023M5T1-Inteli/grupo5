@@ -18,17 +18,36 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * Implementa operações básicas de acesso a dados geográficos armazenados em arquivos
- * no formato DTED utilizando a biblioteca GDAL.
- */
+* Implements basic operations for accessing geographic data stored in DTED format files using the GDAL library.
+*/
 
 @Service
 public class DTEDDatabaseService {
+
+    /*
+    * List of datasets loaded from the DTED files in the resources folder.
+    */
     private final List<Dataset> m_DatabaseDtedDatasets;
+
+    /**
+    * Repository for FlightNodeEntity objects.
+    */
     private final FlightNodeRepository flightNodeRepository;
 
+    /**
+    * Hashmap of FlightNodeEntity objects indexed by UUID.
+    */
     private HashMap<UUID, FlightNodeEntity> nodeSet;
 
+
+    /**
+    * Constructs a DTEDDatabaseService object by loading the DTED files from the given resources directory
+    * and initializing the FlightNodeRepository.
+
+    @param resourcesDirectory The path of the resources directory containing the DTED files.
+    @param flightNodeRepository The repository for FlightNodeEntity objects.
+    @throws Exception If the resources directory cannot be found or no .dt2 files are found in the directory.
+    */
     public DTEDDatabaseService(@Value("dted/Rio") String resourcesDirectory, FlightNodeRepository flightNodeRepository) throws Exception {
         this.flightNodeRepository = flightNodeRepository;
 
@@ -66,6 +85,13 @@ public class DTEDDatabaseService {
         }
     }
 
+    /**
+    * Queries the DTED datasets for the elevation at the given longitude and latitude.
+
+    @param queryLon The longitude to query.
+    @param queryLat The latitude to query.
+    @return An Optional containing the elevation at the given coordinate, or empty if the coordinate is outside the dataset bounds.
+    */
     public Optional<Integer> QueryLonLatElevation(Double queryLon, Double queryLat) {
         Optional<Integer> ret = null;
 
@@ -78,12 +104,26 @@ public class DTEDDatabaseService {
         return ret;
     }
 
+    /**
+    * Returns the extension of the given filename.
+
+    @param filename The filename.
+    @return An Optional containing the extension of the filename, or empty if the filename has no extension.
+    */
     private static Optional<String> getExtensionByStringHandling(String filename) {
         return Optional.ofNullable(filename)
                 .filter(f -> f.contains("."))
                 .map(f -> f.substring(filename.lastIndexOf(".") + 1));
     }
 
+    /**
+    * Check if a coordinate is inside a given dataset
+
+    @param d the dataset to check
+    @param lon the longitude of the coordinate
+    @param lat the latitude of the coordinate
+    @return true if the coordinate is inside the dataset, false otherwise
+    */
     private static boolean isCoordinateInsideDataset(Dataset d, Double lon, Double lat) {
         boolean retCode = false;
 
@@ -104,6 +144,14 @@ public class DTEDDatabaseService {
         return retCode;
     }
 
+    /**
+    * Query a dataset for a given coordinate and return its elevation value
+
+    @param d the dataset to query
+    @param lon the longitude of the coordinate
+    @param lat the latitude of the coordinate
+    @return the elevation value at the given coordinate
+    */
     private static int queryDataset(Dataset d, Double lon, Double lat) {
         int xsize = d.getRasterXSize();
         int ysize = d.getRasterYSize();
@@ -130,6 +178,12 @@ public class DTEDDatabaseService {
         return queryResult;
     }
 
+    /**
+    * Read a DTED file and create a list of FlightNodeEntity objects
+
+    @param path the path to the DTED file
+    @return a list of FlightNodeEntity objects
+    */
     public List<FlightNodeEntity> readPointsFromFile(String path) {
         List<FlightNodeEntity> nodes = new ArrayList<>();
 
@@ -163,9 +217,11 @@ public class DTEDDatabaseService {
         return nodes;
     }
 
+    /**
+    * Reads 500 points from a DTED file, creates FlightNodeEntity objects for each point, and saves them to the db repository.
 
-    // Create nodes from 500 points in DTED file and save in db repository
-
+    @return a HashMap of FlightNodeEntity objects, with UUID keys.
+    */
     public HashMap<UUID, FlightNodeEntity> readPointsFromDataset() {
         this.nodeSet = new HashMap<>();
         for (Dataset d : m_DatabaseDtedDatasets) {
