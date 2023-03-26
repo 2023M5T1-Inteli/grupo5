@@ -89,6 +89,7 @@ public class FlightPathController {
     public void populateNodes(@RequestParam(required = false, defaultValue = "3") int elevationWeight,
                               @RequestParam(required = false, defaultValue = "1") int distanceWeight,
                               @RequestParam(required = false) List<String> exclusionZones) {
+        // Read all nodes from DTED file
         HashMap<UUID, FlightNodeEntity> allNodes = dtedDatabaseService.readPointsFromDataset(elevationWeight, distanceWeight);
 
         // Filter nodes if exclusion zones are specified
@@ -159,8 +160,35 @@ public class FlightPathController {
         return ResponseEntity.ok().build();
     }
 
+    // Delete - remove all nodes
+    @DeleteMapping("/nodes/")
+    public ResponseEntity<?> deleteAllNodes() {
+        flightNodeRepository.deleteAll();
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/api")
     public String apiWelcome() {
         return "Welcome to AEL flight path management";
+    }
+
+    @GetMapping("/print-nodes")
+    public String printNodes() {
+        // Create a StringBuilder to store the formatted output
+        StringBuilder sb = new StringBuilder();
+
+        // Iterate through the nodeSet and append each node's latitude and longitude
+        for (FlightNodeEntity node : nodeSet.values()) {
+            sb.append("Node ID: ")
+                    .append(node.getId())
+                    .append(", Latitude: ")
+                    .append(node.getLatitude())
+                    .append(", Longitude: ")
+                    .append(node.getLongitude())
+                    .append("\n");
+        }
+
+        // Return the formatted output as a string
+        return sb.toString();
     }
 }
