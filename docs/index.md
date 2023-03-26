@@ -27,6 +27,10 @@ Planejador de trajetórias para voos em baixa altitude
     - [Função objetivo](#função-objetivo)
     - [Limitações existentes no problema](#limitações-existentes-no-problema)
   - [Representação do Problema em um Grafo usando Neo4j](#representação-do-problema-em-um-grafo-usando-neo4j)
+  - [Análise de corretude do algoritmo](#análise-de-corretude-do-algoritmo)
+    - [Primeiro elemento do conjunto](#primeiro-elemento-do-conjunto)
+    - [Hipótese](#hipótese)
+    - [Indução](#indução)
   - [Descrição da solução](#descrição-da-solução)
     - [Problema](#problema)
     - [Qual a solução proposta](#qual-a-solução-proposta)
@@ -258,6 +262,53 @@ $Partida (Share), R1, R2, R3, R4, R13, R12, R11, R10, R9,Destino(Inteli)$ com um
 Outro caminho possível, inciando no vértice de partida (Share) e terminando no vértice de chegada (Inteli), porém sem utilizar peso mínimo como critério:
 
 $Partida (Share), R3, R4, R5, R6, R7, R8, Destino (Inteli)$ com uma distância de $5,15km$.
+
+## Análise de corretude do algoritmo
+O algoritmo utilizado no projeto para encontrar o caminho mínimo é o algoritmo A* (lê-se "A estrela").
+
+A* é um algoritmo de busca heurística usado em problemas de caminho ou de percurso. Ele utiliza uma heurística para orientar a busca em direção ao objetivo, tornando a busca mais eficiente do que a busca em largura, feito pelo algoritmo Dijkstra.
+
+A invariante do laço do algoritmo A* é a seguinte: a cada iteração, o nó com a menor estimativa de custo total ($f = g + h$) é escolhido para expansão.
+
+Onde:
+
+- $g$ = o custo do caminho percorrido do nó inicial ao nó atual;
+- $h$ = heurística que estima o custo do caminho mais barato do nó atual ao nó objetivo;
+- $f$ = soma de g e h, ou seja, a estimativa do custo total do caminho do nó inicial ao nó objetivo passando pelo nó atual.
+
+O algoritmo A* mantém uma lista de nós abertos e uma lista de nós fechados. A lista de nós abertos contém os nós que ainda não foram expandidos, enquanto a lista de nós fechados contém os nós que já foram expandidos. A invariante do laço garante que, a cada iteração, o nó com a menor estimativa de custo total na lista de nós abertos será escolhido para expansão, como já mencionado.
+
+Essa invariante garante que, quando o nó objetivo é encontrado, a solução encontrada é ótima, ou seja, não há outro caminho mais curto. Além disso, a invariante garante que o algoritmo A* é completo, ou seja, ele encontra uma solução se uma solução existe.
+
+Para provar a invariante do laço, utilizaremos a técnica de indução.
+
+### Primeiro elemento do conjunto
+No início do algoritmo, o nó inicial é definido como nó atual e $g_{nó inicial} = 0$, pois o custo do caminho do nó inicial até ele mesmo é zero. Assim, temos que:
+
+$f_{nó\hspace{1mm} inicial} = g_{nó\hspace{1mm} inicial} + h_{nó\hspace{1mm} inicial} = 0 + h_{nó\hspace{1mm} inicial} = h_{nó\hspace{1mm} inicial}$
+
+Ou seja, $f_{nó\hspace{1mm} inicial}$ é igual à heurística do nó inicial.
+
+### Hipótese
+Suponha que a invariante $f = g + h$ seja verdadeira para todos os nós visitados pelo algoritmo até o momento.
+
+### Indução
+Vamos considerar $a$ o próximo nó a ser visitado pelo algoritmo, chamado de nó atual. Seja $p$ o nó predecessor do nó atual e $w_{p, a}$ o peso da aresta que liga $p$ a $a$.
+
+Para esse novo nó atual, o algoritmo A* calcula duas estimativas:
+
+- $g_a$ = custo do caminho do nó inicial até o nó atual, passando por $p$
+- $h_a$ = estimativa do custo do caminho do nó atual até o nó final.
+
+Com base nisso, o algoritmo A* atualiza o valor de $f_a$ como $f_a = g_a + h_a$ e verifica se o nó atual já foi visitado antes.
+
+O algoritmo verifica se $a$ já foi visitado antes.
+- Se $a$ já foi visitado antes, o algoritmo verifica se o novo caminho até ele é melhor que o anterior, comparando os valores de $g$ do caminho anterior e do novo caminho.
+- Se o novo caminho for melhor, o algoritmo atualiza o nó com o novo valor de $g$ e o nó é adicionado novamente na lista de nós a serem visitados.
+
+Analisando o passo da indução, podemos ver que a invariante $f = g + h$ continua sendo verdadeira para $a$. Isso ocorre porque o valor de $g_a$ é atualizado para o novo valor, mas a soma $f_a$ como $f_a = g_a + h_a$ continua sendo a mesma.
+
+Assim, podemos concluir que a invariante $f = g + h$ é válida para todos os nós visitados pelo algoritmo A*, ou seja, a cada iteração do laço do algoritmo, a soma $f = g + h$ é mantida como invariante.
 
 ## Descrição da solução
 
