@@ -26,22 +26,95 @@ A gama de utilidades de voos de baixa altitude é bastante grande, abrangindo de
 # Descrição da estratégia adotada para resolver o problema
 
 # Análise da complexidade da solução proposta
+A complexidade de um algoritmo é uma medida de quão "difícil" ou "custoso" ele é em termos de recursos computacionais, como tempo e espaço de memória. Em outras palavras, a complexidade de um algoritmo é uma medida da quantidade de recursos que ele precisa para resolver um determinado problema, e essa medida geralmente é expressa como uma função do tamanho da entrada do problema.
 
-Neste artigo, cada grupo precisará fazer a análise de complexidade da solução proposta, utilizando as notações $O(.)$, $\Omega(.)$ e $\Theta(.)$.
+Existem diferentes tipos de complexidade, como a complexidade de tempo e a complexidade de espaço, que medem a quantidade de tempo ou espaço de memória necessária para executar o algoritmo. A complexidade de tempo é geralmente medida em termos do número de operações básicas executadas pelo algoritmo em relação ao tamanho da entrada do problema. Já a complexidade de espaço é medida em termos da quantidade de espaço de memória necessário para armazenar os dados usados pelo algoritmo em relação ao tamanho da entrada do problema.
 
-A seguir temos a citação de alguns trechos de DASGUPTA et. al. (2011) para mostrar como estas notações são em \LaTeX. 
+A análise de complexidade é uma etapa importante na avaliação de algoritmos, pois permite comparar diferentes algoritmos para um mesmo problema e escolher o que é mais adequado para cada situação. Algoritmos com menor complexidade geralmente são mais eficientes em termos de tempo e espaço de memória, o que é especialmente importante em aplicações que lidam com grandes volumes de dados ou que exigem uma resposta rápida. O modelo utilizado para o desenvolvimento de nosso projeto é o algoritmo _A*_, que é utilizado para encontrar o caminho mais curto entre dois pontos em um grafo ponderado. Ele é uma extensão do algoritmo _Dijkstra_, com a adição de uma heurística que estima a distância restante para o destino.
 
-> Sejam $f(n)$ e $g(n)$ duas funções de inteiros positivos em reais positivos. Dizemos que $f = O(g)$ (que significa que "$f$ não cresce mais rápido do que $g$") se existe uma constante $c > 0$ tal que $f(n) \leq c \cdot g(n)$.
+Antes de explicar a análise da complexidade do algoritmo em si, precisamos entender o que leva o algoritmo _A*_ ter uma capacidade de processamento de memória mais rápido ou mais demorado, dependendo de algumas circunstâncias. O algoritmo utiliza uma estrutura de dados, que veremos posteriormente, chamada fila de prioridades. Essa estrutura de dados organiza seus elementos de acordo com uma determinada ordem de prioridade. Em uma fila de prioridades, os elementos com maior preferência são sempre os primeiros a serem processados (STUART JONATHAN RUSSEL e PETER NORVIG, 2010). A seguir, segue um passo a passo do funcionamento de uma fila de prioridades:
+1. Inicialização: A fila de prioridades é criada e inicializada vazia.
+2. Inserção: Quando um novo elemento é inserido na fila, ele é adicionado de acordo com sua prioridade. Os elementos com maior prioridade são colocados no topo da fila e os elementos com menor prioridade são colocados no final.
+3. Remoção: Quando um elemento é removido da fila, o elemento com maior prioridade é sempre o primeiro a ser removido. Após a remoção, os elementos restantes são reorganizados para manter a ordem de prioridade.
+4. Atualização: Em alguns casos, o valor de um elemento na fila de prioridades pode mudar. Quando isso acontece, a posição do elemento na fila também deve ser atualizada para manter a ordem de prioridade. Isso é feito removendo o elemento da fila e inserindo-o novamente com seu novo valor.
+5. Consulta: É possível consultar o elemento de maior prioridade na fila sem removê-lo. Isso é útil quando se quer saber qual o próximo elemento que será processado.
+6. Tamanho: É possível saber o tamanho atual da fila, ou seja, quantos elementos estão armazenados na fila.
 
-Ainda em outro trecho de DASGUPTA et. al. (2011), temos:
+Outro ponto importante a se comentar estão nas heurísticas, que são funções que ajudam a estimar a distância ou o custo de chegar de um determinado nó a um objetivo final em um grafo ou rede. As heurísticas são uma parte importante do algoritmo _A*_, pois ajudam a determinar a próxima etapa de busca a ser tomada, com base na distância ou no custo estimado de chegar ao objetivo.
+No algoritmo _A*_, a heurística é usada para estimar o custo total de alcançar o objetivo a partir de um determinado nó. Isso é feito adicionando o custo real (calculado) de chegar ao nó atual com uma estimativa heurística do custo de chegar ao objetivo. O resultado é um valor que representa o custo total estimado de chegar ao objetivo a partir do nó atual (STUART JONATHAN RUSSEL e PETER NORVIG, 2010). A heurística usada no algoritmo _A*_ deve atender a dois requisitos:
+1. A heurística deve ser admissível, o que significa que ela não pode superestimar o custo de chegar ao objetivo. Em outras palavras, a heurística deve sempre subestimar o custo total de chegar ao objetivo a partir do nó atual.
+2. A heurística deve ser consistente, o que significa que o custo estimado de chegar a qualquer nó sucessor deve ser menor ou igual ao custo estimado de chegar ao nó atual mais o custo real de mover-se do nó atual para o sucessor.
 
-> Assim como $O(.)$ é análogo a $\leq$, podemos definir análogos de $\geq$ e $=$ como se segue:
+A fórmula de Haversine é uma das principais heurísticas que utilizamos para calcular a distância geodésica entre dois pontos na superfície da Terra. Essa heurística é particularmente útil em aplicações que envolvem roteamento de veículos, como sistemas de navegação por GPS. O comportamento da heurística de Haversine no algoritmo _A*_ é semelhante a outras heurísticas usadas no algoritmo. A heurística de Haversine é usada para estimar o custo mínimo de movimento do nó atual ao objetivo final. Ela calcula a distância geodésica entre o nó atual e o objetivo final (Stuart Jonathan Russell e Peter Norvig, 2010). O nosso projeto envolve justamente a criação de melhores rotas para que o avião percorra uma determinada região com mais facilidade.
 
-> $f = \Omega(g)$ significa $g = O(f)$
+Continuando com a descrição de outro conceito primordial que envolve o funcionamento do algoritmo, temos o fator de ramificação. Ele é denominado pelo número médio de sucessores de cada nó em um grafo, além de ser um indicador da complexidade do próprio grafo, e afeta diretamente o desempenho do algoritmo _A*_. Quanto maior o fator de ramificação, mais difícil é encontrar o caminho ótimo, pois há mais vértices para serem explorados. Por isso, a escolha da heurística pode ser crucial para o desempenho do algoritmo em grafos com diferentes fatores de ramificação. O fator de ramificação também pode afetar a capacidade de processamento e memória do algoritmo _A*_. Quanto maior o fator de ramificação, mais vértices o algoritmo precisa avaliar, o que aumenta o tempo de processamento e a quantidade de memória necessária para armazenar as informações da busca.
+Além disso, o fator de ramificação também pode afetar a qualidade da solução encontrada pelo algoritmo. Quando o fator de ramificação é muito alto, pode ser difícil encontrar a solução ótima em um tempo razoável. Isso ocorre porque o algoritmo _A*_ pode ficar preso explorando caminhos que não levam a uma solução, o que é conhecido como "ramificação falsa". Quando o fator de ramificação é muito alto, muitos nós serão adicionados à fila de prioridade, aumentando seu tamanho e, consequentemente, o tempo de processamento do algoritmo. Além disso, quando muitos nós são adicionados à fila de prioridade, pode haver um aumento na possibilidade de que o algoritmo percorra caminhos desnecessários, o que também  leva a um aumento no tempo de execução e na utilização de memória (STUART JONATHAN RUSSEL e PETER NORVIG, 2010)
+
+Segue um exemplo de duas imagens explicando como esses conceitos afetam o desempenho do algoritmo:
+
+![fator1]("img/fator1.png")
+
+Nesse caso o Source é removido na fila de prioridades, porque já foi explorado, mas os elementos A, B e C são acrescentados na fila de prioridades. A prioridade de cada nó é calculada somando o custo do caminho já percorrido ($g(n)$) com uma estimativa do custo restante para atingir o objetivo ($h(n)$), ou seja, $f(n) = g(n) + h(n)$. O nó com menor valor de $f(n)$ é escolhido para ser explorado em seguida.
+
+![fator2]("img/fator2.png")
+
+O _Source_ também é removido na fila de prioridades, porque já foi explorado, e os elementos A e B são acrescentados na fila de prioridades. Note que para um mesmo caso existem menos elementos à fila de prioridades, assim, armazenando menos vértices, reduzindo o espaço da busca, consumindo menos memória e realizando percurso até o Target mais rápido que no primeiro caso (GRUPO MAVERICK, 2023)
+
+A fim de comprovar a ideia que foi colocada, fizemos um teste empírico para entender o funcionamento da relação entre a quantidade de nós e o tempo de processamento de achar o caminho mais otimizado e também entender como se dá a evolução da quantidade de elementos na fila de prioridade pelo consumo de memória em _megabytes_ (MB). Nossa pesquisa levou em consideração a quantidade de nós total do caminho (incluindo o Source e o Target) e o tempo que levou para o algoritmo identificar o melhor caminho baseado em quantos elementos a fila de prioridades possui atualmente:
+
+![tabela_tempo](img/tamanho_entrada_por_tempo.png)
+
+Tabela que descreve os dados que foram coletados e a relação entre o tamanho da fila de prioridade e o tempo de processamento em milissegundos (GRUPO MAVERICK, 2023).
+
+![grafico_tempo](img/grafico_tempo.png)
+
+Gráfico que representa o tempo de processamento pelo tamanho de entrada na fila de prioridades (GRUPO MAVERICK, 2023).
+![tabela_memoria](img/tamanho_entrada_por_memoria.png)
+
+Tabela que descreve os dados que foram coletados e a relação entre o tamanho da fila de prioridades e o consumo de memória em megabytes (GRUPO MAVERICK, 2023).
+
+![grafico_memoria](img/grafico_memoria.png)A
+
+Gráfico que descreve o consumo de memória em _megabytes_ e o tamanho da fila de prioridades (GRUPO MAVERICK, 2023).
+
+Note que além das respostas estarem contidas nas tabelas e nos gráficos sobre a ordem de crescimento do modelo, o algoritmo _A*_ é um algoritmo clássico e está presente na literatura da ciência da computação . De acordo com muitos estudos e pesquisas de diversos autores e especialistas em algoritmos de caminhos mínimos, como é o caso dos autores Stuart Jonathan Russell e Peter Norvig que publicaram um livro publicado em 2010 e intitulado por “_Artificial Intelligence: A Modern Approach_”, podemos afirmar que sua complexidade assintótica representa o tempo e espaço de um algoritmo à medida que o tamanho de entrada se aproxima do infinito, e é dada por $O(nlogn)$. Essa complexidade se caracteriza pela sua taxa de crescimento, que é proporcional a n multiplicado por uma função logarítmica de n. Em outras palavras, a complexidade cresce de maneira logarítmica com o aumento do tamanho de entrada n.
+Essa função logarítmica é baseada em algoritmos que dividem o problema em subproblemas menores, geralmente pela metade, e resolvem cada subproblema recursivamente. Esse tipo de algoritmo também é comum em algoritmos de ordenação, como o _merge sort_ e o _quicksort_, bem como em algoritmos de busca, como o próprio algoritmo _A*_.
+As características matemáticas da complexidade assintótica $O(nlogn)$ incluem o fato de que o tempo de execução aumenta de forma logarítmica com o tamanho da entrada n, o que significa que, para entradas grandes, o tempo de execução é relativamente pequeno em comparação com complexidades de ordem superior, como $O(n^2)$ e $O(n^3)$, mas possui um tempo de execução maior e pode não ser tão eficiente comparado à complexidade assintótica $O(n)$, $O(logn)$ e $O(1)$. Ainda assim, a complexidade $O(nlogn)$ é considerada bastante eficiente, com um tempo de execução razoável para a maioria dos problemas práticos
+
+![nayouga_image](img/nayouga_image.png)
+
+Grafo que compara as diferentes complexidades assintóticas (NAYOUGA FOUNDATION, 2019).
+
+Diante dessas informações, podemos descrever o comportamento da complexidade assintótica do algoritmo para o pior e melhor caso. Com relação ao pior caso, se a heurística for admissível e consistente, sua complexidade é propriamente $O(nlogn)$. Vale ressaltar que utilizamos a notação $O$ para o estudo do pior caso (THOMAS H. COEMEN, CHARLES E. LEISERSON, RONALD L. RIVEST e CLIFFORD STEIN, 2012). Isso significa que se o ponto de partida do nosso algoritmo estiver em uma ponta inferior da região delimitada (área que representamos por um retângulo) e o ponto de chegada estiver na outra extremidade superior do retângulo, significa que teremos a maior distância possível da região delimitada. Além disso, considerando o fator de ramificação do grafo e se o algoritmo _A*_ que calcula a melhor rota tiver um fator de ramificação médio de 3 (cada nó possui em média 3 filhos), mais dados são armazenados na fila de prioridades. Assim sendo, tendo a maior distância possível e com fator de ramificação 3, o gráfico dessa função cresce ao máximo possível para esse caso, e portanto, tende à própria função e a própria complexidade assintótica do algoritmo $O(nlogn)$.
+
+![pior_caso](img/pior_caso.png)
+
+Representação gráfica do pior caso $O(nlogn)$ (GRUPO MAVERICK, 2023).
+
+O melhor caso para o algoritmo _A*_ ocorre quando o nó de destino é o primeiro nó visitado pelo algoritmo. Nesse caso, o algoritmo encontra a solução sem precisar expandir nenhum outro nó, o que resulta em uma complexidade de tempo constante $Ω(1)$ (representação do melhor caso através da letra grega _Omega_). Ou seja, há apenas um valor na entrada (THOMAS H. COEMEN, CHARLES E. LEISERSON, RONALD L. RIVEST e CLIFFORD STEIN, 2012).
+No entanto, é importante destacar que esse é um caso muito específico e pouco comum na prática. Na maioria dos casos, o algoritmo _A*_ precisará expandir vários vértices antes de encontrar a solução. Além disso, a qualidade da heurística utilizada pode afetar significativamente o desempenho do algoritmo, mesmo nos melhores casos.
+
+![melhor_caso](img/melhor_caso.png)
+
+Representação gráfica do melhor caso $Ω(1)$ (GRUPO MAVERICK, 2023).
+
+Observação: Os testes e a análise de dados que fizemos a fim de entender como se dá a relação do armazenamento dos dado com o tempo de processamento e memória depende do tipo de dispositivo que foi utilizado durante o experimento. Seguem as especificações do dispositivo em que foram realizados os testes empíricos:
+
+Nome do dispositivo- Notebook-32.
+Processador- 11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz   1.50 GHz.
+RAM instalada- 16,0 GB.
+Edição- Windows 11 pro.
+Sistema- Sistema operacional de 64 bits, processador baseado em x64.
 
 # Análise da corretude da solução proposta
 
 # Resultados obtidos
+Primeiramente, o backend foi capaz de carregar os dados dos arquivos DTED de forma eficiente, o que é fundamental para o sucesso da aplicação. O processo de carregamento dos dados é ativado através de uma requisição POST, o que permite que a solução seja facilmente integrada a outras aplicações que exigem a obtenção de rotas eficientes.
+
+Em seguida, foi feita uma requisição GET, passando os parâmetros sourceLat, SourceLon, targetLat e targetLon(que são respectivamente a latitude e longitude dos pontos de partida e chegada) para definir os nós de início e fim e rodá-los no algoritmo _A*_. O algoritmo _A*_ é capaz de encontrar o caminho mínimo em um grafo com custos positivos, e neste caso, levou em consideração fatores como elevação, tipo de solo e outros elementos topográficos para encontrar a melhor rota possível entre os dois pontos definidos.
+
+Após a execução do algoritmo, o caminho gerado foi salvo no banco de dados Neo4j e retornado como resposta à requisição GET. Isso significa que a solução proposta é escalável e pode ser facilmente adaptada para trabalhar com diferentes tipos de terrenos. A requisição GET, com os parâmetros de entrada necessários, permite que a aplicação encontre a rota mais eficiente entre dois pontos, o que é útil em diversas aplicações que envolvem o planejamento de rotas, como entregas, transporte, entre outras. Além disso, a solução proposta pode ser facilmente integrada a outros sistemas, tornando-se uma opção viável para a otimização de rotas em diversas áreas de atuação.
+
 
 # Conclusão
 
@@ -63,5 +136,9 @@ LINTZMAYER, CN; OLIVEIRA MOTA, G. **Análise de Algoritmos e Estruturas de Dados
 LUIZ, O. **PETI**. Intodução,cap.2. Disponível em: <https://www.gov.br/inpi/pt-br/acesso-a-informacao/tecnologia-da-informacao/arquivos/documentos/peti_20162019.pdf>. Acesso em: 20 fev. 2023.
 
 PRESTES, E. **Introdução à Teoria dos Grafos**. Fundamentação Teórica,cap.1. Disponível em: <https://www.inf.ufrgs.br/~prestes/Courses/Graph%20Theory/Livro/LivroGrafos.pdf>. Acesso em: 20 fev. 2023.
+
+CORMEN, Thomas H.; LEISERSON, Charles E.; RIVEST, Ronald L.; STEIN, Clifford. **Algoritmos: Teoria e Prática**. 3. ed. Rio de Janeiro: Elsevier, 2012.
+
+RUSSELL, Stuart Jonathan; NORVIG, Peter. **Artificial Intelligence: A Modern Approach**. 3rd ed. Upper Saddle River, NJ: Prentice Hall, 2010.
 
 
