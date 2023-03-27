@@ -48,65 +48,16 @@ No algoritmo _A*_, a heurística é usada para estimar o custo total de alcança
 A fórmula de Haversine é uma das principais heurísticas que utilizamos para calcular a distância geodésica entre dois pontos na superfície da Terra. Essa heurística é particularmente útil em aplicações que envolvem roteamento de veículos, como sistemas de navegação por GPS. O comportamento da heurística de Haversine no algoritmo _A*_ é semelhante a outras heurísticas usadas no algoritmo. A heurística de Haversine é usada para estimar o custo mínimo de movimento do nó atual ao objetivo final. Ela calcula a distância geodésica entre o nó atual e o objetivo final (Stuart Jonathan Russell e Peter Norvig, 2010). O nosso projeto envolve justamente a criação de melhores rotas para que o avião percorra uma determinada região com mais facilidade.
 
 Continuando com a descrição de outro conceito primordial que envolve o funcionamento do algoritmo, temos o fator de ramificação. Ele é denominado pelo número médio de sucessores de cada nó em um grafo, além de ser um indicador da complexidade do próprio grafo, e afeta diretamente o desempenho do algoritmo _A*_. Quanto maior o fator de ramificação, mais difícil é encontrar o caminho ótimo, pois há mais vértices para serem explorados. Por isso, a escolha da heurística pode ser crucial para o desempenho do algoritmo em grafos com diferentes fatores de ramificação. O fator de ramificação também pode afetar a capacidade de processamento e memória do algoritmo _A*_. Quanto maior o fator de ramificação, mais vértices o algoritmo precisa avaliar, o que aumenta o tempo de processamento e a quantidade de memória necessária para armazenar as informações da busca.
-Além disso, o fator de ramificação também pode afetar a qualidade da solução encontrada pelo algoritmo. Quando o fator de ramificação é muito alto, pode ser difícil encontrar a solução ótima em um tempo razoável. Isso ocorre porque o algoritmo _A*_ pode ficar preso explorando caminhos que não levam a uma solução, o que é conhecido como "ramificação falsa". Quando o fator de ramificação é muito alto, muitos nós serão adicionados à fila de prioridade, aumentando seu tamanho e, consequentemente, o tempo de processamento do algoritmo. Além disso, quando muitos nós são adicionados à fila de prioridade, pode haver um aumento na possibilidade de que o algoritmo percorra caminhos desnecessários, o que também  leva a um aumento no tempo de execução e na utilização de memória (STUART JONATHAN RUSSEL e PETER NORVIG, 2010)
+Além disso, o fator de ramificação também pode afetar a qualidade da solução encontrada pelo algoritmo. Quando o fator de ramificação é muito alto, pode ser difícil encontrar a solução ótima em um tempo razoável. Isso ocorre porque o algoritmo _A*_ pode ficar preso explorando caminhos que não levam a uma solução, o que é conhecido como "ramificação falsa". Quando o fator de ramificação é muito alto, muitos nós serão adicionados à fila de prioridade, aumentando seu tamanho e, consequentemente, o tempo de processamento do algoritmo. Além disso, quando muitos nós são adicionados à fila de prioridade, pode haver um aumento na possibilidade de que o algoritmo percorra caminhos desnecessários, o que também  leva a um aumento no tempo de execução e na utilização de memória (STUART JONATHAN RUSSEL e PETER NORVIG, 2010).
 
-Segue um exemplo de duas imagens explicando como esses conceitos afetam o desempenho do algoritmo:
-
-![fator1]("img/fator1.png")
-
-Nesse caso o Source é removido na fila de prioridades, porque já foi explorado, mas os elementos A, B e C são acrescentados na fila de prioridades. A prioridade de cada nó é calculada somando o custo do caminho já percorrido ($g(n)$) com uma estimativa do custo restante para atingir o objetivo ($h(n)$), ou seja, $f(n) = g(n) + h(n)$. O nó com menor valor de $f(n)$ é escolhido para ser explorado em seguida.
-
-![fator2]("img/fator2.png")
-
-O _Source_ também é removido na fila de prioridades, porque já foi explorado, e os elementos A e B são acrescentados na fila de prioridades. Note que para um mesmo caso existem menos elementos à fila de prioridades, assim, armazenando menos vértices, reduzindo o espaço da busca, consumindo menos memória e realizando percurso até o Target mais rápido que no primeiro caso (GRUPO MAVERICK, 2023)
-
-A fim de comprovar a ideia que foi colocada, fizemos um teste empírico para entender o funcionamento da relação entre a quantidade de nós e o tempo de processamento de achar o caminho mais otimizado e também entender como se dá a evolução da quantidade de elementos na fila de prioridade pelo consumo de memória em _megabytes_ (MB). Nossa pesquisa levou em consideração a quantidade de nós total do caminho (incluindo o Source e o Target) e o tempo que levou para o algoritmo identificar o melhor caminho baseado em quantos elementos a fila de prioridades possui atualmente:
-
-![tabela_tempo](img/tamanho_entrada_por_tempo.png)
-
-Tabela que descreve os dados que foram coletados e a relação entre o tamanho da fila de prioridade e o tempo de processamento em milissegundos (GRUPO MAVERICK, 2023).
-
-![grafico_tempo](img/grafico_tempo.png)
-
-Gráfico que representa o tempo de processamento pelo tamanho de entrada na fila de prioridades (GRUPO MAVERICK, 2023).
-![tabela_memoria](img/tamanho_entrada_por_memoria.png)
-
-Tabela que descreve os dados que foram coletados e a relação entre o tamanho da fila de prioridades e o consumo de memória em megabytes (GRUPO MAVERICK, 2023).
-
-![grafico_memoria](img/grafico_memoria.png)A
-
-Gráfico que descreve o consumo de memória em _megabytes_ e o tamanho da fila de prioridades (GRUPO MAVERICK, 2023).
-
-Note que além das respostas estarem contidas nas tabelas e nos gráficos sobre a ordem de crescimento do modelo, o algoritmo _A*_ é um algoritmo clássico e está presente na literatura da ciência da computação . De acordo com muitos estudos e pesquisas de diversos autores e especialistas em algoritmos de caminhos mínimos, como é o caso dos autores Stuart Jonathan Russell e Peter Norvig que publicaram um livro publicado em 2010 e intitulado por “_Artificial Intelligence: A Modern Approach_”, podemos afirmar que sua complexidade assintótica representa o tempo e espaço de um algoritmo à medida que o tamanho de entrada se aproxima do infinito, e é dada por $O(nlogn)$. Essa complexidade se caracteriza pela sua taxa de crescimento, que é proporcional a n multiplicado por uma função logarítmica de n. Em outras palavras, a complexidade cresce de maneira logarítmica com o aumento do tamanho de entrada n.
+O algoritmo _A*_ é um algoritmo clássico e está presente na literatura da ciência da computação . De acordo com muitos estudos e pesquisas de diversos autores e especialistas em algoritmos de caminhos mínimos, como é o caso dos autores Stuart Jonathan Russell e Peter Norvig que publicaram um livro em 2010 e intitulado como “_Artificial Intelligence: A Modern Approach_”, podemos afirmar que sua complexidade assintótica representa o tempo e espaço de um algoritmo à medida que o tamanho de entrada se aproxima do infinito, e é dada por $O(nlogn)$. Essa complexidade se caracteriza pela sua taxa de crescimento, que é proporcional a n multiplicado por uma função logarítmica de n. Em outras palavras, a complexidade cresce de maneira logarítmica com o aumento do tamanho de entrada n.
 Essa função logarítmica é baseada em algoritmos que dividem o problema em subproblemas menores, geralmente pela metade, e resolvem cada subproblema recursivamente. Esse tipo de algoritmo também é comum em algoritmos de ordenação, como o _merge sort_ e o _quicksort_, bem como em algoritmos de busca, como o próprio algoritmo _A*_.
-As características matemáticas da complexidade assintótica $O(nlogn)$ incluem o fato de que o tempo de execução aumenta de forma logarítmica com o tamanho da entrada n, o que significa que, para entradas grandes, o tempo de execução é relativamente pequeno em comparação com complexidades de ordem superior, como $O(n^2)$ e $O(n^3)$, mas possui um tempo de execução maior e pode não ser tão eficiente comparado à complexidade assintótica $O(n)$, $O(logn)$ e $O(1)$. Ainda assim, a complexidade $O(nlogn)$ é considerada bastante eficiente, com um tempo de execução razoável para a maioria dos problemas práticos
-
-![nayouga_image](img/nayouga_image.png)
-
-Grafo que compara as diferentes complexidades assintóticas (NAYOUGA FOUNDATION, 2019).
+As características matemáticas da complexidade assintótica $O(nlogn)$ incluem o fato de que o tempo de execução aumenta de forma logarítmica com o tamanho da entrada n, o que significa que, para entradas grandes, o tempo de execução é relativamente pequeno em comparação com complexidades de ordem superior, como $O(n^2)$ e $O(n^3)$, mas possui um tempo de execução maior e pode não ser tão eficiente comparado à complexidade assintótica $O(n)$, $O(logn)$ e $O(1)$. Ainda assim, a complexidade $O(nlogn)$ é considerada bastante eficiente, com um tempo de execução razoável para a maioria dos problemas práticos.
 
 Diante dessas informações, podemos descrever o comportamento da complexidade assintótica do algoritmo para o pior e melhor caso. Com relação ao pior caso, se a heurística for admissível e consistente, sua complexidade é propriamente $O(nlogn)$. Vale ressaltar que utilizamos a notação $O$ para o estudo do pior caso (THOMAS H. COEMEN, CHARLES E. LEISERSON, RONALD L. RIVEST e CLIFFORD STEIN, 2012). Isso significa que se o ponto de partida do nosso algoritmo estiver em uma ponta inferior da região delimitada (área que representamos por um retângulo) e o ponto de chegada estiver na outra extremidade superior do retângulo, significa que teremos a maior distância possível da região delimitada. Além disso, considerando o fator de ramificação do grafo e se o algoritmo _A*_ que calcula a melhor rota tiver um fator de ramificação médio de 3 (cada nó possui em média 3 filhos), mais dados são armazenados na fila de prioridades. Assim sendo, tendo a maior distância possível e com fator de ramificação 3, o gráfico dessa função cresce ao máximo possível para esse caso, e portanto, tende à própria função e a própria complexidade assintótica do algoritmo $O(nlogn)$.
 
-![pior_caso](img/pior_caso.png)
-
-Representação gráfica do pior caso $O(nlogn)$ (GRUPO MAVERICK, 2023).
-
 O melhor caso para o algoritmo _A*_ ocorre quando o nó de destino é o primeiro nó visitado pelo algoritmo. Nesse caso, o algoritmo encontra a solução sem precisar expandir nenhum outro nó, o que resulta em uma complexidade de tempo constante $Ω(1)$ (representação do melhor caso através da letra grega _Omega_). Ou seja, há apenas um valor na entrada (THOMAS H. COEMEN, CHARLES E. LEISERSON, RONALD L. RIVEST e CLIFFORD STEIN, 2012).
 No entanto, é importante destacar que esse é um caso muito específico e pouco comum na prática. Na maioria dos casos, o algoritmo _A*_ precisará expandir vários vértices antes de encontrar a solução. Além disso, a qualidade da heurística utilizada pode afetar significativamente o desempenho do algoritmo, mesmo nos melhores casos.
-
-![melhor_caso](img/melhor_caso.png)
-
-Representação gráfica do melhor caso $Ω(1)$ (GRUPO MAVERICK, 2023).
-
-Observação: Os testes e a análise de dados que fizemos a fim de entender como se dá a relação do armazenamento dos dado com o tempo de processamento e memória depende do tipo de dispositivo que foi utilizado durante o experimento. Seguem as especificações do dispositivo em que foram realizados os testes empíricos:
-
-Nome do dispositivo- Notebook-32.
-Processador- 11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz   1.50 GHz.
-RAM instalada- 16,0 GB.
-Edição- Windows 11 pro.
-Sistema- Sistema operacional de 64 bits, processador baseado em x64.
-
-# Análise da corretude da solução proposta
 
 ## Análise de corretude do algoritmo
 A corretude de um algoritmo é a garantia de que ele produz o resultado correto para todos os casos de entrada possíveis. Em outras palavras, um algoritmo é considerado correto se ele atende a sua especificação para todas as entradas possíveis. A análise da corretude do algoritmo é uma das principais preocupações dos cientistas da computação durante o processo de desenvolvimento de um algoritmo (Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest e Clifford Stein, 2012).
