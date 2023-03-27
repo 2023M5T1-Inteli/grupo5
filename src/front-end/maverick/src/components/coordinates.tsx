@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
+import InputComponents, {storedSourceLat, storedSourceLon, storedTargetLat, storedTargetLon} from './Input';
 
 //Create styles to components to render the coordinates
 const Cord = styled.div`
@@ -70,14 +71,14 @@ function Coordinates() {
                     <br />
                     <Subtitle>Latitude:</Subtitle>
                     <br />
-                    <CordBox> 23°34'49.43"S  </CordBox>
+                    <CordBox>{storedSourceLat}</CordBox>
                 </CardCord>
                 <CardCord>
                     <SpaceBox></SpaceBox>
                     <br />
                     <Subtitle>Longitude:</Subtitle>
                     <br />
-                    <CordBox> 23°34'49.43"S </CordBox>
+                    <CordBox>{storedSourceLon}</CordBox>
                 </CardCord>
             </Cord>
             <Cord>
@@ -86,14 +87,14 @@ function Coordinates() {
                     <br />
                     <Subtitle>Latitude:</Subtitle>
                     <br />
-                    <CordBox> 23°34'49.43"S </CordBox>
+                    <CordBox>{storedTargetLat}</CordBox>
                 </CardCord>
                 <CardCord>
                     <SpaceBox></SpaceBox>
                     <br />
                     <Subtitle>Longitude:</Subtitle>
                     <br />
-                    <CordBox> 23°34'49.43"S </CordBox>
+                    <CordBox >{storedTargetLon}</CordBox>
                 </CardCord>
             </Cord>
         </CordContainer>

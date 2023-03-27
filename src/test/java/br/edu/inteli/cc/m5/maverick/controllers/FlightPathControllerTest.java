@@ -49,7 +49,7 @@ class FlightPathControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/flight-path/nodes"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        verify(dtedDatabaseService, times(1)).readPointsFromDataset();
+        verify(dtedDatabaseService, times(1)).readPointsFromDataset(3, 1);
     }
 
     @Test

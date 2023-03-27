@@ -24,12 +24,16 @@ const Button = styled.button`
   font-size: 1.8rem;
   color: #FFFFFF;
 `
+function clearMap(){
+  window.localStorage.clear;
+  window.location.href = '/'
+}
 
 //Return the components to export for HTML
-function ButtonComp() {
+function ButtonComp(){ 
     return(
         <ContainerButton>
-            <Button onClick={() => {window.location.href = '/'}}>Calcular novamente</Button>
+            <Button onClick={clearMap}>Calcular novamente</Button>
         </ContainerButton>
     )
 }
