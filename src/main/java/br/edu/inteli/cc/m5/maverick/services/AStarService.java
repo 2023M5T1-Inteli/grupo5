@@ -88,7 +88,6 @@ public class AStarService {
      * @param end the UUID of the ending node
      * @return an Iterable of FlightNodeEntity objects representing the shortest path from start to end
      * or null if no path was found
-     * @throws ResourceNotFoundException if the starting node cannot be found in the graph
      */
     public Iterable<FlightNodeEntity> findPath(UUID start, UUID end) {
         // Initialization

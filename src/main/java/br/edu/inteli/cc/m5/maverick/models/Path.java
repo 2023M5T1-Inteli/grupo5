@@ -44,12 +44,6 @@ public class Path {
     @Property
     private UUID targetId;
 
-    @Property
-    private double distance;
-
-    @Property("elevationChange")
-    private double elevation;
-
     private double weight;
     private double sourceLat;
     private double sourceLon;
@@ -136,13 +130,7 @@ public class Path {
         return distance;
     }
 
-    /**
-     * Calculates the great-circle distance between two points on a sphere using the Haversine formula.
-     * 
-     * @param lat1 the latitude of the first point in degrees
-     * @param lon1 the longitude of the first point in degrees
-     * @return the distance between the two points in meters
-     */
+
 
     public double getWeight() {
         return weight;
@@ -160,7 +148,13 @@ public class Path {
         this.weight = (distanceWeight * this.distance + elevationWeight * adjustedElevation) / (distanceWeight + elevationWeight);
     }
 
-    //Haversine algorithm
+    /**
+     * Calculates the great-circle distance between two points on a sphere using the Haversine formula.
+     *
+     * @param lat1 the latitude of the first point in degrees
+     * @param lon1 the longitude of the first point in degrees
+     * @return the distance between the two points in meters
+     */
     private Double haversine(Double lat1, Double lon1) {
         double R = 6372.8; // Earth radius in kilometers
 
