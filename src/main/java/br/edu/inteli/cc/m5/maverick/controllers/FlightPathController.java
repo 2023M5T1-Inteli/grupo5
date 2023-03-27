@@ -1,3 +1,7 @@
+
+/**
+ * This class represents a REST controller for managing flight paths and nodes.
+ */
 package br.edu.inteli.cc.m5.maverick.controllers;
 
 import br.edu.inteli.cc.m5.maverick.exceptions.ResourceNotFoundException;
@@ -16,21 +20,38 @@ import java.util.*;
 @RequestMapping(value = "/flight-path", produces = "application/json")
 public class FlightPathController {
 
-    // Database services
+    /** 
+     * The database service for reading data from DTED files. 
+     */
     private final DTEDDatabaseService dtedDatabaseService;
 
-    // Database repository
+    /** 
+     * The repository for managing FlightNodeEntities in the database. 
+     */
     private final FlightNodeRepository flightNodeRepository;
 
+    /** 
+     * A set of all FlightNodeEntities in the database, keyed by UUID. 
+     */
     private HashMap<UUID, FlightNodeEntity> nodeSet;
 
-    // Controller constructor
+    /**
+     * Creates a new FlightPathController object.
+     * 
+     * @param dtedDatabaseService - The DTED database service.
+     * @param flightNodeRepository - The flight node repository.
+     * @throws Exception - If there is an error during initialization.
+     */
     public FlightPathController(DTEDDatabaseService dtedDatabaseService, FlightNodeRepository flightNodeRepository) throws Exception {
         this.dtedDatabaseService = dtedDatabaseService;
         this.flightNodeRepository = flightNodeRepository;
     }
 
-    // GET - return shortest path
+    /**
+     * Returns the shortest path between two random nodes.
+     * 
+     * @return The response entity containing the shortest path between two nodes.
+     */
     @GetMapping("/path")
     public ResponseEntity<Deque<FlightNodeEntity>> getPath() {
         // get a random element from nodeset
@@ -53,7 +74,15 @@ public class FlightPathController {
         return ResponseEntity.ok(paths);
     }
 
-    // return shortest path between 2 specified nodes
+    /**
+     * Returns the shortest path between two specified nodes.
+     * 
+     * @param sourceLat - The latitude of the source node.
+     * @param sourceLon - The longitude of the source node.
+     * @param targetLat - The latitude of the target node.
+     * @param targetLon - The longitude of the target node.
+     * @return The response entity containing the shortest path between the two nodes.
+     */
     @GetMapping("/cordPath")
     public ResponseEntity<Deque<FlightNodeEntity>> getCordPath(@RequestParam("sourceLat") double sourceLat,
                                                                @RequestParam("sourceLon") double sourceLon,
@@ -84,7 +113,9 @@ public class FlightPathController {
     }
 
 
-    // Create - create all nodes in database from DTED file simplification
+    /**
+    Create - create all nodes in database from DTED file simplification.
+    */
     @PostMapping("/nodes")
     public void populateNodes(@RequestParam(required = false, defaultValue = "3") int elevationWeight,
                               @RequestParam(required = false, defaultValue = "1") int distanceWeight,
@@ -118,14 +149,25 @@ public class FlightPathController {
         this.nodeSet = allNodes;
     }
 
-    // Read - return all nodes from database
+    /**
+    * Read - return all nodes from database.
+    * 
+    @return a ResponseEntity containing a list of FlightNodeEntity objects
+    */
     @GetMapping("/nodes")
     public ResponseEntity<List<FlightNodeEntity>> getNodes() {
         List<FlightNodeEntity> nodes = (List<FlightNodeEntity>) flightNodeRepository.findAll();
         return ResponseEntity.ok(nodes);
     }
 
-    // Update - update properties from specified node
+    /**
+    * Update - update properties from specified node.
+    * 
+    @param id the ID of the node to update
+    @param updatedNode the updated node
+    @return a ResponseEntity containing the updated FlightNodeEntity object
+    @throws ResourceNotFoundException if the specified node is not found
+    */
     @PatchMapping("/nodes/{id}")
     public ResponseEntity<FlightNodeEntity> updateNode(@PathVariable Long id, @RequestBody FlightNodeEntity updatedNode) {
         FlightNodeEntity node = flightNodeRepository.findById(id)
@@ -149,7 +191,13 @@ public class FlightPathController {
         return ResponseEntity.ok(savedNode);
     }
 
-    // Delete - remove specified node
+    /**
+    * Delete - remove specified node.
+    * 
+    @param id the ID of the node to delete
+    @return a ResponseEntity with no content if the deletion was successful
+    @throws ResourceNotFoundException if the specified node is not found
+    */
     @DeleteMapping("/nodes/{id}")
     public ResponseEntity<?> deleteNode(@PathVariable Long id) {
         FlightNodeEntity node = flightNodeRepository.findById(id)
@@ -159,6 +207,11 @@ public class FlightPathController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+    * Welcome message for the API.
+    *
+    @return a String containing the welcome message
+    */
     @GetMapping("/api")
     public String apiWelcome() {
         return "Welcome to AEL flight path management";
