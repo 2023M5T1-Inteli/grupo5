@@ -174,8 +174,8 @@ public class DTEDDatabaseService {
 
             double[] geoTransform = d.GetGeoTransform();
 
-            int xStep = 500;
-            int yStep = 500;
+            int xStep = 5;
+            int yStep = 5;
 
             // Add flight nodes
             int xSlots = (xsize / xStep) + 1;
