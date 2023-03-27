@@ -338,7 +338,7 @@ No entanto, é importante destacar que esse é um caso muito específico e pouco
 
 Representação gráfica do melhor caso $Ω(1)$ (GRUPO MAVERICK, 2023)
 
-Observação: Os testes e a análise de dados que fizemos a fim de entender a relação do armazenamento dos dados com o tempo de processamento e memória depende do tipo de dispositivo que foi utilizado durante o experimento em questão. Seguem as especificações do dispositivo em que foram realizados os testes empíricos:
+Observação: Os testes e a análise de dados que fizemos a fim de entender a relação do armazenamento dos dados com o tempo de processamento e memória dependem do tipo de dispositivo que foi utilizado durante o experimento em questão. Seguem as especificações do dispositivo em que foram realizados os testes empíricos:
 
 **Nome do dispositivo**- Notebook-32.
 **Processador**- 11th Gen Intel(R) Core(TM) i5-1145G7 @ 2.60GHz   1.50 GHz.
