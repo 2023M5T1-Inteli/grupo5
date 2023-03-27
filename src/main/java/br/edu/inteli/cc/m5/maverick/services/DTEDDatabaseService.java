@@ -43,7 +43,7 @@ public class DTEDDatabaseService {
     /**
     * Constructs a DTEDDatabaseService object by loading the DTED files from the given resources directory
     * and initializing the FlightNodeRepository.
-
+    * 
     @param resourcesDirectory The path of the resources directory containing the DTED files.
     @param flightNodeRepository The repository for FlightNodeEntity objects.
     @throws Exception If the resources directory cannot be found or no .dt2 files are found in the directory.
@@ -87,7 +87,7 @@ public class DTEDDatabaseService {
 
     /**
     * Queries the DTED datasets for the elevation at the given longitude and latitude.
-
+    * 
     @param queryLon The longitude to query.
     @param queryLat The latitude to query.
     @return An Optional containing the elevation at the given coordinate, or empty if the coordinate is outside the dataset bounds.
@@ -106,7 +106,7 @@ public class DTEDDatabaseService {
 
     /**
     * Returns the extension of the given filename.
-
+    * 
     @param filename The filename.
     @return An Optional containing the extension of the filename, or empty if the filename has no extension.
     */
@@ -118,7 +118,7 @@ public class DTEDDatabaseService {
 
     /**
     * Check if a coordinate is inside a given dataset
-
+    * 
     @param d the dataset to check
     @param lon the longitude of the coordinate
     @param lat the latitude of the coordinate
@@ -146,7 +146,7 @@ public class DTEDDatabaseService {
 
     /**
     * Query a dataset for a given coordinate and return its elevation value
-
+    * 
     @param d the dataset to query
     @param lon the longitude of the coordinate
     @param lat the latitude of the coordinate
@@ -180,7 +180,7 @@ public class DTEDDatabaseService {
 
     /**
     * Read a DTED file and create a list of FlightNodeEntity objects
-
+    * 
     @param path the path to the DTED file
     @return a list of FlightNodeEntity objects
     */
@@ -219,7 +219,7 @@ public class DTEDDatabaseService {
 
     /**
     * Reads 500 points from a DTED file, creates FlightNodeEntity objects for each point, and saves them to the db repository.
-
+    * 
     @return a HashMap of FlightNodeEntity objects, with UUID keys.
     */
     public HashMap<UUID, FlightNodeEntity> readPointsFromDataset() {

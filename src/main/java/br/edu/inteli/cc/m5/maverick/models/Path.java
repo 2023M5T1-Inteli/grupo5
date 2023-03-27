@@ -14,9 +14,15 @@ import java.util.UUID;
 @RelationshipProperties
 public class Path {
 
+    /**
+    * The unique identifier of this edge.
+    */
     @RelationshipId
     private Long id;
 
+    /**
+    * The distance between the source and target nodes of this edge.
+    */
     @Property
     private double distance;
 
@@ -26,9 +32,15 @@ public class Path {
     @Property("elevationChange")
     private double elevation;
 
+    /**
+    * The UUID of the source node of this edge.
+    */
     @Property
     private UUID sourceId;
 
+    /**
+    * The UUID of the target node of this edge.
+    */
     @Property
     private UUID targetId;
 

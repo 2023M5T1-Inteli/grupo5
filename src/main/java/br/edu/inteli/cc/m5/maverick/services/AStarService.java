@@ -33,9 +33,29 @@ import br.edu.inteli.cc.m5.maverick.models.Path;
 
 import java.util.*;
 public class AStarService {
+
+    /**
+    * A hash map that stores a node with a unique identifier (UUID).
+    * The key is the UUID of the node, and the value is the FlightNodeEntity.
+    */
     private HashMap<UUID, FlightNodeEntity> graph;
+
+    /**
+    * A map that stores the g-score of each node in the graph.
+    * The key is the UUID of the node, and the value is the g-score.
+    */
     private Map<UUID, Double> gScore;
+
+    /**
+    * A map that stores the f-score of each node in the graph.
+    * The key is the UUID of the node, and the value is the f-score.
+    */
     private Map<UUID, Double> fScore;
+
+    /**
+    * A map that stores the previous node (cameFrom) for each node in the graph.
+    * The key is the UUID of the current node, and the value is the UUID of the previous node.
+    */
     private Map<UUID, UUID> cameFrom;
 
     /**
@@ -67,7 +87,7 @@ public class AStarService {
      * @param start the UUID of the starting node
      * @param end the UUID of the ending node
      * @return an Iterable of FlightNodeEntity objects representing the shortest path from start to end
-     *         or null if no path was found
+     * or null if no path was found
      * @throws ResourceNotFoundException if the starting node cannot be found in the graph
      */
     public Iterable<FlightNodeEntity> findPath(UUID start, UUID end) {
