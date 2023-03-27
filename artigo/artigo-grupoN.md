@@ -108,6 +108,53 @@ Sistema- Sistema operacional de 64 bits, processador baseado em x64.
 
 # Análise da corretude da solução proposta
 
+## Análise de corretude do algoritmo
+A corretude de um algoritmo é a garantia de que ele produz o resultado correto para todos os casos de entrada possíveis. Em outras palavras, um algoritmo é considerado correto se ele atende a sua especificação para todas as entradas possíveis. A análise da corretude do algoritmo é uma das principais preocupações dos cientistas da computação durante o processo de desenvolvimento de um algoritmo (Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest e Clifford Stein, 2012).
+
+A invariante do laço é uma técnica usada na análise da corretude do algoritmo, que consiste em encontrar uma propriedade que permanece verdadeira em todas as iterações do laço do algoritmo. A invariante do laço é uma expressão matemática que descreve a propriedade e é usada para demonstrar que o algoritmo atende a sua especificação. Essa técnica é amplamente utilizada na análise de algoritmos, especialmente em algoritmos iterativos, como ordenação, busca e muitos outros. Em nosso caso, como vimos anteriormente, aplicaremos essa técnica no algoritmo A*.
+
+A invariante do laço do algoritmo A* é a seguinte: a cada iteração, o nó com a menor estimativa de custo total ($f = g + h$) é escolhido para expansão.
+
+Onde:
+
+- $g$ = o custo do caminho percorrido do nó inicial ao nó atual;
+- $h$ = heurística que estima o custo do caminho mais barato do nó atual ao nó objetivo;
+- $f$ = soma de g e h, ou seja, a estimativa do custo total do caminho do nó inicial ao nó objetivo passando pelo nó atual.
+
+O algoritmo A* mantém uma lista de nós abertos e uma lista de nós fechados. A lista de nós abertos contém os nós que ainda não foram expandidos, enquanto a lista de nós fechados contém os nós que já foram expandidos. A invariante do laço garante que, a cada iteração, o nó com a menor estimativa de custo total na lista de nós abertos será escolhido para expansão, como já mencionado.
+
+Essa invariante garante que, quando o nó objetivo é encontrado, a solução encontrada é ótima, ou seja, não há outro caminho mais curto. Além disso, a invariante garante que o algoritmo A* é completo, ou seja, ele encontra uma solução se uma solução existe.
+
+Para provar a invariante do laço, utilizaremos a técnica de indução.
+
+### Primeiro elemento do conjunto
+No início do algoritmo, o nó inicial é definido como nó atual e $g_{nó inicial} = 0$, pois o custo do caminho do nó inicial até ele mesmo é zero. Assim, temos que:
+
+$f_{nó\hspace{1mm} inicial} = g_{nó\hspace{1mm} inicial} + h_{nó\hspace{1mm} inicial} = 0 + h_{nó\hspace{1mm} inicial} = h_{nó\hspace{1mm} inicial}$
+
+Ou seja, $f_{nó\hspace{1mm} inicial}$ é igual à heurística do nó inicial.
+
+### Hipótese
+Suponha que a invariante $f = g + h$ seja verdadeira para todos os nós visitados pelo algoritmo até o momento.
+
+### Indução
+Vamos considerar $a$ o próximo nó a ser visitado pelo algoritmo, chamado de nó atual. Seja $p$ o nó predecessor do nó atual e $w_{p, a}$ o peso da aresta que liga $p$ a $a$.
+
+Para esse novo nó atual, o algoritmo A* calcula duas estimativas:
+
+- $g_a$ = custo do caminho do nó inicial até o nó atual, passando por $p$
+- $h_a$ = estimativa do custo do caminho do nó atual até o nó final.
+
+Com base nisso, o algoritmo A* atualiza o valor de $f_a$ como $f_a = g_a + h_a$ e verifica se o nó atual já foi visitado antes.
+
+O algoritmo verifica se $a$ já foi visitado antes.
+- Se $a$ já foi visitado antes, o algoritmo verifica se o novo caminho até ele é melhor que o anterior, comparando os valores de $g$ do caminho anterior e do novo caminho.
+- Se o novo caminho for melhor, o algoritmo atualiza o nó com o novo valor de $g$ e o nó é adicionado novamente na lista de nós a serem visitados.
+
+Analisando o passo da indução, podemos ver que a invariante $f = g + h$ continua sendo verdadeira para $a$. Isso ocorre porque o valor de $g_a$ é atualizado para o novo valor, mas a soma $f_a$ como $f_a = g_a + h_a$ continua sendo a mesma.
+
+Assim, podemos concluir que a invariante $f = g + h$ é válida para todos os nós visitados pelo algoritmo A*, ou seja, a cada iteração do laço do algoritmo, a soma $f = g + h$ é mantida como invariante.
+
 # Resultados obtidos
 Primeiramente, o backend foi capaz de carregar os dados dos arquivos DTED de forma eficiente, o que é fundamental para o sucesso da aplicação. O processo de carregamento dos dados é ativado através de uma requisição POST, o que permite que a solução seja facilmente integrada a outras aplicações que exigem a obtenção de rotas eficientes.
 
