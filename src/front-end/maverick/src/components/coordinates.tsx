@@ -2,104 +2,126 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
-import InputComponents, {storedSourceLat, storedSourceLon, storedTargetLat, storedTargetLon} from './Input';
+import Form {storedSourceLat, storedSourceLon, storedTargetLat, storedTargetLon} from './Form';
 
-//Create styles to components to render the coordinates
-const Cord = styled.div`
-  display: flex;
-  width:95vw;
-  height:30vh;
-  justify-content: space-evenly;
-  margin-bottom: -3rem;
-`
-const CordContainer = styled.div`
-  display: flex;
-  width: 90vw;
-  flex-direction: column;
-`
-
-const CardCord = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction:column;
-  width: 40vw;
-  align-items: right;
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem;
+  padding-left: 2rem;
 `
-
-const TitleCord = styled.h2`
-  font-weight: 500;
-  font-size: 1.8rem;
-  line-height: 29px;
+const TitleHeader = styled.h1`
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: .1rem;
+  font-size: 3.0rem;
+  line-height: 4.9rem;
   color: #18568C;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-`
-
-const Subtitle = styled.h2`
-  font-weight: 300;
-  font-size: 1.6rem;
-  line-height: 2.9rem;
+ `
+ const Subtitle = styled.h2`
+  font-family: 'Montserrat';
+  display:flex;
   color: #18568C;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  font-size:1.5rem;
+  font-weight:500;
 `
-
-const CordBox = styled.div`
+const CardBox = styled.div`
   background: #E6E6E6;
   border-radius: 15px;
-  width: 40rem;
-  height: 59px;
+  flex: 1;
+  border-width: 0px;
   font-weight: 400;
   font-size: 1.6rem;
   line-height: 24px;
   color: #18568C;
-  padding: 2rem;
+  padding: 1rem;
+  width: 90%;
+  margin-bottom: 2rem;
+  &:focus {
+    outline: none;
+  }
 `
-
-const SpaceBox = styled.div`
-  height: 2.9rem;
+const TitleCoordinates= styled.h2`
+  font-family: 'Montserrat';
+  display:flex;
+  color: #18568C;
+  font-weight: 300;
+  padding-bottom: 1rem;
 `
-
-// Return the components to export for HTML
-function Coordinates() {
+const Div = styled.div`
+  display: flex;
+  flex-direction:row;
+  gap 2rem;
+`
+const DivSub = styled.div`
+  display: flex;
+  flex-direction:row;
+  gap: 12.5rem;
+  padding-top: 1rem;
+`
+const ContainerButton = styled.div`
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  margin-top: 1rem;
+  gap 2rem;
+`
+const Button = styled.button`
+  width: 21rem;
+  height: 4rem;
+  background: #F2CA52;
+  border-radius: 100px;
+  border-color: #F2CA52;  
+  border-width: 0px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #FFFFFF;
+`
+const ButtonB = styled.button`
+  width: 21rem;
+  height: 4rem;
+  background: #18568C;
+  border-radius: 100px;
+  border-color: #18568C;  
+  border-width: 0px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #FFFFFF;
+`
+ // Return the components to export for HTML
+function Coordinates (){
+  
     return(
-        <CordContainer>
-            <Cord>
-                <CardCord>
-                    <TitleCord>Ponto de partida (coordenadas)</TitleCord>
-                    <br />
-                    <Subtitle>Latitude:</Subtitle>
-                    <br />
-                    <CordBox>{storedSourceLat}</CordBox>
-                </CardCord>
-                <CardCord>
-                    <SpaceBox></SpaceBox>
-                    <br />
-                    <Subtitle>Longitude:</Subtitle>
-                    <br />
-                    <CordBox>{storedSourceLon}</CordBox>
-                </CardCord>
-            </Cord>
-            <Cord>
-            <CardCord>
-                    <TitleCord>Ponto do destino (coordenadas)</TitleCord>
-                    <br />
-                    <Subtitle>Latitude:</Subtitle>
-                    <br />
-                    <CordBox>{storedTargetLat}</CordBox>
-                </CardCord>
-                <CardCord>
-                    <SpaceBox></SpaceBox>
-                    <br />
-                    <Subtitle>Longitude:</Subtitle>
-                    <br />
-                    <CordBox >{storedTargetLon}</CordBox>
-                </CardCord>
-            </Cord>
-        </CordContainer>
+        <Container>
+            <TitleHeader>Gerar rota</TitleHeader>
+            <Subtitle>Insira o ponto de partida (coordenadas)</Subtitle>
+            <DivSub>
+            <TitleCoordinates >Latitude</TitleCoordinates>
+            <TitleCoordinates>Longitude</TitleCoordinates>
+            </DivSub>
+            <Div>
+            <CardBox>{storedSourceLat}</CardBox>
+            <CardBox>{storedSourceLon}</CardBox>
+            </Div>
+            <Subtitle>Insira o ponto do destino (coordenadas)</Subtitle>
+            <DivSub>
+              <TitleCoordinates>Latitude</TitleCoordinates>
+              <TitleCoordinates>Longitude</TitleCoordinates>
+            </DivSub>
+            <Div>
+            <CardBox>{storedTargetLat}</CardBox>
+            <CardBox>{storedTargetLat}</CardBox>
+            </Div>
+            <ContainerButton>
+            <Button>Gerar rota</Button>
+            <ButtonB>Visualizar rota</ButtonB>
+          </ContainerButton>
+        </Container>
+        
     )
 }
-
 //Export component coordinates
 export default Coordinates;
