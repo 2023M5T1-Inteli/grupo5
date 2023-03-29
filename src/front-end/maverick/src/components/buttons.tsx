@@ -6,11 +6,14 @@ import styled from 'styled-components';
 //Create styles to components to render the button
 const ContainerButton = styled.div`
   display: flex;
+  flex-direction: row;
   width:95vw;
   margin-top: 5rem;
-  justify-content: center;
-  align-items:center;
-  margin-top: 5rem;
+  align-items:flex-end;
+  position: absolute;
+  justify-content: flex-end;
+  bottom:0;
+  padding-bottom: 5%;
 `
 
 const Button = styled.button`
@@ -24,16 +27,12 @@ const Button = styled.button`
   font-size: 1.8rem;
   color: #FFFFFF;
 `
-function clearMap(){
-  window.localStorage.clear;
-  window.location.href = '/'
-}
 
 //Return the components to export for HTML
 function ButtonComp(){ 
     return(
         <ContainerButton>
-            <Button onClick={clearMap}>Calcular novamente</Button>
+            <Button>Calcular novamente</Button>
         </ContainerButton>
     )
 }
