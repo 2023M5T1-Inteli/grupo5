@@ -1,5 +1,5 @@
 //Import libraries
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 
@@ -28,11 +28,22 @@ const Button = styled.button`
   color: #FFFFFF;
 `
 
+async function deleteData() {
+
+  const url = `http://localhost:8080/flight-path/nodes/`
+  const options = {
+    method: 'DELETE'
+  };
+  const response = await fetch(url, options);
+  
+  window.location.href = '/';
+}
+
 //Return the components to export for HTML
-function ButtonComp(){ 
+function ButtonComp(){
     return(
         <ContainerButton>
-            <Button>Calcular novamente</Button>
+            <Button onClick={deleteData}>Calcular novamente</Button>
         </ContainerButton>
     )
 }

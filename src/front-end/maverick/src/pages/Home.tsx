@@ -72,7 +72,7 @@ const Button = styled.button`
 
 async function postData() {
 
-  const url = `http://localhost:8080/flight-path/nodes`
+  const url = `http://localhost:8080/flight-path/nodes?elevationWeight=100&distanceWeight=1`
   const options = {
     method: 'POST'
   };
