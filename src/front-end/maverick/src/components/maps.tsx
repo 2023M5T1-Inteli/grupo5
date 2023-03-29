@@ -55,7 +55,7 @@ const Map = () => {
     });
   }, []);
 
-  return <div id="map" style={{ position: "absolute", top: 0, bottom: 0, width: "70%", height:"90%"}} />;
+  return <div id="map" style={{ position: "absolute", top: 0, bottom: 0, width: "70%", height:"100%"}} />;
 };
 
 export default Map;

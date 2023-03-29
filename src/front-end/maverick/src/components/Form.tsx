@@ -145,6 +145,10 @@ function Form (){
     console.log(json);
   }
 
+  function getAnimateMap(){
+    window.location.href = '/viewanimateMap'
+  }
+
     return(
         <Container>
             <TitleHeader>Gerar rota</TitleHeader>
@@ -168,7 +172,7 @@ function Form (){
             </Div>
             <ContainerButton>
             <Button onClick={getMap} >Gerar rota</Button>
-            <ButtonB>Visualizar rota</ButtonB>
+            <ButtonB onClick={getAnimateMap}>Visualizar rota</ButtonB>
           </ContainerButton>
             
             

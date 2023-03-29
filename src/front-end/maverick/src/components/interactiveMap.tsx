@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
+import plan from "../assets/airplane.svg";
 
 const MapAnimation = () => {
   useEffect(() => {
@@ -70,7 +71,7 @@ const MapAnimation = () => {
           },
         });
 
-        fetch('airplane.svg')
+        fetch(plan)
           .then((response) => response.blob())
           .then((blob) => {
             const image = new Image();
@@ -176,7 +177,12 @@ const MapAnimation = () => {
     fetchData();
 })
     return (
-        <div id="map" style={{ width: "99.9vw", height:"100vh"}} />
+        <div id="map" style={{ position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: "100%"}} />
     );
 }
 
