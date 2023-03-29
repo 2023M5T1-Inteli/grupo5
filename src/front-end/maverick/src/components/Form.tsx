@@ -1,27 +1,32 @@
 //Import libraries
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-import Map from "./maps";
 
-import logo from "../assets/logo.png";
 
 //Create styles to components to render the coordinates
-const InputComponent = styled.div`
+const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding-top: 4.7rem;
+  flex-direction:column;
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem;
+  padding-left: 2rem;
 `
-
-const TitleCoordinates= styled.h2`
-font-family: 'Montserrat';
-display:flex;
-color: #18568C;
-font-weight: 300;
-padding-bottom: 1rem;
-`
-const InputDiv = styled.div`
-  display: flex;
+const TitleHeader = styled.h1`
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: .1rem;
+  font-size: 3.0rem;
+  line-height: 4.9rem;
+  color: #18568C;
+ `
+ const Subtitle = styled.h2`
+  font-family: 'Montserrat';
+  display:flex;
+  color: #18568C;
+  font-size:1.5rem;
+  font-weight:500;
 `
 const Input = styled.input`
   background: #E6E6E6;
@@ -34,46 +39,39 @@ const Input = styled.input`
   color: #18568C;
   padding: 1rem;
   width: 90%;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
   &:focus {
     outline: none;
   }
 `
-const DivLong = styled.div`
+const TitleCoordinates= styled.h2`
+  font-family: 'Montserrat';
+  display:flex;
+  color: #18568C;
+  font-weight: 300;
+  padding-bottom: 1rem;
+`
+const Div = styled.div`
   display: flex;
-  width: 100%;
-  gap: 5rem;
+  flex-direction:row;
+  gap 2rem;
 `
-
-const InputWrapper = styled.div`
-width: 40%;
-margin-bottom: -2rem;
-`
-
-const DivLat = styled.div`
+const DivSub = styled.div`
   display: flex;
-  padding-left: 2rem;
-  flex-direction:column;
+  flex-direction:row;
+  gap: 12.5rem;
+  padding-top: 1rem;
 `
-
-const Subtitle = styled.h2`
-font-family: 'Montserrat';
-display:flex;
-color: #18568C;
-font-size:1.8rem;
-font-weight:500;
-`
-
 const ContainerButton = styled.div`
   display: flex;
-  width:95vw;
+  flex-direction:column;
+  align-items: center;
   margin-top: 1rem;
-  gap: 42rem;
+  gap 2rem;
 `
-
 const Button = styled.button`
-  width: 31rem;
-  height: 5rem;
+  width: 21rem;
+  height: 4rem;
   background: #F2CA52;
   border-radius: 100px;
   border-color: #F2CA52;  
@@ -82,10 +80,19 @@ const Button = styled.button`
   font-size: 1.8rem;
   color: #FFFFFF;
 `
-
-// Return the components to export for HTML
-function InputComponents (){
-
+const ButtonB = styled.button`
+  width: 21rem;
+  height: 4rem;
+  background: #18568C;
+  border-radius: 100px;
+  border-color: #18568C;  
+  border-width: 0px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #FFFFFF;
+`
+ // Return the components to export for HTML
+function Form (){
   const [targetLat, setTargetLat] = useState('');
   const [targetLon, setTargetLon] = useState('');
   const [sourceLon, setSourceLon] = useState('');
@@ -128,7 +135,6 @@ function InputComponents (){
     localStorage.setItem('sourceLon', e.target.value);
   } 
   async function getMap() {
-
     const url = `http://localhost:8080/flight-path/cordPath?sourceLat=${sourceLat}&sourceLon=${sourceLon}&targetLat=${targetLat}&targetLon=${targetLon}`
     console.log(url);
     const response = await fetch(url);
@@ -137,46 +143,44 @@ function InputComponents (){
     // Redirect to another page and pass the data as query parameters
     window.location.href = '/viewroutesMap'
     console.log(json);
-
   }
-  
 
     return(
-        <>
-          <InputComponent>
-              <Subtitle>Insira o ponto de partida (coordenadas)</Subtitle>
-              <DivLong>
-              <InputWrapper>
-                  <TitleCoordinates>Latitude</TitleCoordinates>
-                  <Input type="number" onChange={handleSourceLat} value={sourceLat}></Input>
-              </InputWrapper>
-              <InputWrapper>
-                  <TitleCoordinates>Longitude</TitleCoordinates>
-                  <Input type="number" onChange={handleSourceLon} value={sourceLon}></Input>
-              </InputWrapper>
-              </DivLong>
-                  <Subtitle>Insira o ponto do destino (coordenadas)</Subtitle>
-              <DivLong>
-                  <InputWrapper>
-                      <TitleCoordinates>Latitude</TitleCoordinates>
-                      <Input type="number" onChange={handleTargetLat} value={targetLat}></Input>
-                  </InputWrapper>
-                  <InputWrapper>
-                      <TitleCoordinates>Longitude</TitleCoordinates>
-                      <Input type="number" onChange={handleTargetLon} value={targetLon}></Input>
-                  </InputWrapper>
-              </DivLong>
-          </InputComponent>
-          <ContainerButton>
-            <img src={logo} /> 
-            <Button onClick={getMap}>Gerar rota</Button>
+        <Container>
+            <TitleHeader>Gerar rota</TitleHeader>
+            <Subtitle>Insira o ponto de partida (coordenadas)</Subtitle>
+            <DivSub>
+            <TitleCoordinates >Latitude</TitleCoordinates>
+            <TitleCoordinates>Longitude</TitleCoordinates>
+            </DivSub>
+            <Div>
+            <Input type="number" onChange={handleSourceLat} value={sourceLat} ></Input>
+            <Input type="number" onChange={handleSourceLon} value={sourceLon}></Input>
+            </Div>
+            <Subtitle>Insira o ponto do destino (coordenadas)</Subtitle>
+            <DivSub>
+              <TitleCoordinates>Latitude</TitleCoordinates>
+              <TitleCoordinates>Longitude</TitleCoordinates>
+            </DivSub>
+            <Div>
+              <Input type="number" onChange={handleTargetLat} value={targetLat}></Input>
+              <Input type="number" onChange={handleTargetLon} value={targetLon}></Input>
+            </Div>
+            <ContainerButton>
+            <Button onClick={getMap} >Gerar rota</Button>
+            <ButtonB>Visualizar rota</ButtonB>
           </ContainerButton>
-        </>
+            
+            
+            {/* <InputComponents>
+            </InputComponents> */}
+        </Container>
+        
     )
 }
 
 //Export component coordinates
-export default InputComponents;
+export default Form;
 export const storedSourceLat = localStorage.getItem('sourceLat');
 export const storedSourceLon = localStorage.getItem('sourceLon');
 export const storedTargetLat = localStorage.getItem('targetLat');

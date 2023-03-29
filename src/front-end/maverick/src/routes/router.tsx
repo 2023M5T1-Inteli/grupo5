@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Home from '../pages/Home';
-import Form from '../pages/Form';
+import Form from '../components/Form';
 import Waiting from '../pages/Waiting';
 import ViewRoutesMap from '../pages/ViewRoutesMap';
 
@@ -12,7 +12,6 @@ function Router() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/form' element={<Form />} />
                 <Route path='/waitingroom' element={<Waiting/>} />
                 <Route path='/viewroutesMap' element={<ViewRoutesMap/>} />   
             </Routes>

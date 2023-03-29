@@ -78,11 +78,11 @@ async function postData() {
   };
   const response = await fetch(url, options);
   
-  window.location.href = '/form';
+  window.location.href = 'viewroutesMap';
 }
 
  // Return the components to export for HTML
-function Home () {
+function Home () {  
   return(
     <Container>
       <LeftContainer>
