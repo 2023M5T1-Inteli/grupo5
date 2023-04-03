@@ -434,6 +434,8 @@ Para alncançar os objetivos gerais citados acima, foram formulados objetivos es
 - Armazenar a rota encontrada no banco de dados Neo4j
 - Construir a representação no frontend da melhor rota calculada 
 
+Todos os itens citados acima devem levar em conta as restrições do projeto especificadas pelos stakeholders, consirando otimização do cálculo de rota, determinação de um raio de curva mínimo e máximo e traçar trajetórias em baixa altitude.
+
 ## Partes interessadas
 Podemos identificar três principais stakeholders:
 - AEL Sistemas, que irá receber um MVP de um sistema gerador de rotas mínimas;
