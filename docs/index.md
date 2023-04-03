@@ -579,7 +579,15 @@ O back-end, construído em Java, está no container `spring-boot-1`, que recebe 
 
 Para persistir informações, o banco de dados NoSQL Neo4j roda no container `neo4j-1`.
 
-A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controller) dentro da pasta _src_.
+A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controller) dentro da pasta _src_, seguindo o seguinte fluxo de controle:
+
+1. `View` - Requisição REST feita pelo usuário
+2. `Controller` - Chamada da pasta Services
+3. `Services` - Biblioteca GDAL faz manipulação dos dados
+4. `Controller` - A partir dos dados manipulados, ocorre a chamada do algoritmo `A*` na pasta `services`
+5. `Services` - algoritmo `A*` retorna a melhor rota calculada para o `controller`
+6. `Controller` - envia a melhor rota para o front-end (`view`)
+7. `View` - exibe no front-end a rota calculada
 
 ## Descrição dos Subsistemas
 
