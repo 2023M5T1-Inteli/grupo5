@@ -7,6 +7,7 @@ import ViewRoutesMap from '../pages/ViewRoutesMap';
 import ViewRoutesMapAnimation from '../pages/ViewAnimateMap';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ViewExclusionZone from '../pages/ViewExclusionZone';
 
 function Router() {
     return (
@@ -16,6 +17,7 @@ function Router() {
                 <Route path='/waitingroom' element={<Waiting/>} />
                 <Route path='/viewroutesMap' element={<ViewRoutesMap/>} /> 
                 <Route path='/viewanimateMap' element={<ViewRoutesMapAnimation/>} />  
+                <Route path='/exclusionZone' element={<ViewExclusionZone/>}/>
             </Routes>
         </BrowserRouter>
     )       

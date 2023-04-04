@@ -2,7 +2,6 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 
-
 //Create styles to components to render the coordinates
 const Container = styled.div`
   display: flex;
@@ -148,7 +147,9 @@ function Form (){
   function getAnimateMap(){
     window.location.href = '/viewanimateMap'
   }
-
+  function getZone(){
+    window.location.href = '/exclusionZone'
+  }
     return(
         <Container>
             <TitleHeader>Gerar rota</TitleHeader>
@@ -171,13 +172,10 @@ function Form (){
               <Input type="number" onChange={handleTargetLon} value={targetLon}></Input>
             </Div>
             <ContainerButton>
+            <Button onClick={getZone} >Adicionar zona de exlusão</Button>
             <Button onClick={getMap} >Gerar rota</Button>
             <ButtonB onClick={getAnimateMap}>Visualizar rota</ButtonB>
           </ContainerButton>
-            
-            
-            {/* <InputComponents>
-            </InputComponents> */}
         </Container>
         
     )
