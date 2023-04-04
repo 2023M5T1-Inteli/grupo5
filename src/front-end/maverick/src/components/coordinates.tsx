@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
-import Form {storedSourceLat, storedSourceLon, storedTargetLat, storedTargetLon} from './Form';
+import Form, {storedSourceLat, storedSourceLon, storedTargetLat, storedTargetLon} from './Form';
 
 const Container = styled.div`
   display: flex;
