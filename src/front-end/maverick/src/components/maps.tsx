@@ -7,7 +7,7 @@ const Map = () => {
     // TO MAKE THE MAP APPEAR YOU MUST
     // ADD YOUR ACCESS TOKEN FROM
     // https://account.mapbox.com
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic3RidXRvcmkiLCJhIjoiY2xmbzl5MzV2MGQxMDQzdDI5OWt5YTNpYyJ9.lOTKaHXhio-K0_chix_vmA';
+    mapboxgl.accessToken = import.meta.env.VITE_API_KEY;
 
     const map = new mapboxgl.Map({
       container: 'map',
