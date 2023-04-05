@@ -423,9 +423,7 @@ Um caminho que cumpra todos esses aspectos, de forma otimizada, pode ser conside
 ## Objetivos
 
 ### Objetivos gerais
-Os principais objetivos a serem alcançados com a entrega do sistema são, primeiramente, a aquisição de conhecimento por parte dos integrantes do Grupo 5 - Maverick sobre teoria e problemas em grafos, lógica formal, linguagem de programação Java, lógica algorítmica, avaliação de performance de algoritmos, estrutura de dados, banco de dados não relacionais e desenvolvimento web. 
-
-Segundamente, como uma ferramenta para obter os conhecimentos citados, o objetivo central é a criação do sistema planejador de rotas de baixa altitude entre dois pontos de um mapa, representado por um grafo.
+O objetivo central é a criação do sistema planejador de rotas de baixa altitude otimizado, calculando o melhor caminho entre dois pontos de um grafo representando um mapa.
 
 ### Objetivos específicos
 Para alncançar os objetivos gerais citados acima, foram formulados objetivos especpificos para melhor direcionamento do projeto:
@@ -434,10 +432,12 @@ Para alncançar os objetivos gerais citados acima, foram formulados objetivos es
 - Armazenar a rota encontrada no banco de dados Neo4j
 - Construir a representação no frontend da melhor rota calculada 
 
+Todos os itens citados acima devem levar em conta as restrições do projeto especificadas pelos stakeholders, consirando otimização do cálculo de rota, determinação de um raio de curva mínimo e máximo e traçar trajetórias em baixa altitude.
+
 ## Partes interessadas
-Podemos identificar três principais stakeholders:
+Stakeholders envolvidos no projeto:
 - AEL Sistemas, que irá receber um MVP de um sistema gerador de rotas mínimas;
-- Grupo 5 - Maverick, que irá adquirir conhecimentos já citados por meio do desenvolvimento do projeto; 
+- Grupo 5 - Maverick, que irá adquirir conhecimentos por meio do desenvolvimento do projeto; 
 - Inteli, que ganhará visibilidade externa.
 
 # Análise do Problema
@@ -579,7 +579,15 @@ O back-end, construído em Java, está no container `spring-boot-1`, que recebe 
 
 Para persistir informações, o banco de dados NoSQL Neo4j roda no container `neo4j-1`.
 
-A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controller) dentro da pasta _src_.
+A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controller) dentro da pasta _src_, seguindo o seguinte fluxo de controle:
+
+1. `View` - Requisição REST feita pelo usuário
+2. `Controller` - Chamada da pasta Services
+3. `Services` - Biblioteca GDAL faz manipulação dos dados
+4. `Controller` - A partir dos dados manipulados, ocorre a chamada do algoritmo `A*` na pasta `services`
+5. `Services` - algoritmo `A*` retorna a melhor rota calculada para o `controller`
+6. `Controller` - envia a melhor rota para o front-end (`view`)
+7. `View` - exibe no front-end a rota calculada
 
 ## Descrição dos Subsistemas
 
