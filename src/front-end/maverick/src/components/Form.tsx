@@ -67,6 +67,7 @@ const ContainerButton = styled.div`
   align-items: center;
   margin-top: 1rem;
   gap 2rem;
+  margin-top: 12rem;
 `
 const Button = styled.button`
   width: 21rem;
@@ -147,9 +148,6 @@ function Form (){
   function getAnimateMap(){
     window.location.href = '/viewanimateMap'
   }
-  function getZone(){
-    window.location.href = '/exclusionZone'
-  }
     return(
         <Container>
             <TitleHeader>Gerar rota</TitleHeader>
@@ -172,7 +170,6 @@ function Form (){
               <Input type="number" onChange={handleTargetLon} value={targetLon}></Input>
             </Div>
             <ContainerButton>
-            <Button onClick={getZone} >Adicionar zona de exlusão</Button>
             <Button onClick={getMap} >Gerar rota</Button>
             <ButtonB onClick={getAnimateMap}>Visualizar rota</ButtonB>
           </ContainerButton>

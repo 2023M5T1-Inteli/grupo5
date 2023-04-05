@@ -18,7 +18,7 @@ const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-right: 3rem;
+  padding-right: 5.1rem;
 `
 
 const RightContainer = styled.div`
@@ -28,14 +28,14 @@ const RightContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom:5rem;
+  padding-bottom:3rem;
 `
 
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 40vh;
+  height: 50vh;
   flex-wrap: wrap;
   text-align: right;
   margin-bottom: 4rem;
@@ -48,13 +48,15 @@ const Title = styled.h1`
   font-size: 4.0rem;
   line-height: 4.9rem;
   color: #FFFFFF;
+  text-align: left;
+  margin-left: 15rem;
 `
 
 const Subtitle = styled.h2`
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 600;
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 2.9rem;
   color: #FFFFFF;
   padding:0 .5rem;
@@ -67,7 +69,7 @@ const Button = styled.button`
   margin-bottom: 3rem;
   font-size: 1.8rem;
   color: #FFFFFF;
-  padding: 2rem 10rem;
+  padding: 1.5rem 9rem;
 `
 
 async function postData() {
@@ -88,7 +90,7 @@ function Home () {
       <LeftContainer>
           <TitleContainer>
             <Title>Bem vindo ao sistema Maverick </Title>
-            <Subtitle>O sistema que promove maior segurança para sua viagem em baixas altitudes, planejando as melhores rotas para a sua missão.</Subtitle>
+            <Subtitle>O sistema que promove maior <br/> segurança para sua viagem em baixas altitudes,<br/> planejando as melhores rotas para <br/> a sua missão.</Subtitle>
           </TitleContainer>
       </LeftContainer>
       <RightContainer>
