@@ -54,7 +54,7 @@ Além disso, o fator de ramificação também pode afetar a qualidade da soluç�
 
 Segue um exemplo de duas imagens explicando como esses conceitos afetam o desempenho do algoritmo:
 
-![fator1](img/fator1.png)
+<img width="730" height="470" src="img2/fator1.png">
 
 Nesse caso o Source é removido na fila de prioridades, porque já foi explorado, mas os elementos A, B e C são acrescentados na fila de prioridades. A prioridade de cada nó é calculada somando o custo do caminho já percorrido (**g(n)**) com uma estimativa do custo restante para atingir o objetivo (**h(n)**), ou seja, $f(n) = g(n) + h(n)$. O nó com menor valor de $f(n)$ é escolhido para ser explorado em seguida.
 
