@@ -1,5 +1,8 @@
 //Import libraries
 import styled from "styled-components";
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //Import elements
 import logo from "../assets/logo.png";
@@ -73,7 +76,7 @@ const Button = styled.button`
 `
 
 async function postData() {
-
+  toast.info('Carregando...', { autoClose: false });
   const url = `http://localhost:8080/flight-path/nodes?elevationWeight=100&distanceWeight=1`
   const options = {
     method: 'POST'
@@ -86,7 +89,10 @@ async function postData() {
  // Return the components to export for HTML
 function Home () {  
   return(
+    <>
+    <ToastContainer></ToastContainer>
     <Container>
+      <ToastContainer></ToastContainer>
       <LeftContainer>
           <TitleContainer>
             <Title>Bem vindo ao sistema Maverick </Title>
@@ -98,6 +104,7 @@ function Home () {
           <img src={logo} />
       </RightContainer>
     </Container>
+    </>
   )
 }
 
