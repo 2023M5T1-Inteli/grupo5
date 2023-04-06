@@ -15,13 +15,16 @@ const MapAnimation = () => {
         if (index === 0) {
           return coords;
         }
-        return [coords[0] + 0.0001, coords[1] + 0.0001];
+        return [coords[0] + 0.01, coords[1] + 0.01];
       });
 
+      const curve = turf.bezierSpline(turf.lineString(targetCoords));
+
       const routes = {
-        target: targetCoords,
+        target: curve.geometry.coordinates,
         camera: cameraCoords,
       };
+
       mapboxgl.accessToken = import.meta.env.VITE_API_KEY;
       const map = new mapboxgl.Map({
         container: 'map',
@@ -149,7 +152,7 @@ const MapAnimation = () => {
             ).geometry.coordinates;
 
             const camera = map.getFreeCameraOptions();
-
+            camera.setPitchBearing(0,0);
             // set the position and altitude of the camera
             camera.position = mapboxgl.MercatorCoordinate.fromLngLat(
               {
@@ -159,7 +162,7 @@ const MapAnimation = () => {
               cameraAltitude
             );
 
-            // tell the camera to look at a point along the route
+
             camera.lookAtPoint({
               lng: alongRoute[0],
               lat: alongRoute[1]

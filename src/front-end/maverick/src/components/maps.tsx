@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { MapNode } from "../types";
 import mapboxgl from "mapbox-gl";
+import * as turf from '@turf/turf';
+
 
 const Map = () => {
   useEffect(() => {
@@ -28,17 +30,14 @@ const Map = () => {
 
       console.log(mapCoords);
 
+      const line = turf.lineString(mapCoords);
+      const bezierSplineLine = turf.bezierSpline(line);
+
       map.addSource('route', {
         'type': 'geojson',
-        'data': {
-          'type': 'Feature',
-          'properties': {},
-          'geometry': {
-            'type': 'LineString',
-            'coordinates': mapCoords
-          }
-        }
+        'data': bezierSplineLine
       });
+      
       map.addLayer({
         'id': 'route',
         'type': 'line',
