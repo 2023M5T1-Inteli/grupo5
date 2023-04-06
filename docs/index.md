@@ -790,7 +790,32 @@ Após abrir o diretório, insira os comandos para instalar as dependências e ex
 
 ## Manual do Usuário
 
-## Manual do Administrador
+Para utilizar a aplicação é necessário ter instalado todas as dependências que foram utilizadas para elaborar a aplicação.
 
+Após executar o front-end no terminal irá mostrar o seguinte status:
+
+![Terminal](img/terminal.png)
+
+Isso significa que o front-end está rodando no seu localhost (127.0.0.1) na porta (5173), então insira o endereço do local em seu navegador. Após inserir este endereço abrirá a seguinte tela:
+
+![Tela inicial](img/tela-home.png)
+
+Essa é a tela de início, ela tem o objetivo de inserir todos os dados do dted no Neo4j para encontrar a melhor rota. Ao clicar em iniciar, você será direcionado para a tela de formulário onde será inserido os valores da latitude e longitude para calcular a melhor rota.
+
+![Tela formulario](img/tela-formulario.png)
+
+Após inserir os pontos e clicar em gerar rota, o mapa irá carregar a melhor rota para os valores que foram inseridos no formulário e irá mostrar ela da seguinte forma:
+
+![Tela rotas](img/tela-rota.png)
+
+Por último, ao clicar em visualizar rota, você será direcionado para uma nova tela e poderá visualizar o trajeto da rota de forma animada, conforme a imagem abaixo:
+
+![Tela rota animada](img/tela-animacao.png)
+
+Importante notar que a animação está em loop, então ao chegar no final do percurso ela irá reiniciar o loop, para sair da tela é necessário clicar no botão calcular novamente e você irá ser direcionado para o menu inicial.
+
+![Tela inicial](img/tela-home.png)
+
+## Manual do Administrador
 
 # Referências
