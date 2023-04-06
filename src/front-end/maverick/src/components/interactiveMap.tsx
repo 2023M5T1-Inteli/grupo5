@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import plan from "../assets/airplane.svg";
 
+
 const MapAnimation = () => {
   useEffect(() => {
     const fetchData = async () => {
@@ -21,8 +22,7 @@ const MapAnimation = () => {
         target: targetCoords,
         camera: cameraCoords,
       };
-
-      mapboxgl.accessToken = 'pk.eyJ1Ijoic3RidXRvcmkiLCJhIjoiY2xmbzl5MzV2MGQxMDQzdDI5OWt5YTNpYyJ9.lOTKaHXhio-K0_chix_vmA';
+      mapboxgl.accessToken = import.meta.env.VITE_API_KEY;
       const map = new mapboxgl.Map({
         container: 'map',
         zoom: 11.53,

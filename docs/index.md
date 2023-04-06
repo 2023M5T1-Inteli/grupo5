@@ -29,9 +29,6 @@ Planejador de trajetórias para voos em baixa altitude
   - [Representação do Problema em um Grafo usando Neo4j](#representação-do-problema-em-um-grafo-usando-neo4j)
   - [Análise de complexidade do algoritmo](#análise-de-complexidade-do-algoritmo)
   - [Análise de corretude do algoritmo](#análise-de-corretude-do-algoritmo)
-    - [Primeiro elemento do conjunto](#primeiro-elemento-do-conjunto)
-    - [Hipótese](#hipótese)
-    - [Indução](#indução)
   - [Descrição da solução](#descrição-da-solução)
     - [Problema](#problema)
     - [Qual a solução proposta](#qual-a-solução-proposta)
@@ -344,49 +341,29 @@ Observação: Os testes e a análise de dados que fizemos a fim de entender a re
 ## Análise de corretude do algoritmo
 A corretude de um algoritmo é a garantia de que ele produz o resultado correto para todos os casos de entrada possíveis. Em outras palavras, um algoritmo é considerado correto se ele atende a sua especificação para todas as entradas possíveis. A análise da corretude do algoritmo é uma das principais preocupações dos cientistas da computação durante o processo de desenvolvimento de um algoritmo (THOMAS H. COEMEN, CHARLES E. LEISERSON, RONALD L. RIVEST e CLIFFORD STEIN, 2012).
 
-A invariante do laço é uma técnica usada na análise da corretude do algoritmo, que consiste em encontrar uma propriedade que permanece verdadeira em todas as iterações do laço do algoritmo. A invariante do laço é uma expressão matemática que descreve a propriedade e é usada para demonstrar que o algoritmo atende a sua especificação. Essa técnica é amplamente utilizada na análise de algoritmos, especialmente em algoritmos iterativos, como ordenação, busca e muitos outros. Em nosso caso, como vimos anteriormente, aplicaremos essa técnica no algoritmo _A*_.
+A invariante do laço é uma técnica usada na análise da corretude do algoritmo, que consiste em encontrar uma propriedade que permanece verdadeira em todas as iterações do laço do algoritmo. A invariante do laço é uma expressão matemática que descreve a propriedade e é usada para demonstrar que o algoritmo atende a sua especificação. Essa técnica é amplamente utilizada na análise de algoritmos, especialmente em algoritmos iterativos, como ordenação, busca e muitos outros.
 
-A invariante do laço do algoritmo _A*_ é a seguinte: a cada iteração, o nó com a menor estimativa de custo total ($f = g + h$) é escolhido para expansão.
-
-Onde:
-
+Podemos fazer a seguinte afirmação sobre a invariante do laço do algoritmo _A*_: a cada iteração, quando o nó objetivo é selecionado para expansão, a solução é sempre ótima. Isso ocorre porque o _A*_ utiliza a estratégia de busca informada, ou seja, utiliza informações específicas do domínio a respeito do local das metas (nesse caso, nó de destino). Essa estratégia faz uso da heurística $f = g + h$, onde:
 - $g$ = o custo do caminho percorrido do nó inicial ao nó atual;
 - $h$ = heurística que estima o custo do caminho mais barato do nó atual ao nó objetivo;
 - $f$ = soma de g e h, ou seja, a estimativa do custo total do caminho do nó inicial ao nó objetivo passando pelo nó atual.
 
-O algoritmo _A*_ mantém uma lista de nós abertos e uma lista de nós fechados. A lista de nós abertos contém os nós que ainda não foram expandidos, enquanto a lista de nós fechados contém os nós que já foram expandidos. A invariante do laço garante que, a cada iteração, o nó com a menor estimativa de custo total na lista de nós abertos será escolhido para expansão, como já mencionado.
+Uma propriedade fundamental da heurística é admissibilidade para atingir uma meta. A propriedade garante que a heurística nunca superestima o custo para o nó objetivo.
 
-Essa invariante garante que, quando o nó objetivo é encontrado, a solução encontrada é ótima, ou seja, não há outro caminho mais curto. Além disso, a invariante garante que o algoritmo _A*_ é completo, ou seja, ele encontra uma solução se uma solução existe.
+Para provar isso com a prova por contradição: supondo que o caminho ótimo tem custo $C^*$, mas o algoritmo retorne um caminho com custo $C > C^*$. Se todos os nós que estivessem no caminho ótimo tivessem sido expandidos, então o algoritmo teria retornado uma solução ótima. Em outras palavras, deve haver algum nó $n$ que esteja no caminho ótimo e não foi expandido. Utilizando a notação:
 
-Para provar a invariante do laço, utilizaremos a técnica de indução.
+- $g^*n$ = custo do caminho ótimo do início até $n$;
+- $h^*(n)$ = custo do caminho ótimo de $n$ até a meta;
 
-### Primeiro elemento do conjunto
-No início do algoritmo, o nó inicial é definido como nó atual e $g_{nó inicial} = 0$, pois o custo do caminho do nó inicial até ele mesmo é zero. Assim, temos que:
+Temos que:
 
-$f_{nó\hspace{1mm} inicial} = g_{nó\hspace{1mm} inicial} + h_{nó\hspace{1mm} inicial} = 0 + h_{nó\hspace{1mm} inicial} = h_{nó\hspace{1mm} inicial}$
+$f(n) > C^* \hspace{20mm}$ (caso contrário, $n$ teria sido expandido)
+<br>$f(n) = g(n) + h(n) \hspace{6.5mm}$ (por definição)
+<br>$f(n) = g^*(n) + h(n) \hspace{5mm}$ (porque $n$ está no caminho ótimo)
+<br>$f(n) \leq g^*(n) + h^*(n) \hspace{4mm}$ (por causa da admissibilidade, $h(n) \leq h^*(n)$)
+<br>$f(n) \leq C^* \hspace{20.5mm}$ (por definição, $C^* = g^*(n) + h^*(n)$)
 
-Ou seja, $f_{nó\hspace{1mm} inicial}$ é igual à heurística do nó inicial.
-
-### Hipótese
-Suponha que a invariante $f = g + h$ seja verdadeira para todos os nós visitados pelo algoritmo até o momento.
-
-### Indução
-Vamos considerar $a$ o próximo nó a ser visitado pelo algoritmo, chamado de nó atual. Seja $p$ o nó predecessor do nó atual e $w_{p, a}$ o peso da aresta que liga $p$ a $a$.
-
-Para esse novo nó atual, o algoritmo A* calcula duas estimativas:
-
-- $g_a$ = custo do caminho do nó inicial até o nó atual, passando por $p$
-- $h_a$ = estimativa do custo do caminho do nó atual até o nó final.
-
-Com base nisso, o algoritmo A* atualiza o valor de $f_a$ como $f_a = g_a + h_a$ e verifica se o nó atual já foi visitado antes.
-
-O algoritmo verifica se $a$ já foi visitado antes.
-- Se $a$ já foi visitado antes, o algoritmo verifica se o novo caminho até ele é melhor que o anterior, comparando os valores de $g$ do caminho anterior e do novo caminho.
-- Se o novo caminho for melhor, o algoritmo atualiza o nó com o novo valor de $g$ e o nó é adicionado novamente na lista de nós a serem visitados.
-
-Analisando o passo da indução, podemos ver que a invariante $f = g + h$ continua sendo verdadeira para $a$. Isso ocorre porque o valor de $g_a$ é atualizado para o novo valor, mas a soma $f_a$ como $f_a = g_a + h_a$ continua sendo a mesma.
-
-Assim, podemos concluir que a invariante $f = g + h$ é válida para todos os nós visitados pelo algoritmo A*, ou seja, a cada iteração do laço do algoritmo, a soma $f = g + h$ é mantida como invariante.
+A primeira e última linhas formam uma contradição, ou seja, o algoritmo não pode retornar um caminho subótimo. Sendo assim, o resultado retornado sempre é ótimo.
 
 ## Descrição da solução
 
@@ -418,9 +395,7 @@ Um caminho que cumpra todos esses aspectos, de forma otimizada, pode ser conside
 ## Objetivos
 
 ### Objetivos gerais
-Os principais objetivos a serem alcançados com a entrega do sistema são, primeiramente, a aquisição de conhecimento por parte dos integrantes do Grupo 5 - Maverick sobre teoria e problemas em grafos, lógica formal, linguagem de programação Java, lógica algorítmica, avaliação de performance de algoritmos, estrutura de dados, banco de dados não relacionais e desenvolvimento web. 
-
-Segundamente, como uma ferramenta para obter os conhecimentos citados, o objetivo central é a criação do sistema planejador de rotas de baixa altitude entre dois pontos de um mapa, representado por um grafo.
+O objetivo central é a criação do sistema planejador de rotas de baixa altitude otimizado, calculando o melhor caminho entre dois pontos de um grafo representando um mapa.
 
 ### Objetivos específicos
 Para alncançar os objetivos gerais citados acima, foram formulados objetivos especpificos para melhor direcionamento do projeto:
@@ -429,10 +404,12 @@ Para alncançar os objetivos gerais citados acima, foram formulados objetivos es
 - Armazenar a rota encontrada no banco de dados Neo4j
 - Construir a representação no frontend da melhor rota calculada 
 
+Todos os itens citados acima devem levar em conta as restrições do projeto especificadas pelos stakeholders, consirando otimização do cálculo de rota, determinação de um raio de curva mínimo e máximo e traçar trajetórias em baixa altitude.
+
 ## Partes interessadas
-Podemos identificar três principais stakeholders:
+Stakeholders envolvidos no projeto:
 - AEL Sistemas, que irá receber um MVP de um sistema gerador de rotas mínimas;
-- Grupo 5 - Maverick, que irá adquirir conhecimentos já citados por meio do desenvolvimento do projeto; 
+- Grupo 5 - Maverick, que irá adquirir conhecimentos por meio do desenvolvimento do projeto; 
 - Inteli, que ganhará visibilidade externa.
 
 # Análise do Problema
@@ -574,7 +551,15 @@ O back-end, construído em Java, está no container `spring-boot-1`, que recebe 
 
 Para persistir informações, o banco de dados NoSQL Neo4j roda no container `neo4j-1`.
 
-A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controller) dentro da pasta _src_.
+A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controller) dentro da pasta _src_, seguindo o seguinte fluxo de controle:
+
+1. `View` - Requisição REST feita pelo usuário
+2. `Controller` - Chamada da pasta Services
+3. `Services` - Biblioteca GDAL faz manipulação dos dados
+4. `Controller` - A partir dos dados manipulados, ocorre a chamada do algoritmo `A*` na pasta `services`
+5. `Services` - algoritmo `A*` retorna a melhor rota calculada para o `controller`
+6. `Controller` - envia a melhor rota para o front-end (`view`)
+7. `View` - exibe no front-end a rota calculada
 
 ## Descrição dos Subsistemas
 

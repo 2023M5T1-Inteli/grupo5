@@ -2,7 +2,6 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 
-
 //Create styles to components to render the coordinates
 const Container = styled.div`
   display: flex;
@@ -68,6 +67,7 @@ const ContainerButton = styled.div`
   align-items: center;
   margin-top: 1rem;
   gap 2rem;
+  margin-top: 12rem;
 `
 const Button = styled.button`
   width: 21rem;
@@ -148,7 +148,6 @@ function Form (){
   function getAnimateMap(){
     window.location.href = '/viewanimateMap'
   }
-
     return(
         <Container>
             <TitleHeader>Gerar rota</TitleHeader>
@@ -174,10 +173,6 @@ function Form (){
             <Button onClick={getMap} >Gerar rota</Button>
             <ButtonB onClick={getAnimateMap}>Visualizar rota</ButtonB>
           </ContainerButton>
-            
-            
-            {/* <InputComponents>
-            </InputComponents> */}
         </Container>
         
     )

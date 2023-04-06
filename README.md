@@ -8,36 +8,24 @@
 </tr>
 </table>
 
-# Instruções para o projeto do Módulo 5 de Ciência da Computação
+# Projeto: Planejador de Trajetória para Voos em Baixa Altitude
 
-Este repositório define um modelo (*template*) que deve ser seguido por cada grupo para o projeto do módulo 5.
-
-A seguir estão os passos sugeridos para a preparação do seu grupo no início do módulo:
-
-* **Passo 1**: Cada membro do grupo deverá [preparar o seu computador](install.md), instalando e configurando as ferramentas necessárias para redigir a documentação, desenvolver a aplicação e elaborar o artigo.
-
-* **Passo 2**: Cada membro do grupo deverá clonar o repositório do grupo no seu computador e [validar a preparação do seu computador para o projeto](validate.md).
-
-* **Passo 3**: Cada grupo deverá editar este arquivo, removendo estas instruções iniciais e preenchendo o restante da página com os dados do projeto do seu grupo.
-
-
-# Projeto: *Nome_do_seu_Projeto*
-
-# Grupo: *Nome_do_seu_Grupo*
+# Grupo: Maverick
 
 # Descrição
 
-*Descrição_resumida_do_projeto*
+O projeto tem como objetivo desenvolver um algoritmo inteligente para calcular e apresentar a melhor rota para voos militares em baixa altitude, considerando fatores como diferenças de elevação, distâncias percorridas, restrições geográficas e zonas de exclusão.
+
+Para tanto, foi utilizado um back end MVC com Java e o framework Spring Boot, que realiza o processamento necessário para o cálculo da rota com o algoritmo A*. A rota encontrada é salva na base de dados de grafos Neo4J. No front end, a biblioteca React é utilizada para mostrar a rota ótima de uma forma simples e acessível para o usuário.
 
 # Documentação
 
 Os arquivos da documentação deste projeto estão na pasta [/docs](/docs), e o seu conteúdo é publicado em https://2023m5t1-inteli.github.io/grupo5.
 
-
 # Artigo
 
-Os arquivos do artigo estão na pasta [/artigo](/artigo). Um arquivo gerado no formato PDF deverá ser anexado a cada *release* do projeto.
+Os arquivos do artigo estão na pasta [/artigo](/artigo). Um arquivo gerado no formato PDF foi anexado a cada *release* do projeto.
 
 # Releases
 
-Deverá ser publicado um release ao término de cada *sprint* do projeto.
+Ao término de cada *sprint* do projeto, foi gerado um release, identificado pela tag correspondente (por exemplo, sprint1, sprint2...).
