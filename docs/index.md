@@ -29,9 +29,6 @@ Planejador de trajetórias para voos em baixa altitude
   - [Representação do Problema em um Grafo usando Neo4j](#representação-do-problema-em-um-grafo-usando-neo4j)
   - [Análise de complexidade do algoritmo](#análise-de-complexidade-do-algoritmo)
   - [Análise de corretude do algoritmo](#análise-de-corretude-do-algoritmo)
-    - [Primeiro elemento do conjunto](#primeiro-elemento-do-conjunto)
-    - [Hipótese](#hipótese)
-    - [Indução](#indução)
   - [Descrição da solução](#descrição-da-solução)
     - [Problema](#problema)
     - [Qual a solução proposta](#qual-a-solução-proposta)
@@ -271,7 +268,7 @@ Existem diferentes tipos de complexidade, como a complexidade de tempo e a compl
 
 A análise de complexidade é uma etapa importante na avaliação de algoritmos, pois permite comparar diferentes algoritmos para um mesmo problema e escolher o que é mais adequado para cada situação. Algoritmos com menor complexidade geralmente são mais eficientes em termos de tempo e espaço de memória, o que é especialmente importante em aplicações que lidam com grandes volumes de dados ou que exigem uma resposta rápida. O modelo utilizado para o desenvolvimento de nosso projeto é o algoritmo _A*_, que é utilizado para encontrar o caminho mais curto entre dois pontos em um grafo ponderado. Ele é uma extensão do algoritmo _Dijkstra_, com a adição de uma heurística que estima a distância restante para o destino.
 
-Antes de explicar a análise da complexidade do algoritmo em si, precisamos entender o que leva o algoritmo _A*_ ter uma capacidade de processamento de memória mais rápido ou mais demorado, dependendo de algumas circunstâncias. O algoritmo utiliza uma estrutura de dados, que veremos posteriormente, chamada fila de prioridades. Essa estrutura de dados organiza seus elementos de acordo com uma determinada ordem de prioridade. Em uma fila de prioridades, os elementos com maior preferência são sempre os primeiros a serem processados (STUART JONATHAN RUSSEL e PETER NORVIG, 2010). A seguir, segue um passo a passo do funcionamento de uma fila de prioridades:
+Antes de explicar a análise da complexidade do algoritmo em si, precisamos entender o que leva o algoritmo _A*_ ter uma capacidade de processamento de memória mais rápido ou mais demorado, dependendo de algumas circunstâncias. O algoritmo utiliza uma estrutura de dados, que veremos posteriormente, chamada fila de prioridades. Essa estrutura de dados organiza seus elementos de acordo com uma determinada ordem de prioridade. Em uma fila de prioridades, os elementos com maior preferência são sempre os primeiros a serem processados (Stuart Jonathan Russel e Peter Norvig, 2010). A seguir, segue um passo a passo do funcionamento de uma fila de prioridades:
 1. Inicialização: A fila de prioridades é criada e inicializada vazia.
 2. Inserção: Quando um novo elemento é inserido na fila, ele é adicionado de acordo com sua prioridade. Os elementos com maior prioridade são colocados no topo da fila e os elementos com menor prioridade são colocados no final.
 3. Remoção: Quando um elemento é removido da fila, o elemento com maior prioridade é sempre o primeiro a ser removido. Após a remoção, os elementos restantes são reorganizados para manter a ordem de prioridade.
@@ -280,14 +277,14 @@ Antes de explicar a análise da complexidade do algoritmo em si, precisamos ente
 6. Tamanho: É possível saber o tamanho atual da fila, ou seja, quantos elementos estão armazenados na fila.
 
 Outro ponto importante a se comentar estão nas heurísticas, que são funções que ajudam a estimar a distância ou o custo de chegar de um determinado nó a um objetivo final em um grafo ou rede. As heurísticas são uma parte importante do algoritmo _A*_, pois ajudam a determinar a próxima etapa de busca a ser tomada, com base na distância ou no custo estimado de chegar ao objetivo.
-No algoritmo _A*_, a heurística é usada para estimar o custo total de alcançar o objetivo a partir de um determinado nó. Isso é feito adicionando o custo real (calculado) de chegar ao nó atual com uma estimativa heurística do custo de chegar ao objetivo. O resultado é um valor que representa o custo total estimado de chegar ao objetivo a partir do nó atual (STUART JONATHAN RUSSEL e PETER NORVIG, 2010). A heurística usada no algoritmo _A*_ deve atender a dois requisitos:
+No algoritmo _A*_, a heurística é usada para estimar o custo total de alcançar o objetivo a partir de um determinado nó. Isso é feito adicionando o custo real (calculado) de chegar ao nó atual com uma estimativa heurística do custo de chegar ao objetivo. O resultado é um valor que representa o custo total estimado de chegar ao objetivo a partir do nó atual (Stuart Jonathan Russel e Peter Norvig, 2010). A heurística usada no algoritmo _A*_ deve atender a dois requisitos:
 1. A heurística deve ser admissível, o que significa que ela não pode superestimar o custo de chegar ao objetivo. Em outras palavras, a heurística deve sempre subestimar o custo total de chegar ao objetivo a partir do nó atual.
 2. A heurística deve ser consistente, o que significa que o custo estimado de chegar a qualquer nó sucessor deve ser menor ou igual ao custo estimado de chegar ao nó atual mais o custo real de mover-se do nó atual para o sucessor.
 
 A fórmula de Haversine é uma das principais heurísticas que utilizamos para calcular a distância geodésica entre dois pontos na superfície da Terra. Essa heurística é particularmente útil em aplicações que envolvem roteamento de veículos, como sistemas de navegação por GPS. O comportamento da heurística de Haversine no algoritmo _A*_ é semelhante a outras heurísticas usadas no algoritmo. A heurística de Haversine é usada para estimar o custo mínimo de movimento do nó atual ao objetivo final. Ela calcula a distância geodésica entre o nó atual e o objetivo final (Stuart Jonathan Russell e Peter Norvig, 2010). O nosso projeto envolve justamente a criação de melhores rotas para que o avião percorra uma determinada região com mais facilidade.
 
-Continuando com a descrição de outro conceito primordial que envolve o funcionamento do algoritmo, temos o fator de ramificação. Ele é denominado pelo número médio de sucessores de cada nó em um grafo, além de ser um indicador da complexidade do próprio grafo, e afeta diretamente o desempenho do algoritmo _A*_. Quanto maior o fator de ramificação, mais difícil é encontrar o caminho ótimo, pois há mais vértices para serem explorados. Por isso, a escolha da heurística pode ser crucial para o desempenho do algoritmo em grafos com diferentes fatores de ramificação. O fator de ramificação também pode afetar a capacidade de processamento e memória do algoritmo _A*_. Quanto maior o fator de ramificação, mais vértices o algoritmo precisa avaliar, o que aumenta o tempo de processamento e a quantidade de memória necessária para armazenar as informações da busca.
-Além disso, o fator de ramificação também pode afetar a qualidade da solução encontrada pelo algoritmo. Quando o fator de ramificação é muito alto, pode ser difícil encontrar a solução ótima em um tempo razoável. Isso ocorre porque o algoritmo _A*_ pode ficar preso explorando caminhos que não levam a uma solução, o que é conhecido como "ramificação falsa". Quando o fator de ramificação é muito alto, muitos nós serão adicionados à fila de prioridade, aumentando seu tamanho e, consequentemente, o tempo de processamento do algoritmo. Além disso, quando muitos nós são adicionados à fila de prioridade, pode haver um aumento na possibilidade de que o algoritmo percorra caminhos desnecessários, o que também  leva a um aumento no tempo de execução e na utilização de memória (STUART JONATHAN RUSSEL e PETER NORVIG, 2010)
+Continuando com a descrição de outro conceito primordial que envolve o funcionamento do algoritmo, temos o fator de ramificação. Ele é denominado pelo número médio de sucessores de cada nó em um grafo, além de ser um indicador da complexidade do próprio grafo, e pode influenciar o desempenho do algoritmo _A*_. Quanto maior o fator de ramificação, mais elemntos serão adicionados à fila de prioridades. Por isso, a escolha da heurística pode ser crucial para o desempenho do algoritmo em grafos com diferentes fatores de ramificação, visto que a heurística tem um peso maior (ela que determina o peso desse fator de ramificação). O fator de ramificação também pode afetar a capacidade de processamento e memória do algoritmo _A*_. Quanto maior o fator de ramificação, mais vértices o algoritmo precisa avaliar, o que aumenta o tempo de processamento e a quantidade de memória necessária para armazenar as informações da busca.
+Além disso, o fator de ramificação também pode afetar a qualidade da solução encontrada pelo algoritmo. Quando o fator de ramificação é muito alto, pode ser difícil encontrar a solução ótima em um tempo razoável. Isso ocorre porque o algoritmo _A*_ pode ficar preso explorando caminhos que não levam a uma solução, o que é conhecido como "ramificação falsa". Quando o fator de ramificação é muito alto, muitos nós serão adicionados à fila de prioridade, aumentando seu tamanho e, consequentemente, o tempo de processamento do algoritmo. Além disso, quando muitos nós são adicionados à fila de prioridade, pode haver um aumento na possibilidade de que o algoritmo percorra caminhos desnecessários, o que também  leva a um aumento no tempo de execução e na utilização de memória (Stuart Jonathan Russel e Peter Norvig, 2010)
 
 Segue um exemplo de duas imagens explicando como esses conceitos afetam o desempenho do algoritmo:
 
@@ -297,46 +294,41 @@ Nesse caso o Source é removido na fila de prioridades, porque já foi explorado
 
 ![fator2](img/fator2.png)
 
-O _Source_ também é removido na fila de prioridades, porque já foi explorado, e os elementos A e B são acrescentados na fila de prioridades. Note que para um mesmo caso existem menos elementos à fila de prioridades, assim, armazenando menos vértices, reduzindo o espaço da busca, consumindo menos memória e realizando percurso até o _Target_ mais rápido que no primeiro caso (GRUPO MAVERICK, 2023)
+O _Source_ também é removido na fila de prioridades, porque já foi explorado, e os elementos A e B são acrescentados na fila de prioridades. (Grupo Maverick, 2023)
 
-A fim de comprovar a ideia que foi colocada, fizemos um teste empírico para entender o funcionamento da relação entre a quantidade de nós e o tempo de processamento de achar o caminho mais otimizado e também entender como se dá a evolução da quantidade de elementos na fila de prioridade pelo consumo de memória em _megabytes_ (MB). Nossa pesquisa levou em consideração a quantidade de nós total do caminho (incluindo o _Source_ e o _Target_) e o tempo que levou para o algoritmo identificar o melhor caminho baseado em quantos elementos a fila de prioridades possui atualmente:
+Além disso, outro fator importante para mensurar o trabalho e a leitura do algoritmo é o laço principal. Ele é a parte central do algoritmo que executa repetidamente um conjunto de instruções até que uma condição de término seja atingida. Esse laço é responsável por realizar a maior parte do processamento do algoritmo e é onde ocorre a maior utilização de recursos computacionais, como CPU e memória. O laço principal é tipicamente usado em algoritmos que precisam realizar uma determinada operação várias vezes ou que precisam processar grandes quantidades de dados. A sua implementação adequada é essencial para garantir que o algoritmo seja eficiente em termos de tempo de processamento e uso de memória. O laço principal (ou loop principal) do algoritmo _A*_ é o trecho de código que contém o laço "while" que é executado enquanto a lista de nós abertos não estiver vazia. Esse laço é responsável por iterar sobre os nós do grafo em busca do caminho mais curto entre o nó de origem e o nó de destino. A complexidade do algoritmo é afetada pelo número de nós no grafo, bem como pelo número de arestas que conectam esses nós. Como resultado, o tempo de processamento e memória aumenta à medida que o grafo cresce. O laço principal do algoritmo é executado até que o nó final seja alcançado. Em cada iteração, um nó é retirado da fila de prioridade "_openSet_" usando o método "_poll_". Em seguida, cada vizinho do nó atual é verificado para determinar o caminho mais curto para alcançá-lo. O número de vezes que o laço principal é executado depende do tamanho do grafo, da posição dos nós de origem e destino e do número de arestas que conectam esses nós. No geral, o desempenho do algoritmo depende da eficiência da heurística usada para calcular a distância estimada entre um nó e o destino final. Além disso, a implementação da fila de prioridade também pode afetar o desempenho do algoritmo.
 
-![tabela_tempo](img/tamanho_entrada_por_tempo.png)
+Existe um caso no grafo em que se o algoritmo identificar o mwlhor caminho entre os pontos A e B e entre eles existem 62 nós. Não se pode afirmar com precisão quantas iterações exatas o algoritmo realiza. No entanto, podemos estimar a quantidade de vezes que o laço principal será executado. Uma forma de fazer isso é considerar o número médio de vizinhos de cada nó. Supondo que cada nó tem, em média, 4 vizinhos, temos:
 
-Tabela que descreve os dados que foram coletados e a relação entre o tamanho da fila de prioridade e o tempo de processamento em milissegundos (GRUPO MAVERICK, 2023)
+1. Para o nó A, o algoritmo irá expandir 4 nós.
+2. Para cada um dos 4 nós expandidos, o algoritmo irá expandir mais 4 nós, totalizando 16 nós expandidos.
+3. Para cada um dos 16 nós expandidos, o algoritmo irá expandir mais 4 nós, totalizando 64 nós expandidos.
+4. Esse processo continuará até que o nó B seja alcançado.
 
-![grafico_tempo](img/grafico_tempo.png)
+Portanto, podemos estimar que o laço principal será executado cerca de 64 vezes, considerando que a heurística de haversine é admissível e consistente.
 
-Gráfico que representa o tempo de processamento pelo tamanho de entrada na fila de prioridades (Grupo Maverick, 2023).
+![trecho_codigo](img/trecho_codigo.png)
 
-![tabela_memoria](img/tamanho_entrada_por_memoria.png)
+Nesse trecho, o algoritmo percorre todos os nós do grafo até encontrar o nó final. Em cada iteração do loop, ele recupera o nó com a menor f-score da fila de prioridade openSet. Em seguida, ele verifica todos os vizinhos desse nó e atualiza a $g-score$ e $f-score$ de cada vizinho se a nova pontuação for menor do que a pontuação atual. Se a pontuação for atualizada, o vizinho é adicionado à fila de prioridade. Esse loop é executado muitas vezes para encontrar a rota mais curta, e é por isso que ele consome a maior parte do tempo de processamento e memória.
 
-Tabela que descreve os dados que foram coletados e a relação entre o tamanho da fila de prioridades e o consumo de memória em _megabytes_ (GRUPO MAVERICK, 2023)
+A fim de comprovar a ideia que foi colocada, fizemos um teste empírico para entender o funcionamento da relação entre nós expandidos durante o processo de busca e o tempo de processamento de achar o caminho mais otimizado e também entender que Uma boa heurística é importante porque ajuda o algoritmo a tomar decisões mais informadas sobre quais caminhos seguir, permitindo que ele se aproxime do destino de maneira mais eficiente e com menos tentativas. Ao estimar com precisão o custo de chegar de um determinado nó ao destino, a heurística pode orientar o algoritmo em direção ao caminho mais promissor e, assim, reduzir o número de nós que precisam ser explorados, o que leva a economia de tempo de processamento e memória. Dessa forma, uma boa heurística pode ser essencial para resolver problemas mais complexos de maneira eficiente.
 
-![grafico_memoria](img/grafico_memoria.png)
+![tabela_expandidos](img/tabela_expandidos.png)
 
-Gráfico que descreve o consumo de memória em _megabytes_ e o tamanho da fila de prioridades (GRUPO MAVERICK, 2023)
+Tabela que descreve a quantidade de nós que precisaram ser explorados até o destino pelo tempo de processsamneto do algoritmo. (Grupo Maverick, 2023)
 
-Note que além das respostas estarem contidas nas tabelas e nos gráficos sobre a ordem de crescimento do modelo, o algoritmo _A*_ é um algoritmo clássico e está presente na literatura da ciência da computação . De acordo com muitos estudos e pesquisas de diversos autores e especialistas em algoritmos de caminhos mínimos, como é o caso dos autores Stuart Jonathan Russell e Peter Norvig que publicaram um livro em 2010 e intitulado como “_Artificial Intelligence: A Modern Approach_”, podemos afirmar que sua complexidade assintótica representa o tempo e espaço de um algoritmo à medida que o tamanho de entrada se aproxima do infinito, e é dada por $O(nlogn)$. Essa complexidade se caracteriza pela sua taxa de crescimento, que é proporcional a n multiplicado por uma função logarítmica de n. Em outras palavras, a complexidade cresce de maneira logarítmica com o aumento do tamanho de entrada n.
-Essa função logarítmica é baseada em algoritmos que dividem o problema em subproblemas menores, geralmente pela metade, e resolvem cada subproblema recursivamente. Esse tipo de algoritmo também é comum em algoritmos de ordenação, como o _merge sort_ e o _quicksort_, bem como em algoritmos de busca, como o próprio algoritmo _A*_.
-As características matemáticas da complexidade assintótica $O(nlogn)$ incluem o fato de que o tempo de execução aumenta de forma logarítmica com o tamanho da entrada n, o que significa que, para entradas grandes, o tempo de execução é relativamente pequeno em comparação com complexidades de ordem superior, como $O(n^2)$ e $O(n^3)$, mas possui um tempo de execução maior e pode não ser tão eficiente comparado à complexidade assintótica $O(n)$, $O(logn)$ e $O(1)$. Ainda assim, a complexidade $O(nlogn)$ é considerada bastante eficiente, com um tempo de execução razoável para a maioria dos problemas práticos.
+![grafico_expandidos](img/grafico_expandidos.png)
 
-![nayouga_image](img/nayouga_image.png)
+Gráfico que representa a quantidade de nós que precisaram ser explorados até o destino pelo tempo de processsamneto do algoritmo. (Grupo Maverick, 2023)
 
-Grafo que compara as diferentes complexidades assintóticas (NAYOUGA FOUNDATION, 2019).
+Note que a complexidade do algoritmo _A*_ é determinada pela quantidade de nós que ele precisa expandir para encontrar o caminho de menor custo. Essa quantidade de nós expandidos é influenciada pela profundidade do caminho de menor custo e pelo fator de ramificação do grafo de busca.O fator de ramificação do grafo de busca é definido como a média de filhos de cada nó no grafo. Se assumirmos que o fator de ramificação é constante, o algoritmo _A*_ pode ter sua complexidade analisada em termos da profundidade d do caminho de menor custo e do fator de ramificação $b$. Em um grafo com fator de ramificação $b$, o algoritmo _A*_ pode expandir até b nós em cada nível do grafo, em busca do caminho de menor custo. A profundidade do caminho de menor custo é d. Então, o número máximo de nós que podem ser expandidos pelo algoritmo _A*_ é dado por $b^d$. Assim, a complexidade assintótica do algoritmo _A*_ é $O(b^d)$, que representa a quantidade máxima de nós que podem ser expandidos durante a sua execução em um grafo com fator de ramificação $b$ e profundidade $d$.
 
-Diante dessas informações, podemos descrever o comportamento da complexidade assintótica do algoritmo para o pior e melhor caso. Com relação ao pior caso, se a heurística for admissível e consistente, sua complexidade é propriamente $O(nlogn)$. Vale ressaltar que utilizamos a notação $O$ para o estudo do pior caso (THOMAS H. COEMEN, CHARLES E. LEISERSON, RONALD L. RIVEST e CLIFFORD STEIN, 2012). Isso significa que se o ponto de partida do nosso algoritmo estiver em uma ponta inferior da região delimitada (área que representamos por um retângulo) e o ponto de chegada estiver na outra extremidade superior do retângulo, significa que teremos a maior distância possível da região delimitada. Além disso, considerando o fator de ramificação do grafo e se o algoritmo _A*_ que calcula a melhor rota tiver um fator de ramificação médio de 3 (cada nó possui em média 3 filhos), mais dados são armazenados na fila de prioridades. Assim sendo, tendo a maior distância possível e com fator de ramificação 3, o gráfico dessa função cresce ao máximo possível para esse caso, e portanto, tende à própria função e a própria complexidade assintótica do algoritmo $O(nlogn)$.
+A complexidade assintótica $O(b^d)$ é comumente associada a um crescimento exponencial em relação à profundidade da árvore de busca. Isso significa que, à medida que a profundidade da árvore aumenta, o número de nós explorados cresce exponencialmente em relação ao fator de ramificação b.Visualmente, isso se manifesta em uma curva de crescimento exponencial na quantidade de nós explorados em relação à profundidade da árvore de busca. Por exemplo, em um gráfico que apresenta a quantidade de nós explorados ao longo do tempo, a curva pode apresentar um aumento exponencial, à medida que a profundidade aumenta.Em termos de análise, isso significa que o tempo de execução do algoritmo _A*_ aumenta exponencialmente à medida que a profundidade da árvore aumenta, em uma taxa determinada pelo fator de ramificação $b$.
 
-![pior_caso](img/pior_caso.png)
+Diante dessas informações, O pior caso do algoritmo _A*_ ocorre quando todos os caminhos possíveis entre o nó inicial e o nó objetivo precisam ser considerados para encontrar o caminho ótimo. Em outras palavras, o algoritmo precisa percorrer todo o espaço de busca para encontrar a solução. A complexidade de tempo do algoritmo _A*_ é influenciada pelo fator de ramificação ($b$) e pela profundidade da solução ($d$). O fator de ramificação, como foi visto anteriormente, é definido como o número médio de sucessores que cada nó tem, enquanto a profundidade da solução é o número de nós que precisam ser visitados para alcançar a solução. O pior caso ocorre quando cada nó tem um grande número de sucessores, e a profundidade da solução é grande. Nesse cenário, a quantidade de nós que precisam ser visitados pelo algoritmo aumenta exponencialmente em relação ao fator de ramificação e à profundidade da solução. Por isso, o pior caso do algoritmo _A*_ é $O(b^d)$.
 
-Representação gráfica do pior caso $O(nlogn)$ (GRUPO MAVERICK, 2023).
-
-O melhor caso para o algoritmo _A*_ ocorre quando o nó de destino é o primeiro nó visitado pelo algoritmo. Nesse caso, o algoritmo encontra a solução sem precisar expandir nenhum outro nó, o que resulta em uma complexidade de tempo constante $Ω(1)$ (representação do melhor caso através da letra grega _Omega_). Ou seja, há apenas um valor na entrada (THOMAS H. COEMEN, CHARLES E. LEISERSON, RONALD L. RIVEST e CLIFFORD STEIN, 2012).
+O melhor caso para o algoritmo _A*_ ocorre quando o nó de destino é o primeiro nó visitado pelo algoritmo. Nesse caso, o algoritmo encontra a solução sem precisar expandir nenhum outro nó, o que resulta em uma complexidade de tempo constante $\Omega(1)$ (representação do melhor caso através da letra grega _Omega_). Ou seja, há apenas um valor na entrada (Thomas H. Coemen, Charles E. Leiersson, Ronald L. Rivest e Clifford Stein, 2012).
 No entanto, é importante destacar que esse é um caso muito específico e pouco comum na prática. Na maioria dos casos, o algoritmo _A*_ precisará expandir vários vértices antes de encontrar a solução. Além disso, a qualidade da heurística utilizada pode afetar significativamente o desempenho do algoritmo, mesmo nos melhores casos.
-
-![melhor_caso](img/melhor_caso.png)
-
-Representação gráfica do melhor caso $Ω(1)$ (GRUPO MAVERICK, 2023)
 
 Observação: Os testes e a análise de dados que fizemos a fim de entender a relação do armazenamento dos dados com o tempo de processamento e memória dependem do tipo de dispositivo que foi utilizado durante o experimento em questão. Seguem as especificações do dispositivo em que foram realizados os testes empíricos:
 
@@ -349,49 +341,29 @@ Observação: Os testes e a análise de dados que fizemos a fim de entender a re
 ## Análise de corretude do algoritmo
 A corretude de um algoritmo é a garantia de que ele produz o resultado correto para todos os casos de entrada possíveis. Em outras palavras, um algoritmo é considerado correto se ele atende a sua especificação para todas as entradas possíveis. A análise da corretude do algoritmo é uma das principais preocupações dos cientistas da computação durante o processo de desenvolvimento de um algoritmo (THOMAS H. COEMEN, CHARLES E. LEISERSON, RONALD L. RIVEST e CLIFFORD STEIN, 2012).
 
-A invariante do laço é uma técnica usada na análise da corretude do algoritmo, que consiste em encontrar uma propriedade que permanece verdadeira em todas as iterações do laço do algoritmo. A invariante do laço é uma expressão matemática que descreve a propriedade e é usada para demonstrar que o algoritmo atende a sua especificação. Essa técnica é amplamente utilizada na análise de algoritmos, especialmente em algoritmos iterativos, como ordenação, busca e muitos outros. Em nosso caso, como vimos anteriormente, aplicaremos essa técnica no algoritmo _A*_.
+A invariante do laço é uma técnica usada na análise da corretude do algoritmo, que consiste em encontrar uma propriedade que permanece verdadeira em todas as iterações do laço do algoritmo. A invariante do laço é uma expressão matemática que descreve a propriedade e é usada para demonstrar que o algoritmo atende a sua especificação. Essa técnica é amplamente utilizada na análise de algoritmos, especialmente em algoritmos iterativos, como ordenação, busca e muitos outros.
 
-A invariante do laço do algoritmo _A*_ é a seguinte: a cada iteração, o nó com a menor estimativa de custo total ($f = g + h$) é escolhido para expansão.
-
-Onde:
-
+Podemos fazer a seguinte afirmação sobre a invariante do laço do algoritmo _A*_: a cada iteração, quando o nó objetivo é selecionado para expansão, a solução é sempre ótima. Isso ocorre porque o _A*_ utiliza a estratégia de busca informada, ou seja, utiliza informações específicas do domínio a respeito do local das metas (nesse caso, nó de destino). Essa estratégia faz uso da heurística $f = g + h$, onde:
 - $g$ = o custo do caminho percorrido do nó inicial ao nó atual;
 - $h$ = heurística que estima o custo do caminho mais barato do nó atual ao nó objetivo;
 - $f$ = soma de g e h, ou seja, a estimativa do custo total do caminho do nó inicial ao nó objetivo passando pelo nó atual.
 
-O algoritmo _A*_ mantém uma lista de nós abertos e uma lista de nós fechados. A lista de nós abertos contém os nós que ainda não foram expandidos, enquanto a lista de nós fechados contém os nós que já foram expandidos. A invariante do laço garante que, a cada iteração, o nó com a menor estimativa de custo total na lista de nós abertos será escolhido para expansão, como já mencionado.
+Uma propriedade fundamental da heurística é admissibilidade para atingir uma meta. A propriedade garante que a heurística nunca superestima o custo para o nó objetivo.
 
-Essa invariante garante que, quando o nó objetivo é encontrado, a solução encontrada é ótima, ou seja, não há outro caminho mais curto. Além disso, a invariante garante que o algoritmo _A*_ é completo, ou seja, ele encontra uma solução se uma solução existe.
+Para provar isso com a prova por contradição: supondo que o caminho ótimo tem custo $C^*$, mas o algoritmo retorne um caminho com custo $C > C^*$. Se todos os nós que estivessem no caminho ótimo tivessem sido expandidos, então o algoritmo teria retornado uma solução ótima. Em outras palavras, deve haver algum nó $n$ que esteja no caminho ótimo e não foi expandido. Utilizando a notação:
 
-Para provar a invariante do laço, utilizaremos a técnica de indução.
+- $g^*n$ = custo do caminho ótimo do início até $n$;
+- $h^*(n)$ = custo do caminho ótimo de $n$ até a meta;
 
-### Primeiro elemento do conjunto
-No início do algoritmo, o nó inicial é definido como nó atual e $g_{nó inicial} = 0$, pois o custo do caminho do nó inicial até ele mesmo é zero. Assim, temos que:
+Temos que:
 
-$f_{nó\hspace{1mm} inicial} = g_{nó\hspace{1mm} inicial} + h_{nó\hspace{1mm} inicial} = 0 + h_{nó\hspace{1mm} inicial} = h_{nó\hspace{1mm} inicial}$
+$f(n) > C^* \hspace{20mm}$ (caso contrário, $n$ teria sido expandido)
+<br>$f(n) = g(n) + h(n) \hspace{6.5mm}$ (por definição)
+<br>$f(n) = g^*(n) + h(n) \hspace{5mm}$ (porque $n$ está no caminho ótimo)
+<br>$f(n) \leq g^*(n) + h^*(n) \hspace{4mm}$ (por causa da admissibilidade, $h(n) \leq h^*(n)$)
+<br>$f(n) \leq C^* \hspace{20.5mm}$ (por definição, $C^* = g^*(n) + h^*(n)$)
 
-Ou seja, $f_{nó\hspace{1mm} inicial}$ é igual à heurística do nó inicial.
-
-### Hipótese
-Suponha que a invariante $f = g + h$ seja verdadeira para todos os nós visitados pelo algoritmo até o momento.
-
-### Indução
-Vamos considerar $a$ o próximo nó a ser visitado pelo algoritmo, chamado de nó atual. Seja $p$ o nó predecessor do nó atual e $w_{p, a}$ o peso da aresta que liga $p$ a $a$.
-
-Para esse novo nó atual, o algoritmo A* calcula duas estimativas:
-
-- $g_a$ = custo do caminho do nó inicial até o nó atual, passando por $p$
-- $h_a$ = estimativa do custo do caminho do nó atual até o nó final.
-
-Com base nisso, o algoritmo A* atualiza o valor de $f_a$ como $f_a = g_a + h_a$ e verifica se o nó atual já foi visitado antes.
-
-O algoritmo verifica se $a$ já foi visitado antes.
-- Se $a$ já foi visitado antes, o algoritmo verifica se o novo caminho até ele é melhor que o anterior, comparando os valores de $g$ do caminho anterior e do novo caminho.
-- Se o novo caminho for melhor, o algoritmo atualiza o nó com o novo valor de $g$ e o nó é adicionado novamente na lista de nós a serem visitados.
-
-Analisando o passo da indução, podemos ver que a invariante $f = g + h$ continua sendo verdadeira para $a$. Isso ocorre porque o valor de $g_a$ é atualizado para o novo valor, mas a soma $f_a$ como $f_a = g_a + h_a$ continua sendo a mesma.
-
-Assim, podemos concluir que a invariante $f = g + h$ é válida para todos os nós visitados pelo algoritmo A*, ou seja, a cada iteração do laço do algoritmo, a soma $f = g + h$ é mantida como invariante.
+A primeira e última linhas formam uma contradição, ou seja, o algoritmo não pode retornar um caminho subótimo. Sendo assim, o resultado retornado sempre é ótimo.
 
 ## Descrição da solução
 
@@ -423,9 +395,7 @@ Um caminho que cumpra todos esses aspectos, de forma otimizada, pode ser conside
 ## Objetivos
 
 ### Objetivos gerais
-Os principais objetivos a serem alcançados com a entrega do sistema são, primeiramente, a aquisição de conhecimento por parte dos integrantes do Grupo 5 - Maverick sobre teoria e problemas em grafos, lógica formal, linguagem de programação Java, lógica algorítmica, avaliação de performance de algoritmos, estrutura de dados, banco de dados não relacionais e desenvolvimento web. 
-
-Segundamente, como uma ferramenta para obter os conhecimentos citados, o objetivo central é a criação do sistema planejador de rotas de baixa altitude entre dois pontos de um mapa, representado por um grafo.
+O objetivo central é a criação do sistema planejador de rotas de baixa altitude otimizado, calculando o melhor caminho entre dois pontos de um grafo representando um mapa.
 
 ### Objetivos específicos
 Para alncançar os objetivos gerais citados acima, foram formulados objetivos especpificos para melhor direcionamento do projeto:
@@ -434,10 +404,12 @@ Para alncançar os objetivos gerais citados acima, foram formulados objetivos es
 - Armazenar a rota encontrada no banco de dados Neo4j
 - Construir a representação no frontend da melhor rota calculada 
 
+Todos os itens citados acima devem levar em conta as restrições do projeto especificadas pelos stakeholders, consirando otimização do cálculo de rota, determinação de um raio de curva mínimo e máximo e traçar trajetórias em baixa altitude.
+
 ## Partes interessadas
-Podemos identificar três principais stakeholders:
+Stakeholders envolvidos no projeto:
 - AEL Sistemas, que irá receber um MVP de um sistema gerador de rotas mínimas;
-- Grupo 5 - Maverick, que irá adquirir conhecimentos já citados por meio do desenvolvimento do projeto; 
+- Grupo 5 - Maverick, que irá adquirir conhecimentos por meio do desenvolvimento do projeto; 
 - Inteli, que ganhará visibilidade externa.
 
 # Análise do Problema
@@ -579,7 +551,15 @@ O back-end, construído em Java, está no container `spring-boot-1`, que recebe 
 
 Para persistir informações, o banco de dados NoSQL Neo4j roda no container `neo4j-1`.
 
-A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controller) dentro da pasta _src_.
+A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controller) dentro da pasta _src_, seguindo o seguinte fluxo de controle:
+
+1. `View` - Requisição REST feita pelo usuário
+2. `Controller` - Chamada da pasta Services
+3. `Services` - Biblioteca GDAL faz manipulação dos dados
+4. `Controller` - A partir dos dados manipulados, ocorre a chamada do algoritmo `A*` na pasta `services`
+5. `Services` - algoritmo `A*` retorna a melhor rota calculada para o `controller`
+6. `Controller` - envia a melhor rota para o front-end (`view`)
+7. `View` - exibe no front-end a rota calculada
 
 ## Descrição dos Subsistemas
 
@@ -810,7 +790,32 @@ Após abrir o diretório, insira os comandos para instalar as dependências e ex
 
 ## Manual do Usuário
 
-## Manual do Administrador
+Para utilizar a aplicação é necessário ter instalado todas as dependências que foram utilizadas para elaborar a aplicação.
 
+Após executar o front-end no terminal irá mostrar o seguinte status:
+
+![Terminal](img/terminal.png)
+
+Isso significa que o front-end está rodando no seu localhost (127.0.0.1) na porta (5173), então insira o endereço do local em seu navegador. Após inserir este endereço abrirá a seguinte tela:
+
+![Tela inicial](img/tela-home.png)
+
+Essa é a tela de início, ela tem o objetivo de inserir todos os dados do dted no Neo4j para encontrar a melhor rota. Ao clicar em iniciar, você será direcionado para a tela de formulário onde será inserido os valores da latitude e longitude para calcular a melhor rota.
+
+![Tela formulario](img/tela-formulario.png)
+
+Após inserir os pontos e clicar em gerar rota, o mapa irá carregar a melhor rota para os valores que foram inseridos no formulário e irá mostrar ela da seguinte forma:
+
+![Tela rotas](img/tela-rota.png)
+
+Por último, ao clicar em visualizar rota, você será direcionado para uma nova tela e poderá visualizar o trajeto da rota de forma animada, conforme a imagem abaixo:
+
+![Tela rota animada](img/tela-animacao.png)
+
+Importante notar que a animação está em loop, então ao chegar no final do percurso ela irá reiniciar o loop, para sair da tela é necessário clicar no botão calcular novamente e você irá ser direcionado para o menu inicial.
+
+![Tela inicial](img/tela-home.png)
+
+## Manual do Administrador
 
 # Referências

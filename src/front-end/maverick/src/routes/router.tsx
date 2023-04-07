@@ -15,7 +15,7 @@ function Router() {
                 <Route path='/' element={<Home />} />
                 <Route path='/waitingroom' element={<Waiting/>} />
                 <Route path='/viewroutesMap' element={<ViewRoutesMap/>} /> 
-                <Route path='/viewanimateMap' element={<ViewRoutesMapAnimation/>} />  
+                <Route path='/viewanimateMap' element={<ViewRoutesMapAnimation/>} />
             </Routes>
         </BrowserRouter>
     )       

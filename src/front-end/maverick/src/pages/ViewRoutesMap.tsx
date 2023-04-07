@@ -6,6 +6,7 @@ import Map from '../components/maps'
 import Form from '../components/Form';
 import Coordinates from '../components/coordinates';
 
+
 //Create styles for components
 const Container = styled.div`
   display: flex;

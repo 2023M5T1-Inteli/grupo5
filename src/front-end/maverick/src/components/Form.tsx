@@ -1,7 +1,9 @@
 //Import libraries
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //Create styles to components to render the coordinates
 const Container = styled.div`
@@ -68,6 +70,7 @@ const ContainerButton = styled.div`
   align-items: center;
   margin-top: 1rem;
   gap 2rem;
+  margin-top: 12rem;
 `
 const Button = styled.button`
   width: 21rem;
@@ -135,6 +138,7 @@ function Form (){
     localStorage.setItem('sourceLon', e.target.value);
   } 
   async function getMap() {
+    toast.info('Carregando...', { autoClose: false });
     const url = `http://localhost:8080/flight-path/cordPath?sourceLat=${sourceLat}&sourceLon=${sourceLon}&targetLat=${targetLat}&targetLon=${targetLon}`
     console.log(url);
     const response = await fetch(url);
@@ -145,12 +149,14 @@ function Form (){
     console.log(json);
   }
 
-  function getAnimateMap(){
+  function getAnimateMap(){ 
+    toast.info('Carregando...', { autoClose: false });
     window.location.href = '/viewanimateMap'
   }
-
     return(
-        <Container>
+      <>
+      <ToastContainer></ToastContainer>
+      <Container>
             <TitleHeader>Gerar rota</TitleHeader>
             <Subtitle>Insira o ponto de partida (coordenadas)</Subtitle>
             <DivSub>
@@ -174,11 +180,8 @@ function Form (){
             <Button onClick={getMap} >Gerar rota</Button>
             <ButtonB onClick={getAnimateMap}>Visualizar rota</ButtonB>
           </ContainerButton>
-            
-            
-            {/* <InputComponents>
-            </InputComponents> */}
         </Container>
+      </>
         
     )
 }
