@@ -1,6 +1,13 @@
 ---
-title: SOGRAF - Sistema de roteamento de baixa altitude baseado em grafos com algoritmos de caminho mínimo de alta performance
-author: André Luís Lessa Junior, Arthur Alberto Cardoso Reis, Cristiane Andrade Coutinho, Giovana Lisbôa Thomé, João Pedro Sartori Garcia de Alcaraz, Luiz Francisco Granville Gonçalves, Stefano Tosi Butori
+title: 'SOGRAF : Sistema de roteamento de baixa altitude baseado em grafos com algoritmos de caminho mínimo de alta performance'
+author:
+- André Luís Lessa Junior
+- Arthur Alberto Cardoso Reis
+- Cristiane Andrade Coutinho
+- Giovana Lisbôa Thomé
+- João Pedro Sartori Garcia de Alcaraz
+- Luiz Francisco Granville Gonçalves
+- Stefano Tosi Butori
 date: Abril de 2023
 abstract: O sistema _Terrain-Following_ é um sistema de radar utilizado em aeronaves militares para permitir que elas voem a baixa altitude e sigam o contorno do terreno, evitando assim a detecção por radares inimigos. No entanto, essa técnica pode ser perigosa se não for executada corretamente. O principal risco é a possibilidade de colisão com obstáculos não previstos, como torres de energia, árvores e prédios altos.
 ---
@@ -49,11 +56,11 @@ Além disso, o fator de ramificação também pode afetar a qualidade da soluç�
 
 Segue um exemplo de duas imagens explicando como esses conceitos afetam o desempenho do algoritmo:
 
-<img width="730" height="470" src="img2/fator1.png">
+![Exemplo de grafo 1. (Grupo Maverick, 2023)](img2/fator1.png)
 
 Nesse caso o Source é removido na fila de prioridades, porque já foi explorado, mas os elementos A, B e C são acrescentados na fila de prioridades. A prioridade de cada nó é calculada somando o custo do caminho já percorrido (**g(n)**) com uma estimativa do custo restante para atingir o objetivo (**h(n)**), ou seja, $f(n) = g(n) + h(n)$. O nó com menor valor de $f(n)$ é escolhido para ser explorado em seguida.
 
-<img width="730" height="470" src="img2/fator2.png">
+![Exemplo de grafo 2. (Grupo Maverick, 2023)](img2/fator2.png)
 
 O _Source_ também é removido na fila de prioridades, porque já foi explorado, e os elementos A e B são acrescentados na fila de prioridades. (Grupo Maverick, 2023)
 
@@ -68,19 +75,16 @@ Existe um caso no grafo em que se o algoritmo identificar o mwlhor caminho entre
 
 Portanto, podemos estimar que o laço principal será executado cerca de 64 vezes, considerando que a heurística de haversine é admissível e consistente.
 
-<img width="730" height="470" src="img2/trecho_codigo.png">
+![Laço do algoritmo A*. (Grupo Maverick, 2023)](img2/trecho_codigo.png)
 
 Nesse trecho, o algoritmo percorre todos os nós do grafo até encontrar o nó final. Em cada iteração do loop, ele recupera o nó com a menor $f-score$ da fila de prioridade _openSet_. Em seguida, ele verifica todos os vizinhos desse nó e atualiza a $g-score$ e $f-score$ de cada vizinho se a nova pontuação for menor do que a pontuação atual. Se a pontuação for atualizada, o vizinho é adicionado à fila de prioridade. Esse loop é executado muitas vezes para encontrar a rota mais curta, e é por isso que ele consome a maior parte do tempo de processamento e memória.
 
 A fim de comprovar a ideia que foi colocada, fizemos um teste empírico para entender o funcionamento da relação entre nós expandidos durante o processo de busca e o tempo de processamento de achar o caminho mais otimizado e também entender que Uma boa heurística é importante porque ajuda o algoritmo a tomar decisões mais informadas sobre quais caminhos seguir, permitindo que ele se aproxime do destino de maneira mais eficiente e com menos tentativas. Ao estimar com precisão o custo de chegar de um determinado nó ao destino, a heurística pode orientar o algoritmo em direção ao caminho mais promissor e, assim, reduzir o número de nós que precisam ser explorados, o que leva a economia de tempo de processamento e memória. Dessa forma, uma boa heurística pode ser essencial para resolver problemas mais complexos de maneira eficiente.
 
-<img width="730" height="470" src="img2/tabela_expandidos.png">
+![Tabela que descreve a quantidade de nós que precisaram ser explorados até o destino pelo tempo de processsamneto do algoritmo. (Grupo Maverick, 2023)](img2/tabela_expandidos.png)
 
-Tabela que descreve a quantidade de nós que precisaram ser explorados até o destino pelo tempo de processsamneto do algoritmo. (Grupo Maverick, 2023)
 
-<img width="730" height="470" src="img2/grafico_expandidos.png">
-
-Gráfico que representa a quantidade de nós que precisaram ser explorados até o destino pelo tempo de processsamneto do algoritmo. (Grupo Maverick, 2023)
+![Gráfico que representa a quantidade de nós que precisaram ser explorados até o destino pelo tempo de processsamneto do algoritmo. (Grupo Maverick, 2023)](img2/grafico_expandidos.png)
 
 Note que a complexidade do algoritmo $A*$ é determinada pela quantidade de nós que ele precisa expandir para encontrar o caminho de menor custo. Essa quantidade de nós expandidos é influenciada pela profundidade do caminho de menor custo e pelo fator de ramificação do grafo de busca.O fator de ramificação do grafo de busca é definido como a média de filhos de cada nó no grafo. Se assumirmos que o fator de ramificação é constante, o algoritmo $A*$ pode ter sua complexidade analisada em termos da profundidade d do caminho de menor custo e do fator de ramificação $b$. Em um grafo com fator de ramificação $b$, o algoritmo $A*$ pode expandir até b nós em cada nível do grafo, em busca do caminho de menor custo. A profundidade do caminho de menor custo é d. Então, o número máximo de nós que podem ser expandidos pelo algoritmo $A*$ é dado por $b^d$. Assim, a complexidade assintótica do algoritmo $A*$ é $O(b^d)$, que representa a quantidade máxima de nós que podem ser expandidos durante a sua execução em um grafo com fator de ramificação $b$ e profundidade $d$.
 
