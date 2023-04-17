@@ -89,6 +89,69 @@ public class AStarService {
      * @return an Iterable of FlightNodeEntity objects representing the shortest path from start to end
      * or null if no path was found
      */
+
+//    public Iterable<FlightNodeEntity> findPath(UUID start, UUID end) {
+//        // Initialization
+//        gScore = new HashMap<>();
+//        fScore = new HashMap<>();
+//        cameFrom = new HashMap<UUID, UUID>();
+//
+//        // Set the initial scores to infinity for each node in the graph
+//        for (UUID node : graph.keySet()) {
+//            gScore.put(node, Double.POSITIVE_INFINITY);
+//            fScore.put(node, Double.POSITIVE_INFINITY);
+//        }
+//
+//        // Set the score for the starting node
+//        gScore.put(start, 0.0);
+//        fScore.put(start, haversineDistance(graph.get(start), graph.get(end)));
+//
+//        // Add the starting node to the open set
+//        PriorityQueue<UUID> openSet = new PriorityQueue<>(Comparator.comparingDouble(fScore::get));
+//        openSet.add(start);
+//
+//        // Loop through the nodes until the end node is reached
+//        while (!openSet.isEmpty()) {
+//            UUID currentId = openSet.poll();
+////            FlightNodeEntity current = flightNodeRepository.findById(currentId)
+////                    .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
+//            FlightNodeEntity current = graph.get(currentId);
+//
+//            if (currentId.equals(end)) {
+//                // If the end node has been reached, reconstruct the path and return it
+//                return reconstructPath(end);
+//            }
+//
+//            // Check each neighbor of the current node
+//
+//            for (Path path : current.getPaths()) {
+//                UUID pathId = path.getTargetId();
+//                FlightNodeEntity neighbor = graph.get(pathId);
+//
+//                // print id, altitude, elevation and weight for node
+//                double weight = path.getWeight();
+//
+//                double tentativeGScore = gScore.get(currentId) + weight;
+//
+//                // If the tentative g score is better than the current g score for the neighbor, update the scores
+//                if (tentativeGScore < gScore.get(neighbor.getId())) {
+//                    cameFrom.put(neighbor.getId(), current.getId());
+//                    gScore.put(neighbor.getId(), tentativeGScore);
+//                    fScore.put(neighbor.getId(), tentativeGScore + haversineDistance(neighbor, graph.get(end)));
+//
+//                    if (!openSet.contains(neighbor.getId())) {
+//                        openSet.add(neighbor.getId());
+//                    }
+//                }
+//            }
+//        }
+//
+//        // If no path was found, return null
+//        return null;
+//    }
+
+
+
     public Iterable<FlightNodeEntity> findPath(UUID start, UUID end) {
         // Initialization
         gScore = new HashMap<>();
@@ -112,8 +175,6 @@ public class AStarService {
         // Loop through the nodes until the end node is reached
         while (!openSet.isEmpty()) {
             UUID currentId = openSet.poll();
-//            FlightNodeEntity current = flightNodeRepository.findById(currentId)
-//                    .orElseThrow(() -> new ResourceNotFoundException("Node not found"));
             FlightNodeEntity current = graph.get(currentId);
 
             if (currentId.equals(end)) {
@@ -122,15 +183,30 @@ public class AStarService {
             }
 
             // Check each neighbor of the current node
-
             for (Path path : current.getPaths()) {
                 UUID pathId = path.getTargetId();
                 FlightNodeEntity neighbor = graph.get(pathId);
 
-                // print id, altitude, elevation and weight for node
                 double weight = path.getWeight();
+                double anglePenalty = 0;
 
-                double tentativeGScore = gScore.get(currentId) + weight;
+                if (cameFrom.containsKey(currentId)) {
+                    UUID previousId = cameFrom.get(currentId);
+                    FlightNodeEntity previous = graph.get(previousId);
+
+                    // Calculate the turn angle between the previous node, current node, and neighbor node
+                    double angle = calculateTurnAngle(previous, current, neighbor);
+
+                    // Calculate the turn radius from the turn angle
+                    double turnRadius = calculateTurnRadius(angle);
+
+                    // Apply a penalty to the g-score if the turn radius is outside the allowed range (2 km to 17 km)
+                    if (turnRadius < 2000 || turnRadius > 17000) {
+                        anglePenalty = Double.POSITIVE_INFINITY;
+                    }
+                }
+
+                double tentativeGScore = gScore.get(currentId) + weight + anglePenalty;
 
                 // If the tentative g score is better than the current g score for the neighbor, update the scores
                 if (tentativeGScore < gScore.get(neighbor.getId())) {
@@ -148,6 +224,88 @@ public class AStarService {
         // If no path was found, return null
         return null;
     }
+
+
+    public double calculateTurnAngle(FlightNodeEntity prev, FlightNodeEntity curr, FlightNodeEntity next) {
+        double bearing1 = calculateBearing(prev, curr);
+        double bearing2 = calculateBearing(curr, next);
+
+        // Calculate the turn angle
+        double angle = bearing2 - bearing1;
+        angle = normalizeAngle(angle);
+
+        return angle;
+    }
+
+    private double normalizeAngle(double angle) {
+        angle %= 360;
+        if (angle < -180) {
+            angle += 360;
+        } else if (angle > 180) {
+            angle -= 360;
+        }
+        return angle;
+    }
+
+//    public double calculateTurnRadius(double angle, double speed) {
+//        // Assuming a standard rate turn of 3 degrees per second
+//        final double standardRateTurn = 3;
+//
+//        // Calculate the turn rate in radians per second
+//        double turnRate = Math.toRadians(standardRateTurn);
+//
+//        // Calculate the turn radius using the turn rate and speed
+//        double turnRadius = Math.abs(speed / turnRate) * Math.sin(Math.toRadians(Math.abs(angle) / 2));
+//
+//        return turnRadius;
+//    }
+
+
+    public double calculateTurnRadius(double angle) {
+        // Assuming a constant speed of 250 meters per second for the aircraft
+        final double speed = 250;
+        final double standardRateTurn = 3; // 3 degrees per second
+
+        // Calculate the turn rate in radians per second
+        //double turnRate = Math.toRadians(standardRateTurn);
+
+        // Calculate the time it takes to complete the turn
+        double time = Math.abs(angle) / standardRateTurn;
+
+        // Calculate the distance covered during the turn
+        double distance = speed * time;
+
+        // Calculate the turn radius using the turn angle
+        double turnRadius = distance / (2 * Math.PI) * (360 / Math.abs(angle));
+
+        return turnRadius;
+    }
+
+
+    public double calculateBearing(FlightNodeEntity from, FlightNodeEntity to) {
+        double lat1 = Math.toRadians(from.getLatitude());
+        double lon1 = Math.toRadians(from.getLongitude());
+        double lat2 = Math.toRadians(to.getLatitude());
+        double lon2 = Math.toRadians(to.getLongitude());
+
+        double dLon = lon2 - lon1;
+
+        double y = Math.sin(dLon) * Math.cos(lat2);
+        double x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+
+        double bearing = Math.atan2(y, x);
+
+        // Convert the bearing from radians to degrees and normalize it to the range 0-360
+        bearing = Math.toDegrees(bearing);
+        bearing = (bearing + 360) % 360;
+
+        return bearing;
+    }
+
+
+
+
+
 
     /**
      * This method reconstructs the flight path from the starting node to the ending node using the "came from" map
