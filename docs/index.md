@@ -53,8 +53,6 @@ Planejador de trajetórias para voos em baixa altitude
   - [Histórias dos usuários ("User Stories")](#histórias-dos-usuários-user-stories)
 - [Arquitetura do Sistema](#arquitetura-do-sistema)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
-  - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
-    - [Requisitos de software](#requisitos-de-software)
   - [Tecnologias Utilizadas](#tecnologias-utilizadas)
     - [Docker](#docker)
     - [Ambiente de desenvolvimento](#ambiente-de-desenvolvimento)
@@ -63,9 +61,6 @@ Planejador de trajetórias para voos em baixa altitude
 - [UX e UI Design](#ux-e-ui-design)
   - [Wireframe + Storyboard](#wireframe--storyboard)
   - [Design de Interface - Guia de Estilos](#design-de-interface---guia-de-estilos)
-- [Projeto de Banco de Dados](#projeto-de-banco-de-dados)
-  - [Modelo Conceitual](#modelo-conceitual)
-  - [Modelo Lógico](#modelo-lógico)
 - [Teste de Software](#teste-de-software)
   - [Testes Unitários Automatizados (JUnit 5)](#testes-unitários-automatizados-junit-5)
   - [Testes de Integração da API Manuais](#testes-de-integração-da-api-manuais)
@@ -73,14 +68,8 @@ Planejador de trajetórias para voos em baixa altitude
     - [Teste 2:](#teste-2)
     - [Teste 3:](#teste-3)
     - [Teste 4:](#teste-4)
-  - [Teste de Usabilidade](#teste-de-usabilidade)
-- [Análise de Dados](#análise-de-dados)
 - [Manuais](#manuais)
   - [Manual de Implantação](#manual-de-implantação)
-  - [Manual do Usuário](#manual-do-usuário)
-  - [Manual do Administrador](#manual-do-administrador)
-- [Referências](#referências)
-
 
 # Autores
 
@@ -561,10 +550,6 @@ A arquitetura de pastas do projeto utiliza o padrão MVC (Model, View, Controlle
 6. `Controller` - envia a melhor rota para o front-end (`view`)
 7. `View` - exibe no front-end a rota calculada
 
-## Descrição dos Subsistemas
-
-### Requisitos de software
-
 ## Tecnologias Utilizadas
 
 ### Docker
@@ -594,13 +579,6 @@ Para gerenciamento dos dados geográficos já processados, foi utilizado Neo4j, 
 ![Telas front](img/telas.png)
 ![Telas front](img/tela1.png)
 ![Guia de estilo](img/guia%20de%20estilo.png)
-
-# Projeto de Banco de Dados
-
-## Modelo Conceitual
-
-## Modelo Lógico
-
 
 # Teste de Software
 
@@ -750,12 +728,6 @@ O dado específicado foi deletado.
 
 ![Resultado da requisição DELETE](img/requisicao-post-resultado.png)
 
-## Teste de Usabilidade
-
-
-# Análise de Dados
-
-
 # Manuais
 
 ## <a id="implantacao"></a>Manual de Implantação
@@ -816,6 +788,3 @@ Importante notar que a animação está em loop, então ao chegar no final do pe
 
 ![Tela inicial](img/tela-home.png)
 
-## Manual do Administrador
-
-# Referências
