@@ -30,3 +30,7 @@ Os arquivos do artigo estão na pasta [/artigo](/artigo). Um arquivo gerado no f
 # Releases
 
 Ao término de cada *sprint* do projeto, foi gerado um release, identificado pela tag correspondente (por exemplo, sprint1, sprint2...).
+
+# Licença
+
+Este projeto utiliza a [licença Apache 2.0](LICENSE).
